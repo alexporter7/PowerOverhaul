@@ -1,4 +1,4 @@
-package com.myname.mymodid;
+package com.alexporter7.poweroverhaul;
 
 import java.io.File;
 

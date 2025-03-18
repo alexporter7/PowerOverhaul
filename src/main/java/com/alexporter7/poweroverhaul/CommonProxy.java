@@ -1,4 +1,4 @@
-package com.myname.mymodid;
+package com.alexporter7.poweroverhaul;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;

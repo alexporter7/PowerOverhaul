@@ -1,4 +1,4 @@
-package com.myname.mymodid;
+package com.alexporter7.poweroverhaul;
 
 public class ClientProxy extends CommonProxy {
 

@@ -1,5 +1,6 @@
 package com.alexporter7.poweroverhaul;
 
+import com.alexporter7.poweroverhaul.items.PowerOverhaulItems;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -13,7 +14,10 @@ public class CommonProxy {
         Config.synchronizeConfiguration(event.getSuggestedConfigurationFile());
 
         PowerOverhaul.LOG.info(Config.greeting);
-        PowerOverhaul.LOG.info("I am MyMod at version " + Tags.VERSION);
+        PowerOverhaul.LOG.info("PowerOverhaul version: " + Tags.VERSION);
+
+        PowerOverhaul.LOG.info("Registering mod items");
+        PowerOverhaulItems.init();
     }
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)

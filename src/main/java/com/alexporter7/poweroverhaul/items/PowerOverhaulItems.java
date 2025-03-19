@@ -32,15 +32,19 @@ public class PowerOverhaulItems {
 
         /* Engine Blocks */
         items.add(
-            new EngineComponentItem(EngineComponentItem.ComponentType.PISTON, ComponentMaterial.IRON, "engine_block"));
+            new EngineComponentItem(EngineComponentItem.ComponentType.BLOCK, ComponentMaterial.IRON, "engine_block"));
         items.add(
-            new EngineComponentItem(EngineComponentItem.ComponentType.PISTON, ComponentMaterial.STEEL, "engine_block"));
+            new EngineComponentItem(EngineComponentItem.ComponentType.BLOCK, ComponentMaterial.STEEL, "engine_block"));
 
         /* Engine Head */
         items.add(
-            new EngineComponentItem(EngineComponentItem.ComponentType.PISTON, ComponentMaterial.IRON, "engine_head"));
+            new EngineComponentItem(EngineComponentItem.ComponentType.HEAD, ComponentMaterial.IRON, "engine_head"));
         items.add(
-            new EngineComponentItem(EngineComponentItem.ComponentType.PISTON, ComponentMaterial.STEEL, "engine_head"));
+            new EngineComponentItem(EngineComponentItem.ComponentType.HEAD, ComponentMaterial.STEEL, "engine_head"));
+
+    }
+
+    public static void registerEngines() {
 
     }
 }

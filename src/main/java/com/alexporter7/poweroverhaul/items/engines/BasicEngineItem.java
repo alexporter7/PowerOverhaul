@@ -2,17 +2,14 @@ package com.alexporter7.poweroverhaul.items.engines;
 
 import net.minecraft.item.Item;
 
-import com.alexporter7.poweroverhaul.items.components.ComponentMaterial;
-
 public class BasicEngineItem extends Item {
 
-    private ComponentMaterial piston;
-    private ComponentMaterial engineBlock;
-    private ComponentMaterial engineHead;
+    private EngineProperties engineProperties;
 
-    public BasicEngineItem() {
+    public BasicEngineItem(EngineProperties engineProperties) {
         this.setUnlocalizedName("basic_engine");
         this.setTextureName("");
+        this.engineProperties = engineProperties;
     }
 
 }

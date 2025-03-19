@@ -49,6 +49,7 @@ public enum ComponentMaterial {
     }
 
     public static String formatUnlocalizedMaterialName(String materialName) {
-        return materialName.replaceAll(" ", "_").toLowerCase();
+        return materialName.replaceAll(" ", "_")
+            .toLowerCase();
     }
 }

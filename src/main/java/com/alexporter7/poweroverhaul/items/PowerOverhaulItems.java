@@ -1,8 +1,46 @@
 package com.alexporter7.poweroverhaul.items;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.item.Item;
+
+import com.alexporter7.poweroverhaul.items.components.ComponentMaterial;
+import com.alexporter7.poweroverhaul.items.components.EngineComponentItem;
+
+import cpw.mods.fml.common.registry.GameRegistry;
+
 public class PowerOverhaulItems {
 
+    public static List<Item> items = new ArrayList<Item>();
+
     public static final void init() {
+        registerEngineComponents();
+
+        for (Item item : items) GameRegistry.registerItem(item, item.getUnlocalizedName());
+    }
+
+    public static void registerEngineComponents() {
+
+        /* Pistons */
+        items.add(new EngineComponentItem(EngineComponentItem.ComponentType.PISTON, ComponentMaterial.IRON, "piston"));
+        items.add(new EngineComponentItem(EngineComponentItem.ComponentType.PISTON, ComponentMaterial.STEEL, "piston"));
+        items.add(
+            new EngineComponentItem(EngineComponentItem.ComponentType.PISTON, ComponentMaterial.ALUMINIUM, "piston"));
+        items.add(
+            new EngineComponentItem(EngineComponentItem.ComponentType.PISTON, ComponentMaterial.DARK_STEEL, "piston"));
+
+        /* Engine Blocks */
+        items.add(
+            new EngineComponentItem(EngineComponentItem.ComponentType.PISTON, ComponentMaterial.IRON, "engine_block"));
+        items.add(
+            new EngineComponentItem(EngineComponentItem.ComponentType.PISTON, ComponentMaterial.STEEL, "engine_block"));
+
+        /* Engine Head */
+        items.add(
+            new EngineComponentItem(EngineComponentItem.ComponentType.PISTON, ComponentMaterial.IRON, "engine_head"));
+        items.add(
+            new EngineComponentItem(EngineComponentItem.ComponentType.PISTON, ComponentMaterial.STEEL, "engine_head"));
 
     }
 }

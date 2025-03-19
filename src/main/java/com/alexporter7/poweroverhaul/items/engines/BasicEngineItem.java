@@ -1,7 +1,8 @@
 package com.alexporter7.poweroverhaul.items.engines;
 
-import com.alexporter7.poweroverhaul.items.components.ComponentMaterial;
 import net.minecraft.item.Item;
+
+import com.alexporter7.poweroverhaul.items.components.ComponentMaterial;
 
 public class BasicEngineItem extends Item {
 
@@ -13,6 +14,5 @@ public class BasicEngineItem extends Item {
         this.setUnlocalizedName("basic_engine");
         this.setTextureName("");
     }
-
 
 }

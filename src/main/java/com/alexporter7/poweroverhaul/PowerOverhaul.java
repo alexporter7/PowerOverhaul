@@ -20,6 +20,9 @@ public class PowerOverhaul {
     public static final String MODID = "poweroverhaul";
     public static final Logger LOG = LogManager.getLogger(MODID);
 
+    @Mod.Instance(MODID)
+    public static PowerOverhaul instance;
+
     @SidedProxy(
         clientSide = "com.alexporter7.poweroverhaul.ClientProxy",
         serverSide = "com.alexporter7.poweroverhaul.CommonProxy")

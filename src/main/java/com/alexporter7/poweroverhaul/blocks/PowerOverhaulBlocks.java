@@ -20,8 +20,7 @@ public class PowerOverhaulBlocks {
         /* Generators */
         blocks.put("diesel_generator", new DieselGeneratorBlock());
 
-        for(String key : blocks.keySet())
-            GameRegistry.registerBlock(blocks.get(key), key);
+        for (String key : blocks.keySet()) GameRegistry.registerBlock(blocks.get(key), key);
 
     }
 

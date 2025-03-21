@@ -2,7 +2,6 @@ package com.alexporter7.poweroverhaul.blocks.generators;
 
 import java.util.Random;
 
-import com.cleanroommc.modularui.factory.GuiFactories;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -17,6 +16,7 @@ import net.minecraft.world.World;
 
 import com.alexporter7.poweroverhaul.PowerOverhaul;
 import com.alexporter7.poweroverhaul.blocks.PowerOverhaulBlocks;
+import com.cleanroommc.modularui.factory.GuiFactories;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -62,7 +62,8 @@ public class DieselGeneratorBlock extends BlockContainer implements ITileEntityP
         float subY, float subZ) {
         // return super.onBlockActivated(world, x, y, z, player, side, subX, subY, subZ);
         if (!world.isRemote) {
-            GuiFactories.tileEntity().open(player, x, y, z);
+            GuiFactories.tileEntity()
+                .open(player, x, y, z);
         }
         return true;
     }

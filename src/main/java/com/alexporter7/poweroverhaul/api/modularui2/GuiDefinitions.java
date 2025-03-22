@@ -6,7 +6,9 @@ import com.cleanroommc.modularui.api.widget.IWidget;
 import com.cleanroommc.modularui.factory.PosGuiData;
 import com.cleanroommc.modularui.screen.ModularPanel;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
+import com.cleanroommc.modularui.widgets.ToggleButton;
 import com.cleanroommc.modularui.widgets.layout.Column;
+import com.cleanroommc.modularui.widgets.textfield.TextFieldWidget;
 
 public class GuiDefinitions {
 
@@ -33,16 +35,35 @@ public class GuiDefinitions {
             .addProperty(GuiProperties.Property.TITLE_NAME, GuiTextures.TITLE_BACKGROUND.getName())
             .addProperty(GuiProperties.Property.TITLE_BACKGROUND, GuiTextures.TITLE_BACKGROUND.getLocation());
 
+//        IWidget operationLabels = new Column()
+//            .child(
+//                new Column()
+//                    .child(IKey.str("Ignition: ").asWidget().color(0xFFFFFF).marginTop(5).marginLeft(5))
+//                    .child(IKey.str("Throttle: ").asWidget().color(0xFFFFFF).marginLeft(5))
+//                    .leftRelAnchor(0f, 0f)
+//                    .sizeRel(0.5f))
+//            .child(
+//                new Column()
+//                    .child(new ToggleButton())
+//                    .child(new TextFieldWidget().setNumbers(0, 100))
+//                    .leftRelAnchor(0.5f, 0f)
+//                    .sizeRel(0.5f))
+//            .leftRelAnchor(0f, 0f)
+//            .sizeRel(0.5f, 0.5f);
+
         IWidget operationLabels = new Column()
-            .child(IKey.str("Status: ").asWidget().color(0xFFFFFF).marginTop(5).marginLeft(5))
+            .child(IKey.str("Ignition: ").asWidget().color(0xFFFFFF).marginTop(5).marginLeft(5))
+            .child(new ToggleButton().margin(0, 0, 2, 2).widthRel(0.8f))
             .child(IKey.str("Throttle: ").asWidget().color(0xFFFFFF).marginLeft(5))
+            .child(new TextFieldWidget().setNumbers(0, 100).widthRel(0.8f))
             .leftRelAnchor(0f, 0f)
-            .sizeRel(0.5f, 0.5f)
-            .coverChildrenWidth();
+            .sizeRel(0.5f);
+
 
         IWidget machineStats = new Column()
             .child(IKey.str("RPM: ").asWidget().color(0xFFFFFF).marginTop(5).marginLeft(5))
             .child(IKey.str("Power: ").asWidget().color(0xFFFFFF).marginLeft(5))
+            .child(IKey.str("L/t: ").asWidget().color(0xFFFFFF).marginLeft(5))
             .leftRelAnchor(0.5f, 0f)
             .sizeRel(0.5f, 0.5f)
             .coverChildrenWidth();

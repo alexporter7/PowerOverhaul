@@ -24,6 +24,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class DieselGeneratorBlock extends BlockContainer implements ITileEntityProvider {
 
     private final String unlocalizedName;
+    private final boolean USE_MODEL_RENDER = true;
 
     @SideOnly(Side.CLIENT)
     private IIcon iconFront;
@@ -31,6 +32,27 @@ public class DieselGeneratorBlock extends BlockContainer implements ITileEntityP
     public DieselGeneratorBlock() {
         super(Material.iron);
         this.unlocalizedName = "diesel_generator";
+    }
+
+    @Override
+    public int getRenderType() {
+        if(this.USE_MODEL_RENDER)
+            return -1;
+        return super.getRenderType();
+    }
+
+    @Override
+    public boolean isOpaqueCube() {
+        if(this.USE_MODEL_RENDER)
+            return false;
+        return super.isOpaqueCube();
+    }
+
+    @Override
+    public boolean renderAsNormalBlock() {
+        if(this.USE_MODEL_RENDER)
+            return false;
+        return super.renderAsNormalBlock();
     }
 
     @Override
@@ -83,8 +105,10 @@ public class DieselGeneratorBlock extends BlockContainer implements ITileEntityP
 
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
-        this.blockIcon = iconRegister.registerIcon(PowerOverhaul.MODID + ":diesel_generator_side");
-        this.iconFront = iconRegister.registerIcon(PowerOverhaul.MODID + ":diesel_generator_front");
+        if(!this.USE_MODEL_RENDER) {
+            this.blockIcon = iconRegister.registerIcon(PowerOverhaul.MODID + ":diesel_generator_side");
+            this.iconFront = iconRegister.registerIcon(PowerOverhaul.MODID + ":diesel_generator_front");
+        }
     }
 
     @SideOnly(Side.CLIENT)

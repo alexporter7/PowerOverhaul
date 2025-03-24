@@ -55,7 +55,7 @@ public class GuiDefinitions {
             .child(IKey.str("Ignition: ").asWidget().color(0xFFFFFF).marginTop(5).marginLeft(5))
             .child(new ToggleButton().margin(0, 0, 2, 2).widthRel(0.8f))
             .child(IKey.str("Throttle: ").asWidget().color(0xFFFFFF).marginLeft(5))
-            .child(new TextFieldWidget().setNumbers(0, 100).widthRel(0.8f))
+            .child(new TextFieldWidget().setNumbers(0, 100).widthRel(0.8f).setDefaultNumber(0))
             .leftRelAnchor(0f, 0f)
             .sizeRel(0.5f);
 

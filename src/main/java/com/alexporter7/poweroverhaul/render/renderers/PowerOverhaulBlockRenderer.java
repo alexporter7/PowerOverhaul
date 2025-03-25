@@ -1,6 +1,6 @@
-package com.alexporter7.poweroverhaul.render.blocks;
+package com.alexporter7.poweroverhaul.render.renderers;
 
-import com.alexporter7.poweroverhaul.blocks.models.DieselGeneratorModel;
+import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
 import com.alexporter7.poweroverhaul.util.ModelManager;
 import com.alexporter7.poweroverhaul.util.RenderUtil;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -8,13 +8,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
-public class DieselGeneratorRenderer extends TileEntitySpecialRenderer {
+public class PowerOverhaulBlockRenderer extends TileEntitySpecialRenderer {
 
-    private static final ResourceLocation texture = ModelManager.Texture.DIESEL_GENERATOR.getResourceLocation();
-    private DieselGeneratorModel dieselGeneratorModel;
+    private final PowerOverhaulModelBase model;
+    private final ResourceLocation texture;
 
-    public DieselGeneratorRenderer() {
-        this.dieselGeneratorModel = new DieselGeneratorModel();
+    public PowerOverhaulBlockRenderer(PowerOverhaulModelBase model, ModelManager.Texture texture) {
+        this.model = model;
+        this.texture = texture.getResourceLocation();
     }
 
     @Override
@@ -28,7 +29,7 @@ public class DieselGeneratorRenderer extends TileEntitySpecialRenderer {
         this.bindTexture(texture);
 
         GL11.glPushMatrix();
-        this.dieselGeneratorModel.renderModel(0.0625f);
+        this.model.renderModel(0.0625f);
         GL11.glPopMatrix();
 
         GL11.glPopMatrix();

@@ -1,4 +1,4 @@
-package com.alexporter7.poweroverhaul.render.items;
+package com.alexporter7.poweroverhaul.render.renderers;
 
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
@@ -6,12 +6,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 
-public class DieselGeneratorItemRenderer implements IItemRenderer {
+public class PowerOverhaulItemRenderer implements IItemRenderer {
 
-    private TileEntitySpecialRenderer renderer;
-    private TileEntity tileEntity;
+    private final TileEntitySpecialRenderer renderer;
+    private final TileEntity tileEntity;
 
-    public DieselGeneratorItemRenderer(TileEntitySpecialRenderer render, TileEntity tileEntity) {
+    public PowerOverhaulItemRenderer(TileEntitySpecialRenderer render, TileEntity tileEntity) {
         this.renderer = render;
         this.tileEntity = tileEntity;
     }

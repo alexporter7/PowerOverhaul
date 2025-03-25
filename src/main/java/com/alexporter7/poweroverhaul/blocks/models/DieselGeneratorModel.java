@@ -4,12 +4,13 @@ package com.alexporter7.poweroverhaul.blocks.models;
 // Paste this class into your mod and generate all required imports
 
 
+import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class DieselGeneratorModel extends ModelBase {
+public class DieselGeneratorModel extends PowerOverhaulModelBase {
     private final ModelRenderer exhaust;
     private final ModelRenderer controlPanel;
     private final ModelRenderer base;
@@ -102,6 +103,7 @@ public class DieselGeneratorModel extends ModelBase {
         bone.render(f5);
     }
 
+    @Override
     public void renderModel(float f5) {
         exhaust.render(f5);
         controlPanel.render(f5);
@@ -115,9 +117,10 @@ public class DieselGeneratorModel extends ModelBase {
         super.setRotationAngles(p_78087_1_, p_78087_2_, p_78087_3_, p_78087_4_, p_78087_5_, p_78087_6_, p_78087_7_);
     }
 
-    public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z, Entity entity) {
-        modelRenderer.rotateAngleX = x;
-        modelRenderer.rotateAngleY = y;
-        modelRenderer.rotateAngleZ = z;
-    }
+
+//    public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z, Entity entity) {
+//        modelRenderer.rotateAngleX = x;
+//        modelRenderer.rotateAngleY = y;
+//        modelRenderer.rotateAngleZ = z;
+//    }
 }

@@ -1,14 +1,14 @@
 package com.alexporter7.poweroverhaul;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import net.minecraft.creativetab.CreativeTabs;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(
     modid = PowerOverhaul.MODID,
@@ -19,6 +19,8 @@ public class PowerOverhaul {
 
     public static final String MODID = "poweroverhaul";
     public static final Logger LOG = LogManager.getLogger(MODID);
+    public static final String MOD_LABEL = "Power Overhaul";
+    public static CreativeTabs powerOverhaulTab;
 
     @Mod.Instance(MODID)
     public static PowerOverhaul instance;

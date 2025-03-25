@@ -18,18 +18,7 @@ public class DieselGeneratorTileEntity extends TileEntity implements IGuiHolder<
 
     @Override
     public ModularPanel buildUI(PosGuiData data, PanelSyncManager syncManager) {
-        // return new ModularPanel(PowerOverhaul.MODID + ":diesel_generator_gui")
-        // .child(IKey.str("Test Text").asWidget());
-
         return GuiDefinitions.buildGui(GuiDefinitions.Machine.DIESEL_GENERATOR, data, syncManager);
     }
 
-    private ModularPanel buildMachineGui() {
-        ModularPanel panel = new ModularPanel(PowerOverhaul.MODID + ":diesel_generator_gui");
-        panel.padding(10, 10, 5, 0);
-        panel.child(
-            new RichTextWidget().add("rich text")
-                .anchorTop(1));
-        return panel;
-    }
 }

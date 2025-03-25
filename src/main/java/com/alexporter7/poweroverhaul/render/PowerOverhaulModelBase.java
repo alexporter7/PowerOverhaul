@@ -11,11 +11,6 @@ public class PowerOverhaulModelBase extends ModelBase {
         this.textureHeight = 128;
     }
 
-    public PowerOverhaulModelBase(int textureWidth, int textureHeight) {
-        this.textureWidth = textureWidth;
-        this.textureHeight = textureHeight;
-    }
-
     public void renderModel(float f5) {
 
     }

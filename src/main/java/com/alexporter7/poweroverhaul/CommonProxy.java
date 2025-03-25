@@ -15,7 +15,6 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         Config.synchronizeConfiguration(event.getSuggestedConfigurationFile());
 
-
         PowerOverhaul.LOG.info("PowerOverhaul version: " + Tags.VERSION);
 
         PowerOverhaul.LOG.info("Registering PowerOverhaul Items");

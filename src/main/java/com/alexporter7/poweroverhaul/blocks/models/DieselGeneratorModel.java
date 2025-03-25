@@ -5,7 +5,6 @@ package com.alexporter7.poweroverhaul.blocks.models;
 
 
 import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;

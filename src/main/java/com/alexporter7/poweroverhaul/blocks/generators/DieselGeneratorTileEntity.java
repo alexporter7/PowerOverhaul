@@ -1,5 +1,6 @@
 package com.alexporter7.poweroverhaul.blocks.generators;
 
+import com.alexporter7.poweroverhaul.blocks.meta.MetaPowerOverhaulTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
 import com.alexporter7.poweroverhaul.PowerOverhaul;
@@ -10,7 +11,7 @@ import com.cleanroommc.modularui.screen.ModularPanel;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.cleanroommc.modularui.widgets.RichTextWidget;
 
-public class DieselGeneratorTileEntity extends TileEntity implements IGuiHolder<PosGuiData> {
+public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
 
     public DieselGeneratorTileEntity() {
 

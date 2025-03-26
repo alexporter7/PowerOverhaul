@@ -1,11 +1,12 @@
 package com.alexporter7.poweroverhaul.blocks.generators;
 
-import com.alexporter7.poweroverhaul.blocks.meta.MetaCustomRenderBlock;
-import com.cleanroommc.modularui.factory.GuiFactories;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
+import com.alexporter7.poweroverhaul.blocks.meta.MetaCustomRenderBlock;
+import com.cleanroommc.modularui.factory.GuiFactories;
 
 public class DieselGeneratorBlock extends MetaCustomRenderBlock {
 

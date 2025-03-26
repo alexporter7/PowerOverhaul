@@ -13,12 +13,12 @@ public class Config {
         Configuration configuration = new Configuration(configFile);
 
         powerFactor = configuration.getFloat(
-                "powerFactor",
-                Configuration.CATEGORY_GENERAL,
-                powerFactor,
-                0.1f,
-                10.0f,
-                "Multiplies after all calculations have been run");
+            "powerFactor",
+            Configuration.CATEGORY_GENERAL,
+            powerFactor,
+            0.1f,
+            10.0f,
+            "Multiplies after all calculations have been run");
         rfConversionFactor = configuration.getFloat(
             "powerFactor",
             Configuration.CATEGORY_GENERAL,
@@ -33,10 +33,10 @@ public class Config {
     }
 
     public static void announceConfig() {
-        PowerOverhaul.LOG.info(new StringBuilder()
-            .append("Loading configuration")
-            .append("\nPower Factor: " + powerFactor)
-            .append("\nRF Conversion Factor" + rfConversionFactor)
-            .toString());
+        PowerOverhaul.LOG.info(
+            new StringBuilder().append("Loading configuration")
+                .append("\nPower Factor: " + powerFactor)
+                .append("\nRF Conversion Factor" + rfConversionFactor)
+                .toString());
     }
 }

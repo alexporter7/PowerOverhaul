@@ -2,7 +2,6 @@ package com.alexporter7.poweroverhaul.blocks;
 
 import java.util.HashMap;
 
-import com.alexporter7.poweroverhaul.PowerOverhaul;
 import net.minecraft.block.Block;
 
 import com.alexporter7.poweroverhaul.blocks.generators.DieselGeneratorBlock;
@@ -23,7 +22,8 @@ public class PowerOverhaulBlocks {
 
         /* Register Blocks */
         for (String key : blocks.keySet()) {
-            blocks.get(key).setBlockName(key);
+            blocks.get(key)
+                .setBlockName(key);
             GameRegistry.registerBlock(blocks.get(key), key);
         }
 

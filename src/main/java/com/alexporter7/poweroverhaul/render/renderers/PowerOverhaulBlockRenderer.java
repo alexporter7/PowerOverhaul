@@ -1,12 +1,14 @@
 package com.alexporter7.poweroverhaul.render.renderers;
 
-import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
-import com.alexporter7.poweroverhaul.util.ModelManager;
-import com.alexporter7.poweroverhaul.util.RenderUtil;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
+
+import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
+import com.alexporter7.poweroverhaul.util.ModelManager;
+import com.alexporter7.poweroverhaul.util.RenderUtil;
 
 public class PowerOverhaulBlockRenderer extends TileEntitySpecialRenderer {
 

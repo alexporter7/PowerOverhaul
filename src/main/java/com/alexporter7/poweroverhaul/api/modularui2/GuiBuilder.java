@@ -15,15 +15,17 @@ public class GuiBuilder {
     private final GuiProperties guiProperties;
     private ModularPanel panel;
 
-    private final int width = 176;
-    private final int height = 166;
+    private final int width;
+    private final int height;
 
     public GuiBuilder(PosGuiData data, PanelSyncManager syncManager, GuiProperties guiProperties) {
         this.posGuiData = data;
         this.syncManager = syncManager;
         this.guiProperties = guiProperties;
+        this.width = guiProperties.getWidth();
+        this.height = guiProperties.getHeight();
         this.panel = ModularPanel
-            .defaultPanel(this.guiProperties.getProperty(GuiProperties.Property.GUI_NAME), width, height);
+            .defaultPanel(this.guiProperties.getProperty(GuiProperties.Property.GUI_NAME), this.width, this.height);
     }
 
     public ModularPanel build() {

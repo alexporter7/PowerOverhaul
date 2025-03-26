@@ -3,13 +3,14 @@ package com.alexporter7.poweroverhaul.blocks.models;
 // Exported for Minecraft version 1.7 - 1.12
 // Paste this class into your mod and generate all required imports
 
-
-import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
+import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
+
 public class DieselGeneratorModel extends PowerOverhaulModelBase {
+
     private final ModelRenderer exhaust;
     private final ModelRenderer controlPanel;
     private final ModelRenderer base;
@@ -56,7 +57,6 @@ public class DieselGeneratorModel extends PowerOverhaulModelBase {
 
         decorative = new ModelRenderer(this);
         decorative.setRotationPoint(6.0F, 24.0F, 7.0F);
-
 
         plug1 = new ModelRenderer(this);
         plug1.setRotationPoint(0.0F, 0.0F, 0.0F);
@@ -112,14 +112,14 @@ public class DieselGeneratorModel extends PowerOverhaulModelBase {
     }
 
     @Override
-    public void setRotationAngles(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_, float p_78087_5_, float p_78087_6_, Entity p_78087_7_) {
+    public void setRotationAngles(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_,
+        float p_78087_5_, float p_78087_6_, Entity p_78087_7_) {
         super.setRotationAngles(p_78087_1_, p_78087_2_, p_78087_3_, p_78087_4_, p_78087_5_, p_78087_6_, p_78087_7_);
     }
 
-
-//    public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z, Entity entity) {
-//        modelRenderer.rotateAngleX = x;
-//        modelRenderer.rotateAngleY = y;
-//        modelRenderer.rotateAngleZ = z;
-//    }
+    // public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z, Entity entity) {
+    // modelRenderer.rotateAngleX = x;
+    // modelRenderer.rotateAngleY = y;
+    // modelRenderer.rotateAngleZ = z;
+    // }
 }

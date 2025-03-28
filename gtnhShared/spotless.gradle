@@ -20,7 +20,8 @@ spotless {
         toggleOffOn()
         importOrderFile(Blowdryer.file('spotless.importorder'))
         removeUnusedImports()
-        eclipse('4.19.0').configFile(Blowdryer.file('spotless.eclipseformat.xml'))
+        //eclipse('4.19.0').configFile(Blowdryer.file('spotless.eclipseformat.xml'))
+        palantirJavaFormat()
     }
     kotlin {
         target 'src/*/kotlin/**/*.kt'

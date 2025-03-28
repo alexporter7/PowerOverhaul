@@ -1,6 +1,9 @@
-package com.alexporter7.poweroverhaul.util;
+package com.alexporter7.poweroverhaul.gui;
 
 import com.alexporter7.poweroverhaul.PowerOverhaul;
+import com.cleanroommc.modularui.api.GuiAxis;
+import com.cleanroommc.modularui.drawable.TabTexture;
+import com.cleanroommc.modularui.drawable.UITexture;
 
 public enum GuiTextures {
 
@@ -13,7 +16,9 @@ public enum GuiTextures {
     BUTTON_TOGGLE("gui/button/standard_toggle", "standard_toggle"),
     BUTTON_TOGGLE_DISABLED("gui/button/standard_toggle_disabled", "standard_toggle_disabled"),
 
-    TITLE_BACKGROUND("gui/tab/title_dark_steel", "title_dark_steel");
+    TITLE_BACKGROUND("gui/tab/title_dark_steel", "title_dark_steel"),
+
+    TAB_RIGHT("gui/tab/tabs_right", "tabs_right");
 
     private final String location;
     private final String name;
@@ -30,4 +35,10 @@ public enum GuiTextures {
     public String getName() {
         return this.name;
     }
+
+    public static final TabTexture STEEL_TAB_RIGHT = TabTexture.of(
+        UITexture.fullImage(GuiTextures.TAB_RIGHT.getLocation()),
+        GuiAxis.X,
+        true,
+        32, 28, 4);
 }

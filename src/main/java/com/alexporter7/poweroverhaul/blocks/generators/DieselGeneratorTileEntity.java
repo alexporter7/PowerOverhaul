@@ -1,6 +1,7 @@
 package com.alexporter7.poweroverhaul.blocks.generators;
 
 import com.alexporter7.poweroverhaul.PowerOverhaul;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidTank;
 
 import com.alexporter7.poweroverhaul.api.modularui2.GuiDefinitions;
@@ -22,10 +23,15 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
 
     public enum State {
         OFF,
+        STARTING,
         WARM_UP,
         IDLE,
-        ACTIVE,
+        ACTIVE
     }
+
+    public boolean ignition = false;
+    public boolean turbo = false;
+    public boolean nos = false;
 
     public State state = State.OFF;
 
@@ -52,13 +58,34 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
 
     }
 
-    private void toggleEngineOn() {
-        if (this.engineTemp < ENGINE_IDLE_TEMP) this.state = State.WARM_UP;
-        else this.state = State.IDLE;
+    @Override
+    public void writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+
+        this.coolant.writeToNBT(compound);
+        this.oil.writeToNBT(compound);
+        this.fuel.writeToNBT(compound);
+
+        compound.setTag("engineSlot", this.engineSlot.serializeNBT());
+        compound.setTag("turboSlot", this.turboSlot.serializeNBT());
+        compound.setTag("nosSlot", this.nosSlot.serializeNBT());
     }
 
-    private void toggleEngineOff() {
-        this.state = State.OFF;
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+
+        this.coolant.readFromNBT(compound);
+        this.oil.readFromNBT(compound);
+        this.fuel.readFromNBT(compound);
+
+        this.engineSlot.deserializeNBT(compound.getCompoundTag("engineSlot"));
+        this.turboSlot.deserializeNBT(compound.getCompoundTag("turboSlot"));
+        this.nosSlot.deserializeNBT(compound.getCompoundTag("nosSlot"));
+    }
+
+    public void toggleIgnition() {
+        this.ignition = !this.ignition;
     }
 
     @Override
@@ -69,8 +96,10 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
     @Override
     public void updateEntity() {
 
-        if(getWorldObj().isRemote)
+        if(getWorldObj().isRemote) {
+            updateState();
             updateRpm();
+        }
 
     }
 
@@ -85,12 +114,70 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
             this.rpm -= Math.min(100, this.rpm - targetRpm);
     }
 
+    public void updateState() {
+        if(!this.ignition) {
+            this.state = State.OFF;
+            return;
+        }
+
+        if(this.engineTemp < ENGINE_IDLE_TEMP)
+            this.state = State.WARM_UP;
+        else
+            this.state = (this.throttle == 0)
+                ? State.IDLE
+                : State.ACTIVE;
+    }
+
+    public void updateTemperature() {
+
+    }
+
+    public void updateHorsepower() {
+
+    }
+
+    public void updateFluids() {
+
+    }
+
     private int getTargetRpm() {
-        if(this.state == State.WARM_UP && this.throttle == 0)
+        if(this.state == State.OFF)
+            return 0;
+        else if(this.state == State.WARM_UP && this.throttle == 0)
             return ENGINE_WARM_UP_TARGET_RPM;
         else if(this.state == State.IDLE && this.throttle == 0)
             return ENGINE_IDLE_TARGET_RPM;
         else
-            return (int)(((double) this.throttle / 100) * this.maxRpm);
+            return (int)(Math.max(getThrottlePercent() * this.maxRpm, getIdleRpmTarget()));
     }
+
+    private double getThrottlePercent() {
+        return (double) this.throttle / 100;
+    }
+
+    private int getIdleRpmTarget() {
+        return (this.state == State.WARM_UP) ? ENGINE_WARM_UP_TARGET_RPM : ENGINE_IDLE_TARGET_RPM;
+    }
+
+    public String getStateString() {
+        return this.state.toString().substring(0, 1).toUpperCase() +
+            this.state.toString().substring(1).toLowerCase().replaceAll("_", " ");
+    }
+
+    public String getRpmString() {
+        return String.valueOf(this.rpm);
+    }
+
+    public String getHorsepowerString() {
+        return String.valueOf(this.horsepower);
+    }
+
+    public String getTemperatureString() {
+        return String.valueOf(this.engineTemp);
+    }
+
+    public String getThrottleString() {
+        return String.valueOf(this.throttle) + "%";
+    }
+
 }

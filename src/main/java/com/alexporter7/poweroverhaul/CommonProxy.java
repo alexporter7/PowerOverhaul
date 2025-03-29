@@ -1,6 +1,7 @@
 package com.alexporter7.poweroverhaul;
 
 import com.alexporter7.poweroverhaul.blocks.PowerOverhaulBlocks;
+import com.alexporter7.poweroverhaul.fluid.PowerOverhaulFluids;
 import com.alexporter7.poweroverhaul.items.PowerOverhaulItems;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -22,6 +23,10 @@ public class CommonProxy {
 
         PowerOverhaul.LOG.info("Registering PowerOverhaul Blocks");
         PowerOverhaulBlocks.registerBlocks();
+
+        PowerOverhaul.LOG.info("Registering PowerOverhaul Fluids");
+        PowerOverhaulFluids.registerFluids();
+
     }
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)
@@ -29,6 +34,7 @@ public class CommonProxy {
 
         PowerOverhaul.LOG.info("Registering PowerOverhaul Tile Entities");
         PowerOverhaulBlocks.registerTileEntities();
+
     }
 
     // postInit "Handle interaction with other mods, complete your setup based on this." (Remove if not needed)

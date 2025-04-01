@@ -2,7 +2,9 @@ package com.alexporter7.poweroverhaul.fluid;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemBucket;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.*;
 
 import java.util.HashSet;
@@ -15,37 +17,44 @@ public class PowerOverhaulFluids {
 
     public static void registerFluids() {
 
-        PowerOverhaulFluidBlock coolantBlock = new PowerOverhaulFluidBlock(
-            new PowerOverhaulFluid("coolant"));
-        coolantBlock.setBlockName("coolant");
-        GameRegistry.registerBlock(coolantBlock, "coolant");
-        FluidRegistry.registerFluid(coolantBlock.getFluid());
-
-        //registerFluid(new PowerOverhaulFluid("coolant"));
+        registerFluid("coolant");
+        registerFluid("oil");
+        registerFluid("diesel");
 //        Fluid coolant = createFluid("coolant", PowerOverhaul.MODID + ":fluids/coolant",
 //            75, 0, 800, 100,
 //            fluid -> new PowerOverhaulFluidBlock(fluid));
 
     }
 
-    public static void registerFluid(PowerOverhaulFluid fluid) {
+    public static void registerFluid(String fluidName) {
+
+        PowerOverhaulFluid fluid = new PowerOverhaulFluid(fluidName);
         FluidRegistry.registerFluid(fluid);
 
         PowerOverhaulFluidBlock fluidBlock = registerFluidBlock(fluid);
-        FluidStack bucketFluid = new FluidStack(fluid, FluidContainerRegistry.BUCKET_VOLUME);
+
+        PowerOverhaulBucket fluidBucket = new PowerOverhaulBucket(fluidBlock);
+        fluidBucket.setUnlocalizedName(fluidName + "_bucket");
+
         GameRegistry.registerItem(
-            new ItemBucket(fluidBlock),
+                fluidBucket,
             fluid.getUnlocalizedName() + "_bucket"
         );
+
+        registerFluidContainer(fluid, new ItemStack(fluidBucket));
     }
 
     public static PowerOverhaulFluidBlock registerFluidBlock(PowerOverhaulFluid fluid) {
         PowerOverhaulFluidBlock fluidBlock = new PowerOverhaulFluidBlock(fluid);
         GameRegistry.registerBlock(
-            new PowerOverhaulFluidBlock(fluid).setBlockName(fluid.getUnlocalizedName()),
-            fluid.getUnlocalizedName()
+            new PowerOverhaulFluidBlock(fluid).setBlockName(fluid.getName()),
+            fluid.getName()
         );
         return fluidBlock;
+    }
+
+    public static void registerFluidContainer(PowerOverhaulFluid fluid, ItemStack fluidBucket) {
+        FluidContainerRegistry.registerFluidContainer(fluid, fluidBucket, new ItemStack(Items.bucket));
     }
 
 

@@ -1,4 +1,4 @@
-package com.alexporter7.poweroverhaul.api.modularui2;
+package com.alexporter7.poweroverhaul.api.modularui2.gui;
 
 import java.util.HashMap;
 

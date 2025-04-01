@@ -1,4 +1,4 @@
-package com.alexporter7.poweroverhaul.api.modularui2;
+package com.alexporter7.poweroverhaul.api.modularui2.gui;
 
 import com.cleanroommc.modularui.api.drawable.IKey;
 import com.cleanroommc.modularui.api.widget.IWidget;

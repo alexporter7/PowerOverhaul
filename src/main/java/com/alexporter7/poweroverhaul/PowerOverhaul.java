@@ -12,6 +12,8 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 
+import java.util.Random;
+
 @Mod(
     modid = PowerOverhaul.MODID,
     version = Tags.VERSION,

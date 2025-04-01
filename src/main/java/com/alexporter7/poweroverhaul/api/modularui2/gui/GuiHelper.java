@@ -1,6 +1,6 @@
-package com.alexporter7.poweroverhaul.gui;
+package com.alexporter7.poweroverhaul.api.modularui2.gui;
 
-import com.alexporter7.poweroverhaul.PowerOverhaul;
+import com.alexporter7.poweroverhaul.fluid.PowerOverhaulFluid;
 import com.cleanroommc.modularui.api.drawable.IKey;
 import com.cleanroommc.modularui.api.widget.IWidget;
 import com.cleanroommc.modularui.utils.Alignment;
@@ -12,11 +12,11 @@ import com.cleanroommc.modularui.widgets.FluidSlot;
 import com.cleanroommc.modularui.widgets.ItemSlot;
 import com.cleanroommc.modularui.widgets.TextWidget;
 import com.cleanroommc.modularui.widgets.ToggleButton;
-import com.cleanroommc.modularui.widgets.layout.Flow;
 import com.cleanroommc.modularui.widgets.layout.Row;
 import net.minecraftforge.fluids.FluidTank;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class GuiHelper {
@@ -96,6 +96,29 @@ public class GuiHelper {
                 .alignment(Alignment.CenterLeft))
             .child(new FluidSlot()
                 .syncHandler(fluidTank)
+                .rightRelAnchor(0f, 0f))
+            .coverChildrenHeight();
+    }
+
+    public static IWidget createFluidSlotRow(String label, FluidTank fluidTank, @NotNull Supplier<String> value) {
+        return new Row()
+            .child(textWidget(label, 0, 0)
+                .alignment(Alignment.CenterLeft))
+            .child(new FluidSlot()
+                .syncHandler(fluidTank)
+                .rightRelAnchor(0f, 0f)
+                .addTooltipElement(IKey.dynamic(value)))
+            .coverChildrenHeight();
+    }
+
+    public static IWidget createLockableFluidSlotRow(String label, FluidTank fluidTank,
+                                                     Predicate<FluidSlot> condition) {
+        return new Row()
+            .child(textWidget(label, 0, 0)
+                .alignment(Alignment.CenterLeft))
+            .child(new FluidSlot()
+                .syncHandler(fluidTank)
+                .setEnabledIf(condition)
                 .rightRelAnchor(0f, 0f))
             .coverChildrenHeight();
     }

@@ -7,6 +7,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 
 public class PowerOverhaulFluid extends Fluid {
 
@@ -17,12 +18,23 @@ public class PowerOverhaulFluid extends Fluid {
 
     @SideOnly(Side.CLIENT)
     private IIcon still;
+    @SideOnly(Side.CLIENT)
     private IIcon flowing;
+
+    private int quality;
 
     public PowerOverhaulFluid(String name) {
         super(name);
+        this.iconStill = new ResourceLocation(FLUID_TEXTURE_PATH + name);
+        this.iconFlowing = new ResourceLocation(FLUID_TEXTURE_PATH + name);
+        this.quality = 100;
+    }
+
+    public PowerOverhaulFluid(String name, boolean flowingTexture) {
+        super(name);
         this.iconStill = new ResourceLocation(FLUID_TEXTURE_PATH + name + "_still");
         this.iconFlowing = new ResourceLocation(FLUID_TEXTURE_PATH + name + "_flowing");
+        this.quality = 100;
     }
 
     public ResourceLocation getIconStill() {
@@ -43,12 +55,35 @@ public class PowerOverhaulFluid extends Fluid {
         return this.flowing;
     }
 
+    @Override
+    public IIcon getIcon() {
+        return this.still;
+    }
+
+    @Override
+    public IIcon getIcon(FluidStack stack) {
+        return this.still;
+    }
+
     public void setFluidIcons(IIcon still, IIcon flowing) {
         this.still = still;
         this.flowing = flowing;
     }
 
+    public int getQuality() {
+        return this.quality;
+    }
 
+    public void setQuality(int quality) {
+        this.quality = quality;
+    }
 
+    public void decrementQuality() {
+        this.quality--;
+    }
 
+    public void incrementQuality() {
+        if(this.quality < 100)
+            this.quality++;
+    }
 }

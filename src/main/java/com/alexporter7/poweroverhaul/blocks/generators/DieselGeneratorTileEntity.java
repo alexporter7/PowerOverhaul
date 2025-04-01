@@ -1,12 +1,13 @@
 package com.alexporter7.poweroverhaul.blocks.generators;
 
-import com.alexporter7.poweroverhaul.PowerOverhaul;
+import com.alexporter7.poweroverhaul.fluid.PowerOverhaulFluid;
+import com.alexporter7.poweroverhaul.util.PowerOverhaulUtil;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidTank;
 
-import com.alexporter7.poweroverhaul.api.modularui2.GuiDefinitions;
+import com.alexporter7.poweroverhaul.gui.GuiDefinitions;
 import com.alexporter7.poweroverhaul.blocks.meta.MetaPowerOverhaulTileEntity;
-import com.alexporter7.poweroverhaul.gui.GuiHelper;
+import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiHelper;
 import com.cleanroommc.modularui.factory.PosGuiData;
 import com.cleanroommc.modularui.screen.ModularPanel;
 import com.cleanroommc.modularui.utils.item.ItemStackHandler;
@@ -20,13 +21,19 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
 
     private static final int ENGINE_WARM_UP_TARGET_RPM = 1200;
     private static final int ENGINE_IDLE_TARGET_RPM = 750;
+    private static final int ENGINE_TARGET_RPM_STEP = 25;
+
+    private static final int[] ENGINE_OFF_TEMP_PROPS = new int[]{5, 1, 2};
+    private static final int[] ENGINE_WARM_UP_TEMP_PROPS = new int[]{5, 1, 3};
+    private static final int[] ENGINE_IDLE_TEMP_PROPS = new int[]{50, 1, 3};
 
     public enum State {
         OFF,
         STARTING,
         WARM_UP,
         IDLE,
-        ACTIVE
+        ACTIVE,
+        MAINTENANCE
     }
 
     public boolean ignition = false;
@@ -62,26 +69,30 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
 
-        this.coolant.writeToNBT(compound);
-        this.oil.writeToNBT(compound);
-        this.fuel.writeToNBT(compound);
+        compound.setString("engineState", this.state.name());
 
         compound.setTag("engineSlot", this.engineSlot.serializeNBT());
         compound.setTag("turboSlot", this.turboSlot.serializeNBT());
         compound.setTag("nosSlot", this.nosSlot.serializeNBT());
+
+        compound.setTag("coolant", this.coolant.writeToNBT(new NBTTagCompound()));
+        compound.setTag("oil", this.oil.writeToNBT(new NBTTagCompound()));
+        compound.setTag("fuel", this.fuel.writeToNBT(new NBTTagCompound()));
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
 
-        this.coolant.readFromNBT(compound);
-        this.oil.readFromNBT(compound);
-        this.fuel.readFromNBT(compound);
+        this.state = State.valueOf(compound.getString("engineState"));
 
         this.engineSlot.deserializeNBT(compound.getCompoundTag("engineSlot"));
         this.turboSlot.deserializeNBT(compound.getCompoundTag("turboSlot"));
         this.nosSlot.deserializeNBT(compound.getCompoundTag("nosSlot"));
+
+        this.coolant.readFromNBT(compound.getCompoundTag("coolant"));
+        this.oil.readFromNBT(compound.getCompoundTag("oil"));
+        this.fuel.readFromNBT(compound.getCompoundTag("fuel"));
     }
 
     public void toggleIgnition() {
@@ -99,6 +110,8 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
         if(getWorldObj().isRemote) {
             updateState();
             updateRpm();
+            updateFluids();
+            updateTemperature();
         }
 
     }
@@ -109,13 +122,13 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
             return;
 
         if(this.rpm < targetRpm)
-            this.rpm += Math.min(100, targetRpm - this.rpm);
+            this.rpm += Math.min(ENGINE_TARGET_RPM_STEP, targetRpm - this.rpm);
         else
-            this.rpm -= Math.min(100, this.rpm - targetRpm);
+            this.rpm -= Math.min(ENGINE_TARGET_RPM_STEP, this.rpm - targetRpm);
     }
 
     public void updateState() {
-        if(!this.ignition) {
+        if(!this.ignition && this.state != State.MAINTENANCE) {
             this.state = State.OFF;
             return;
         }
@@ -129,7 +142,25 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
     }
 
     public void updateTemperature() {
+        switch (this.state) {
+            case OFF -> decrementEngineTemp(PowerOverhaulUtil.getRandomValue(
+                ENGINE_OFF_TEMP_PROPS[0], ENGINE_OFF_TEMP_PROPS[1], ENGINE_OFF_TEMP_PROPS[2]));
+            case WARM_UP -> incrementEngineTemp(PowerOverhaulUtil.getRandomValue(
+                ENGINE_WARM_UP_TEMP_PROPS[0], ENGINE_WARM_UP_TEMP_PROPS[1], ENGINE_WARM_UP_TEMP_PROPS[2]));
+//            case IDLE -> incrementEngineTemp(PowerOverhaulUtil.getRandomValue(
+//                ENGINE_IDLE_TEMP_PROPS[0], ENGINE_IDLE_TEMP_PROPS[1], ENGINE_IDLE_TEMP_PROPS[2]));
+        }
+    }
 
+    private void decrementEngineTemp(int temp) {
+        this.engineTemp = Math.max(this.engineTemp - temp, ENGINE_OFF_TEMP);
+    }
+
+    private void incrementEngineTemp(int temp) {
+        if(this.state == State.ACTIVE)
+            this.engineTemp = Math.min(this.engineTemp + temp, ENGINE_MAX_TEMP);
+        else
+            this.engineTemp = Math.min(this.engineTemp + temp, ENGINE_IDLE_TEMP);
     }
 
     public void updateHorsepower() {
@@ -137,7 +168,22 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
     }
 
     public void updateFluids() {
+        if(this.state != State.OFF && this.state != State.MAINTENANCE)
+            return;
+//        if(this.coolant.getFluidAmount() != 0)
+//            ((PowerOverhaulFluid)this.coolant.getFluid().getFluid()).decrementQuality();
+    }
 
+    private boolean hasCoolant() {
+        return this.coolant.getFluidAmount() != 0;
+    }
+
+    private boolean hasOil() {
+        return this.oil.getFluidAmount() != 0;
+    }
+
+    private boolean hasFuel() {
+        return this.fuel.getFluidAmount() != 0;
     }
 
     private int getTargetRpm() {
@@ -178,6 +224,14 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
 
     public String getThrottleString() {
         return String.valueOf(this.throttle) + "%";
+    }
+
+    public boolean canEditFluids() {
+        return this.state == State.MAINTENANCE;
+    }
+
+    public String getCoolantQuality() {
+        return "Quality: " + ((PowerOverhaulFluid)this.coolant.getFluid().getFluid()).getQuality() + "%";
     }
 
 }

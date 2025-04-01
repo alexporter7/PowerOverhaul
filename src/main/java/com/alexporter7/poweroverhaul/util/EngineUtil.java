@@ -44,4 +44,5 @@ public class EngineUtil {
     public static int calculatePower(int horsepower, int peFactor) {
         return powerFactor * horsepower * conversionFactor * peFactor;
     }
+
 }

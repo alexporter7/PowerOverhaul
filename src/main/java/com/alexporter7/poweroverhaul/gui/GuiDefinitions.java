@@ -1,14 +1,17 @@
-package com.alexporter7.poweroverhaul.api.modularui2;
+package com.alexporter7.poweroverhaul.gui;
 
+import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiBuilder;
+import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiProperties;
+import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiHelper;
 import com.alexporter7.poweroverhaul.blocks.generators.DieselGeneratorTileEntity;
-import com.alexporter7.poweroverhaul.gui.GuiHelper;
+import com.cleanroommc.modularui.value.IntValue;
 import com.cleanroommc.modularui.value.sync.BooleanSyncValue;
 import com.cleanroommc.modularui.value.sync.DoubleSyncValue;
+import com.cleanroommc.modularui.value.sync.IntSyncValue;
 import com.cleanroommc.modularui.widget.ParentWidget;
 import com.cleanroommc.modularui.widgets.*;
 import net.minecraftforge.fluids.FluidTank;
 
-import com.alexporter7.poweroverhaul.gui.GuiTextures;
 import com.cleanroommc.modularui.api.drawable.IKey;
 import com.cleanroommc.modularui.api.widget.IWidget;
 import com.cleanroommc.modularui.factory.PosGuiData;
@@ -116,7 +119,7 @@ public class GuiDefinitions {
             .paddingLeft(12);
 
         IWidget fluidSlots = new Column()
-            .child(GuiHelper.createFluidSlotRow("Coolant: ", tileEntity.coolant))
+            .child(GuiHelper.createFluidSlotRow("Coolant: ", tileEntity.coolant, tileEntity::getCoolantQuality))
             .child(GuiHelper.createFluidSlotRow("Oil: ", tileEntity.oil))
             .child(GuiHelper.createFluidSlotRow("Fuel: ", tileEntity.fuel))
             .leftRelAnchor(0.5f, 0f)

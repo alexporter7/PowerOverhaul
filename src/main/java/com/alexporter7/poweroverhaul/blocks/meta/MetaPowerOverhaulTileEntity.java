@@ -1,5 +1,6 @@
 package com.alexporter7.poweroverhaul.blocks.meta;
 
+import com.alexporter7.poweroverhaul.PowerOverhaul;
 import net.minecraft.tileentity.TileEntity;
 
 import com.cleanroommc.modularui.api.IGuiHolder;
@@ -19,4 +20,5 @@ public class MetaPowerOverhaulTileEntity extends TileEntity implements IGuiHolde
     public ModularPanel buildUI(PosGuiData data, PanelSyncManager syncManager) {
         return null;
     }
+
 }

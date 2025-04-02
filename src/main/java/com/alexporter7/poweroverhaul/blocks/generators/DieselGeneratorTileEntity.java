@@ -21,11 +21,10 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
 
     private static final int ENGINE_WARM_UP_TARGET_RPM = 1200;
     private static final int ENGINE_IDLE_TARGET_RPM = 750;
-    private static final int ENGINE_TARGET_RPM_STEP = 25;
+    private static final int[] ENGINE_TARGET_RPM_STEP = new int[]{20, 30};
 
     private static final int[] ENGINE_OFF_TEMP_PROPS = new int[]{5, 1, 2};
     private static final int[] ENGINE_WARM_UP_TEMP_PROPS = new int[]{5, 1, 3};
-    private static final int[] ENGINE_IDLE_TEMP_PROPS = new int[]{50, 1, 3};
 
     public enum State {
         OFF,
@@ -122,9 +121,9 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
             return;
 
         if(this.rpm < targetRpm)
-            this.rpm += Math.min(ENGINE_TARGET_RPM_STEP, targetRpm - this.rpm);
+            this.rpm += Math.min(PowerOverhaulUtil.getRandomValue(ENGINE_TARGET_RPM_STEP[0], ENGINE_TARGET_RPM_STEP[1]), targetRpm - this.rpm);
         else
-            this.rpm -= Math.min(ENGINE_TARGET_RPM_STEP, this.rpm - targetRpm);
+            this.rpm -= Math.min(PowerOverhaulUtil.getRandomValue(ENGINE_TARGET_RPM_STEP[0], ENGINE_TARGET_RPM_STEP[1]), this.rpm - targetRpm);
     }
 
     public void updateState() {

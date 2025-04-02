@@ -12,6 +12,10 @@ public class PowerOverhaulUtil {
         return (percent > (Math.random() * 100));
     }
 
+    public static int getRandomValue(int min, int max) {
+        return RANDOM.nextInt(max + 1) + min;
+    }
+
     public static int getRandomValue(int percent, int min, int max) {
         return (getRandomChance(percent))
             ? RANDOM.nextInt(max + 1) + min

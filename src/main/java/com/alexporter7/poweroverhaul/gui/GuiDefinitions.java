@@ -119,7 +119,7 @@ public class GuiDefinitions {
             .paddingLeft(12);
 
         IWidget fluidSlots = new Column()
-            .child(GuiHelper.createFluidSlotRow("Coolant: ", tileEntity.coolant, tileEntity::getCoolantQuality))
+            .child(GuiHelper.createFluidSlotRow("Coolant: ", tileEntity.coolant))
             .child(GuiHelper.createFluidSlotRow("Oil: ", tileEntity.oil))
             .child(GuiHelper.createFluidSlotRow("Fuel: ", tileEntity.fuel))
             .leftRelAnchor(0.5f, 0f)

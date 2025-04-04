@@ -22,4 +22,10 @@ public class PowerOverhaulUtil {
             : 0;
     }
 
+    public static int getRandomValue(int[] properties) {
+        return (properties.length == 2)
+            ? getRandomValue(properties[0], properties[1])
+            : getRandomValue(properties[0], properties[1], properties[2]);
+    }
+
 }

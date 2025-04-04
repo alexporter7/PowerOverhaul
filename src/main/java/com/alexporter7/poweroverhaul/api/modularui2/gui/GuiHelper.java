@@ -7,6 +7,8 @@ import com.cleanroommc.modularui.utils.Alignment;
 import com.cleanroommc.modularui.utils.Color;
 import com.cleanroommc.modularui.utils.item.ItemStackHandler;
 import com.cleanroommc.modularui.value.sync.BooleanSyncValue;
+import com.cleanroommc.modularui.value.sync.FluidSlotSyncHandler;
+import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.cleanroommc.modularui.value.sync.SyncHandlers;
 import com.cleanroommc.modularui.widgets.FluidSlot;
 import com.cleanroommc.modularui.widgets.ItemSlot;
@@ -95,7 +97,7 @@ public class GuiHelper {
             .child(textWidget(label, 0, 0)
                 .alignment(Alignment.CenterLeft))
             .child(new FluidSlot()
-                .syncHandler(fluidTank)
+                .syncHandler(SyncHandlers.fluidSlot(fluidTank))
                 .rightRelAnchor(0f, 0f))
             .coverChildrenHeight();
     }

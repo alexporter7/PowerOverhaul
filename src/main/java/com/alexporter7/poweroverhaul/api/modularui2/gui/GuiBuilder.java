@@ -30,7 +30,6 @@ public class GuiBuilder {
 
     public ModularPanel build() {
         this.panel.bindPlayerInventory();
-        //this.syncManager.bindPlayerInventory(this.posGuiData.getPlayer());
         return this.panel;
     }
 

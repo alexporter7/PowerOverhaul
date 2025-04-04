@@ -1,8 +1,15 @@
 package com.alexporter7.poweroverhaul.blocks.generators;
 
+import com.alexporter7.poweroverhaul.PowerOverhaul;
+import com.alexporter7.poweroverhaul.api.properties.GeneratorProperties;
+import com.alexporter7.poweroverhaul.api.properties.Properties;
 import com.alexporter7.poweroverhaul.fluid.PowerOverhaulFluid;
+import com.alexporter7.poweroverhaul.init.PropertyDef;
 import com.alexporter7.poweroverhaul.util.PowerOverhaulUtil;
+import com.cleanroommc.modularui.value.sync.SyncHandlers;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
 import com.alexporter7.poweroverhaul.gui.GuiDefinitions;
@@ -12,19 +19,23 @@ import com.cleanroommc.modularui.factory.PosGuiData;
 import com.cleanroommc.modularui.screen.ModularPanel;
 import com.cleanroommc.modularui.utils.item.ItemStackHandler;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
+import scala.tools.nsc.interpreter.Power;
 
 public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
 
-    private static final int ENGINE_OFF_TEMP = 75;
-    private static final int ENGINE_IDLE_TEMP = 190;
-    private static final int ENGINE_MAX_TEMP = 230;
+    private static final GeneratorProperties generatorProperties =
+        new GeneratorProperties(PropertyDef.DIESEL_GEN_PROPS);
 
-    private static final int ENGINE_WARM_UP_TARGET_RPM = 1200;
-    private static final int ENGINE_IDLE_TARGET_RPM = 750;
-    private static final int[] ENGINE_TARGET_RPM_STEP = new int[]{20, 30};
-
-    private static final int[] ENGINE_OFF_TEMP_PROPS = new int[]{5, 1, 2};
-    private static final int[] ENGINE_WARM_UP_TEMP_PROPS = new int[]{5, 1, 3};
+//    private static final int ENGINE_OFF_TEMP = 75;
+//    private static final int ENGINE_IDLE_TEMP = 190;
+//    private static final int ENGINE_MAX_TEMP = 230;
+//
+//    private static final int ENGINE_WARM_UP_TARGET_RPM = 1200;
+//    private static final int ENGINE_IDLE_TARGET_RPM = 750;
+//    private static final int[] ENGINE_TARGET_RPM_STEP = new int[]{20, 30};
+//
+//    private static final int[] ENGINE_OFF_TEMP_PROPS = new int[]{5, 1, 2};
+//    private static final int[] ENGINE_WARM_UP_TEMP_PROPS = new int[]{5, 1, 3};
 
     public enum State {
         OFF,
@@ -52,13 +63,13 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
 
     public int throttle = 0;
 
-    public final FluidTank coolant = new FluidTank(16000);
-    public final FluidTank oil = new FluidTank(16000);
-    public final FluidTank fuel = new FluidTank(16000);
-
     public final ItemStackHandler engineSlot = GuiHelper.createStackHandlerLimit(1);
     public final ItemStackHandler turboSlot = GuiHelper.createStackHandlerLimit(1);
     public final ItemStackHandler nosSlot = GuiHelper.createStackHandlerLimit(1);
+
+    public final FluidTank coolant = new FluidTank(16000);
+    public final FluidTank oil = new FluidTank(16000);
+    public final FluidTank fuel = new FluidTank(16000);
 
     public DieselGeneratorTileEntity() {
 
@@ -92,10 +103,7 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
         this.coolant.readFromNBT(compound.getCompoundTag("coolant"));
         this.oil.readFromNBT(compound.getCompoundTag("oil"));
         this.fuel.readFromNBT(compound.getCompoundTag("fuel"));
-    }
 
-    public void toggleIgnition() {
-        this.ignition = !this.ignition;
     }
 
     @Override
@@ -111,7 +119,22 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
             updateRpm();
             updateFluids();
             updateTemperature();
+            markDirty();
+            try {
+//                String t = getCoolantString();
+               PowerOverhaul.LOG.info(this.coolant.getFluidAmount());
+            } catch (Exception ignored) {
+
+            }
+
         }
+//        else {
+//            try {
+//                getCoolantString();
+//            } catch (Exception ignored) {
+//
+//            }
+//        }
 
     }
 
@@ -121,9 +144,13 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
             return;
 
         if(this.rpm < targetRpm)
-            this.rpm += Math.min(PowerOverhaulUtil.getRandomValue(ENGINE_TARGET_RPM_STEP[0], ENGINE_TARGET_RPM_STEP[1]), targetRpm - this.rpm);
+            this.rpm += Math.min(
+                PowerOverhaulUtil.getRandomValue(generatorProperties.engineTargetRpmStep),
+                targetRpm - this.rpm);
         else
-            this.rpm -= Math.min(PowerOverhaulUtil.getRandomValue(ENGINE_TARGET_RPM_STEP[0], ENGINE_TARGET_RPM_STEP[1]), this.rpm - targetRpm);
+            this.rpm -= Math.min(
+                PowerOverhaulUtil.getRandomValue(generatorProperties.engineTargetRpmStep),
+                this.rpm - targetRpm);
     }
 
     public void updateState() {
@@ -132,7 +159,7 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
             return;
         }
 
-        if(this.engineTemp < ENGINE_IDLE_TEMP)
+        if(this.engineTemp < generatorProperties.engineIdleTemp)
             this.state = State.WARM_UP;
         else
             this.state = (this.throttle == 0)
@@ -143,23 +170,23 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
     public void updateTemperature() {
         switch (this.state) {
             case OFF -> decrementEngineTemp(PowerOverhaulUtil.getRandomValue(
-                ENGINE_OFF_TEMP_PROPS[0], ENGINE_OFF_TEMP_PROPS[1], ENGINE_OFF_TEMP_PROPS[2]));
+                generatorProperties.engineOffTempStep));
             case WARM_UP -> incrementEngineTemp(PowerOverhaulUtil.getRandomValue(
-                ENGINE_WARM_UP_TEMP_PROPS[0], ENGINE_WARM_UP_TEMP_PROPS[1], ENGINE_WARM_UP_TEMP_PROPS[2]));
+                generatorProperties.engineWarmUpTempStep));
 //            case IDLE -> incrementEngineTemp(PowerOverhaulUtil.getRandomValue(
 //                ENGINE_IDLE_TEMP_PROPS[0], ENGINE_IDLE_TEMP_PROPS[1], ENGINE_IDLE_TEMP_PROPS[2]));
         }
     }
 
     private void decrementEngineTemp(int temp) {
-        this.engineTemp = Math.max(this.engineTemp - temp, ENGINE_OFF_TEMP);
+        this.engineTemp = Math.max(this.engineTemp - temp, generatorProperties.engineOffTemp);
     }
 
     private void incrementEngineTemp(int temp) {
         if(this.state == State.ACTIVE)
-            this.engineTemp = Math.min(this.engineTemp + temp, ENGINE_MAX_TEMP);
+            this.engineTemp = Math.min(this.engineTemp + temp, generatorProperties.engineMaxTemp);
         else
-            this.engineTemp = Math.min(this.engineTemp + temp, ENGINE_IDLE_TEMP);
+            this.engineTemp = Math.min(this.engineTemp + temp, generatorProperties.engineIdleTemp);
     }
 
     public void updateHorsepower() {
@@ -189,9 +216,9 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
         if(this.state == State.OFF)
             return 0;
         else if(this.state == State.WARM_UP && this.throttle == 0)
-            return ENGINE_WARM_UP_TARGET_RPM;
+            return generatorProperties.engineWarmUpTargetRpm;
         else if(this.state == State.IDLE && this.throttle == 0)
-            return ENGINE_IDLE_TARGET_RPM;
+            return generatorProperties.engineIdleTargetRpm;
         else
             return (int)(Math.max(getThrottlePercent() * this.maxRpm, getIdleRpmTarget()));
     }
@@ -201,7 +228,9 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
     }
 
     private int getIdleRpmTarget() {
-        return (this.state == State.WARM_UP) ? ENGINE_WARM_UP_TARGET_RPM : ENGINE_IDLE_TARGET_RPM;
+        return (this.state == State.WARM_UP)
+            ? generatorProperties.engineWarmUpTargetRpm
+            : generatorProperties.engineIdleTargetRpm;
     }
 
     public String getStateString() {
@@ -229,8 +258,11 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
         return this.state == State.MAINTENANCE;
     }
 
-    public String getCoolantQuality() {
-        return "Quality: " + ((PowerOverhaulFluid)this.coolant.getFluid().getFluid()).getQuality() + "%";
+    public String getCoolantString() {
+        FluidTank fluidTank = this.coolant;
+        FluidStack fluidStack = fluidTank.getFluid();
+        PowerOverhaulFluid fluid = (PowerOverhaulFluid) fluidStack.getFluid();
+        return "Quality: " + fluid.getQuality() + "%";
     }
 
 }

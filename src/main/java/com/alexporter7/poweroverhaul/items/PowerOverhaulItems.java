@@ -1,6 +1,7 @@
 package com.alexporter7.poweroverhaul.items;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import net.minecraft.item.Item;
@@ -13,6 +14,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class PowerOverhaulItems {
 
     public static List<Item> items = new ArrayList<Item>();
+    public static HashSet<MaterialItem> materialItems = new HashSet<>();
 
     public static final void init() {
         registerEngineComponents();
@@ -46,5 +48,9 @@ public class PowerOverhaulItems {
 
     public static void registerEngines() {
 
+    }
+
+    public static void registerMaterials() {
+        //material will have an ingot, block, molten version, and some list of properties
     }
 }

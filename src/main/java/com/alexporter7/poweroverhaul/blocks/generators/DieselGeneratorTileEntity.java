@@ -19,23 +19,11 @@ import com.cleanroommc.modularui.factory.PosGuiData;
 import com.cleanroommc.modularui.screen.ModularPanel;
 import com.cleanroommc.modularui.utils.item.ItemStackHandler;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
-import scala.tools.nsc.interpreter.Power;
 
 public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
 
     private static final GeneratorProperties generatorProperties =
         new GeneratorProperties(PropertyDef.DIESEL_GEN_PROPS);
-
-//    private static final int ENGINE_OFF_TEMP = 75;
-//    private static final int ENGINE_IDLE_TEMP = 190;
-//    private static final int ENGINE_MAX_TEMP = 230;
-//
-//    private static final int ENGINE_WARM_UP_TARGET_RPM = 1200;
-//    private static final int ENGINE_IDLE_TARGET_RPM = 750;
-//    private static final int[] ENGINE_TARGET_RPM_STEP = new int[]{20, 30};
-//
-//    private static final int[] ENGINE_OFF_TEMP_PROPS = new int[]{5, 1, 2};
-//    private static final int[] ENGINE_WARM_UP_TEMP_PROPS = new int[]{5, 1, 3};
 
     public enum State {
         OFF,
@@ -43,7 +31,8 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
         WARM_UP,
         IDLE,
         ACTIVE,
-        MAINTENANCE
+        MAINTENANCE,
+        PROBLEM
     }
 
     public boolean ignition = false;
@@ -105,6 +94,7 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
         this.fuel.readFromNBT(compound.getCompoundTag("fuel"));
 
     }
+
 
     @Override
     public ModularPanel buildUI(PosGuiData data, PanelSyncManager syncManager) {

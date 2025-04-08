@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import com.alexporter7.poweroverhaul.init.MaterialDef;
 import net.minecraft.item.Item;
 
 import com.alexporter7.poweroverhaul.items.components.ComponentMaterial;
@@ -18,6 +19,7 @@ public class PowerOverhaulItems {
 
     public static final void init() {
         registerEngineComponents();
+        registerMaterials();
 
         for (Item item : items) GameRegistry.registerItem(item, item.getUnlocalizedName());
     }
@@ -51,6 +53,6 @@ public class PowerOverhaulItems {
     }
 
     public static void registerMaterials() {
-        //material will have an ingot, block, molten version, and some list of properties
+        MaterialDef.createMaterials();
     }
 }

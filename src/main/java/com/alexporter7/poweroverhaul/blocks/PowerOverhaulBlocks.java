@@ -11,8 +11,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class PowerOverhaulBlocks {
 
-    // public static List<Block> blocks = new ArrayList<Block>();
-
     public static HashMap<String, Block> blocks = new HashMap<>();
 
     public static void registerBlocks() {

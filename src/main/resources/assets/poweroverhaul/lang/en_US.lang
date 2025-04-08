@@ -2,4 +2,18 @@ language.name=English
 language.region=US
 language.code=en_US
 
-fluid.coolant.name=Coolant
+item.steel_ingot.name=Steel Ingot
+item.bronze_ingot.name=Bronze Ingot
+item.copper_ingot.name=Copper Ingot
+item.tin_ingot.name=Tin Ingot
+
+tile.steel_block.name=Steel Block
+tile.bronze_block.name=Bronze Block
+tile.copper_block.name=Copper Block
+tile.tin_block.name=Tin Block
+
+tile.diesel_generator.name=Diesel Generator
+
+tile.coolant.name=Coolant
+tile.oil.name=Oil
+tile.diesel.name=Diesel Fuel

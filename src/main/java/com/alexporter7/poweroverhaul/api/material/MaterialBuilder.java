@@ -8,6 +8,7 @@ public class MaterialBuilder {
     public int weight;
     public int hardness;
     public int meltingPoint;
+    public int color;
 
     public boolean hasBlock = true;
     public boolean hasIngot = true;
@@ -34,6 +35,11 @@ public class MaterialBuilder {
 
     public MaterialBuilder setMeltingPoint(int meltingPoint) {
         this.meltingPoint = meltingPoint;
+        return this;
+    }
+
+    public MaterialBuilder setColor(int color) {
+        this.color = color;
         return this;
     }
 

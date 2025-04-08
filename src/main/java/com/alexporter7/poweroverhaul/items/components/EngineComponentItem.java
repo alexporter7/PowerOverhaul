@@ -2,13 +2,15 @@ package com.alexporter7.poweroverhaul.items.components;
 
 import java.util.List;
 
+import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
+import com.alexporter7.poweroverhaul.items.MaterialItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import com.alexporter7.poweroverhaul.PowerOverhaul;
 
-public class EngineComponentItem extends Item {
+public class EngineComponentItem extends MaterialItem {
 
     public enum ComponentType {
         PISTON,
@@ -16,23 +18,17 @@ public class EngineComponentItem extends Item {
         HEAD
     }
 
-    private final ComponentMaterial componentMaterial;
     private final ComponentType componentType;
 
-    public EngineComponentItem(ComponentType componentType, ComponentMaterial componentMaterial,
-        String unlocalizedName) {
-        this.setUnlocalizedName(unlocalizedName + "_" + componentMaterial.getUnlocalizedMaterialName());
+    public EngineComponentItem(ComponentType componentType, PowerOverhaulMaterial material) {
+        super(material);
+        this.setUnlocalizedName(material.getName() + "_engine_" + componentType.toString().toLowerCase());
         this.setTextureName(this.getDefaultTexture(componentType));
         this.componentType = componentType;
-        this.componentMaterial = componentMaterial;
     }
 
     public ComponentType getComponentType() {
         return componentType;
-    }
-
-    public ComponentMaterial getComponentMaterial() {
-        return componentMaterial;
     }
 
     public String getDefaultTexture(ComponentType componentType) {
@@ -45,9 +41,13 @@ public class EngineComponentItem extends Item {
 
     @Override
     public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List<String> tooltip,
-        boolean p_77624_4_) {
-        super.addInformation(itemStack, entityPlayer, tooltip, p_77624_4_);
-        tooltip.add("Material: " + this.componentMaterial.getMaterialName());
-        tooltip.add("Durability Factor: " + this.componentMaterial.getDurabilityFactor());
+        boolean bool) {
+        super.addInformation(itemStack, entityPlayer, tooltip, bool);
+
+    }
+
+    @Override
+    public int getColorFromItemStack(ItemStack itemStack, int renderPass) {
+        return getMaterialColor();
     }
 }

@@ -17,23 +17,23 @@ public class PowerOverhaulFluids {
 
     public static void registerFluids() {
 
-        registerFluid("coolant");
-        registerFluid("oil");
-        registerFluid("diesel");
+        registerFluid("coolant", 0x10CF00);
+        registerFluid("oil", 0x070707);
+        registerFluid("diesel", 0xF6EC46);
 //        Fluid coolant = createFluid("coolant", PowerOverhaul.MODID + ":fluids/coolant",
 //            75, 0, 800, 100,
 //            fluid -> new PowerOverhaulFluidBlock(fluid));
 
     }
 
-    public static void registerFluid(String fluidName) {
+    public static void registerFluid(String fluidName, int color) {
 
         PowerOverhaulFluid fluid = new PowerOverhaulFluid(fluidName);
         FluidRegistry.registerFluid(fluid);
 
         PowerOverhaulFluidBlock fluidBlock = registerFluidBlock(fluid);
 
-        PowerOverhaulBucket fluidBucket = new PowerOverhaulBucket(fluidBlock);
+        PowerOverhaulBucket fluidBucket = new PowerOverhaulBucket(fluidBlock, color);
         fluidBucket.setUnlocalizedName(fluidName + "_bucket");
 
         GameRegistry.registerItem(

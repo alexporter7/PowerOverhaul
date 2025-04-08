@@ -85,4 +85,8 @@ public class MaterialItem extends Item {
         return color;
     }
 
+    public int getMaterialColor() {
+        return color;
+    }
+
 }

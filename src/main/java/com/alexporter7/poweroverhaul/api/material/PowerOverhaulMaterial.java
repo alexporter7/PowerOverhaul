@@ -3,6 +3,7 @@ package com.alexporter7.poweroverhaul.api.material;
 import com.alexporter7.poweroverhaul.PowerOverhaul;
 import com.alexporter7.poweroverhaul.blocks.MaterialBlock;
 import com.alexporter7.poweroverhaul.items.MaterialItem;
+import com.alexporter7.poweroverhaul.items.components.EngineComponentItem;
 import com.alexporter7.poweroverhaul.util.LangUtil;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
@@ -21,8 +22,16 @@ public class PowerOverhaulMaterial {
     private final boolean hasIngot;
     private final boolean hasMolten;
 
+    private final boolean hasEngineHead;
+    private final boolean hasEngineBlock;
+    private final boolean hasPiston;
+
     private MaterialItem ingot;
     private MaterialBlock block;
+
+    private MaterialItem engineHead;
+    private MaterialItem engineBlock;
+    private MaterialItem piston;
 
     private final LanguageRegistry languageRegistry = LanguageRegistry.instance();
 
@@ -35,6 +44,9 @@ public class PowerOverhaulMaterial {
         hasBlock = builder.hasBlock;
         hasIngot = builder.hasIngot;
         hasMolten = builder.hasMolten;
+        hasEngineHead = builder.hasEngineHead;
+        hasEngineBlock = builder.hasEngineBlock;
+        hasPiston = builder.hasPiston;
     }
 
     //TODO: make this return MaterialItem
@@ -54,6 +66,16 @@ public class PowerOverhaulMaterial {
 
     }
 
+    public void registerEngineComponent(EngineComponentItem.ComponentType componentType) {
+        MaterialItem component = new EngineComponentItem(componentType,this);
+        GameRegistry.registerItem(component, name + "_engine_" + componentType.toString().toLowerCase());
+        switch (componentType) {
+            case BLOCK -> engineBlock = component;
+            case PISTON -> piston = component;
+            case HEAD -> engineHead = component;
+        }
+    }
+
     public MaterialItem getIngot() {
         return ingot;
     }
@@ -65,6 +87,12 @@ public class PowerOverhaulMaterial {
             registerBlock();
         if(hasMolten)
             registerMolten();
+        if(hasEngineBlock)
+            registerEngineComponent(EngineComponentItem.ComponentType.BLOCK);
+        if(hasEngineHead)
+            registerEngineComponent(EngineComponentItem.ComponentType.HEAD);
+        if(hasPiston)
+            registerEngineComponent(EngineComponentItem.ComponentType.PISTON);
     }
 
     public int getWeight() {

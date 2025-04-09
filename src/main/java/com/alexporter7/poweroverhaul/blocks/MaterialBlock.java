@@ -13,12 +13,18 @@ import net.minecraft.world.IBlockAccess;
 
 public class MaterialBlock extends Block {
 
-    private final int color;
+    protected final int color;
+    protected final PowerOverhaulMaterial material;
 
     public MaterialBlock(PowerOverhaulMaterial material) {
         super(Material.iron);
+        this.material = material;
         this.color = material.getColor();
-        this.setBlockName(material.getName() + "_block");
+        this.setBlockName(this.getBlockName());
+    }
+
+    public String getBlockName() {
+        return this.material.getName() + "_block";
     }
 
     @Override

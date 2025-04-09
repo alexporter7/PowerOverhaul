@@ -7,9 +7,6 @@ import java.util.List;
 import com.alexporter7.poweroverhaul.init.MaterialDef;
 import net.minecraft.item.Item;
 
-import com.alexporter7.poweroverhaul.items.components.ComponentMaterial;
-import com.alexporter7.poweroverhaul.items.components.EngineComponentItem;
-
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class PowerOverhaulItems {
@@ -53,6 +50,6 @@ public class PowerOverhaulItems {
     }
 
     public static void registerMaterials() {
-        MaterialDef.createMaterials();
+        MaterialDef.registerMaterials();
     }
 }

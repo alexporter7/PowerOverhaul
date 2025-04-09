@@ -13,10 +13,12 @@ public class MaterialBuilder {
     public boolean hasBlock = true;
     public boolean hasIngot = true;
     public boolean hasMolten = true;
+    public boolean hasOreBlock = true;
 
     public boolean hasEngineHead = true;
     public boolean hasEngineBlock = true;
     public boolean hasPiston = true;
+
 
     public MaterialBuilder() {
 
@@ -59,6 +61,11 @@ public class MaterialBuilder {
 
     public MaterialBuilder noMolten() {
         this.hasMolten = false;
+        return this;
+    }
+
+    public MaterialBuilder noOreBlock() {
+        this.hasOreBlock = false;
         return this;
     }
 

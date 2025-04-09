@@ -9,13 +9,24 @@ public class MaterialDef {
 
     public static HashSet<PowerOverhaulMaterial> materials = new HashSet<>();
 
-    public static void createMaterials() {
-        materials.add(createMaterial("steel", 10, 1500, 15, 0x71797E));
-        materials.add(createMaterial("bronze", 10, 1500, 15, 0xCE8946));
-        materials.add(createMaterial("copper", 10, 1500, 15, 0xB87333));
-        materials.add(createMaterial("tin", 10, 1500, 15, 0xD3D4D5));
+    public static HashSet<PowerOverhaulMaterial> createMaterialList() {
+        HashSet<PowerOverhaulMaterial> materialsList = new HashSet<>();
 
-        registerMaterials();
+        materialsList.add(createMaterial("steel", 10, 1500, 15, 0x71797E));
+        materialsList.add(createMaterial("bronze", 10, 1675, 15, 0xCE8946));
+        materialsList.add(createMaterial("copper", 10, 1983, 15, 0xB87333));
+        materialsList.add(createMaterial("tin", 10, 450, 15, 0xD3D4D5));
+        materialsList.add(createMaterial("titanium", 10, 3040, 15, 0x5B798E));
+        materialsList.add(createMaterial("nickel", 10, 2651, 15, 0xC1BCAF));
+
+        return materialsList;
+    }
+
+    public static void registerMaterials() {
+        materials.addAll(createMaterialList());
+
+        for(PowerOverhaulMaterial material : materials)
+            material.register();
     }
 
     public static PowerOverhaulMaterial createMaterial(String name, int hardness, int meltingPoint,
@@ -26,11 +37,6 @@ public class MaterialDef {
             .setMeltingPoint(meltingPoint)
             .setWeight(weight)
             .setColor(color));
-    }
-
-    private static void registerMaterials() {
-        for(PowerOverhaulMaterial material : materials)
-            material.register();
     }
 
 }

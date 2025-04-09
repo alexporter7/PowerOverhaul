@@ -1,13 +1,11 @@
 package com.alexporter7.poweroverhaul.api.material;
 
-import com.alexporter7.poweroverhaul.PowerOverhaul;
 import com.alexporter7.poweroverhaul.blocks.MaterialBlock;
+import com.alexporter7.poweroverhaul.blocks.MaterialOreBlock;
 import com.alexporter7.poweroverhaul.items.MaterialItem;
 import com.alexporter7.poweroverhaul.items.components.EngineComponentItem;
-import com.alexporter7.poweroverhaul.util.LangUtil;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
-import net.minecraft.client.resources.LanguageManager;
 
 public class PowerOverhaulMaterial {
 
@@ -21,6 +19,7 @@ public class PowerOverhaulMaterial {
     private final boolean hasBlock;
     private final boolean hasIngot;
     private final boolean hasMolten;
+    private final boolean hasOreBlock;
 
     private final boolean hasEngineHead;
     private final boolean hasEngineBlock;
@@ -28,6 +27,7 @@ public class PowerOverhaulMaterial {
 
     private MaterialItem ingot;
     private MaterialBlock block;
+    private MaterialOreBlock oreBlock;
 
     private MaterialItem engineHead;
     private MaterialItem engineBlock;
@@ -47,6 +47,7 @@ public class PowerOverhaulMaterial {
         hasEngineHead = builder.hasEngineHead;
         hasEngineBlock = builder.hasEngineBlock;
         hasPiston = builder.hasPiston;
+        hasOreBlock = builder.hasOreBlock;
     }
 
     //TODO: make this return MaterialItem
@@ -64,6 +65,11 @@ public class PowerOverhaulMaterial {
     //TODO: make this return MaterialFluid
     public void registerMolten() {
 
+    }
+
+    public void registerOreBlock() {
+        oreBlock = new MaterialOreBlock(this);
+        GameRegistry.registerBlock(oreBlock, name + "_ore");
     }
 
     public void registerEngineComponent(EngineComponentItem.ComponentType componentType) {
@@ -87,6 +93,8 @@ public class PowerOverhaulMaterial {
             registerBlock();
         if(hasMolten)
             registerMolten();
+        if(hasOreBlock)
+            registerOreBlock();
         if(hasEngineBlock)
             registerEngineComponent(EngineComponentItem.ComponentType.BLOCK);
         if(hasEngineHead)

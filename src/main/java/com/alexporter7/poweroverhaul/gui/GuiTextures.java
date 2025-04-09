@@ -36,9 +36,6 @@ public enum GuiTextures {
         return this.name;
     }
 
-    public static final TabTexture STEEL_TAB_RIGHT = TabTexture.of(
-        UITexture.fullImage(GuiTextures.TAB_RIGHT.getLocation()),
-        GuiAxis.X,
-        true,
-        32, 28, 4);
+    public static final TabTexture STEEL_TAB_RIGHT = TabTexture
+        .of(UITexture.fullImage(GuiTextures.TAB_RIGHT.getLocation()), GuiAxis.X, true, 32, 28, 4);
 }

@@ -1,13 +1,14 @@
 package com.alexporter7.poweroverhaul.fluid;
 
-import com.alexporter7.poweroverhaul.PowerOverhaul;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+
+import com.alexporter7.poweroverhaul.PowerOverhaul;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class PowerOverhaulFluid extends Fluid {
 
@@ -83,7 +84,6 @@ public class PowerOverhaulFluid extends Fluid {
     }
 
     public void incrementQuality() {
-        if(this.quality < 100)
-            this.quality++;
+        if (this.quality < 100) this.quality++;
     }
 }

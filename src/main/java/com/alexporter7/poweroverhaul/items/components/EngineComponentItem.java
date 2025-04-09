@@ -2,13 +2,12 @@ package com.alexporter7.poweroverhaul.items.components;
 
 import java.util.List;
 
-import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
-import com.alexporter7.poweroverhaul.items.MaterialItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import com.alexporter7.poweroverhaul.PowerOverhaul;
+import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
+import com.alexporter7.poweroverhaul.items.MaterialItem;
 
 public class EngineComponentItem extends MaterialItem {
 
@@ -22,7 +21,10 @@ public class EngineComponentItem extends MaterialItem {
 
     public EngineComponentItem(ComponentType componentType, PowerOverhaulMaterial material) {
         super(material);
-        this.setUnlocalizedName(material.getName() + "_engine_" + componentType.toString().toLowerCase());
+        this.setUnlocalizedName(
+            material.getName() + "_engine_"
+                + componentType.toString()
+                    .toLowerCase());
         this.setTextureName(this.getDefaultTexture(componentType));
         this.componentType = componentType;
     }
@@ -40,8 +42,7 @@ public class EngineComponentItem extends MaterialItem {
     }
 
     @Override
-    public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List<String> tooltip,
-        boolean bool) {
+    public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List<String> tooltip, boolean bool) {
         super.addInformation(itemStack, entityPlayer, tooltip, bool);
 
     }

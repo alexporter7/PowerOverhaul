@@ -1,9 +1,9 @@
 package com.alexporter7.poweroverhaul.init;
 
+import java.util.HashSet;
+
 import com.alexporter7.poweroverhaul.api.material.MaterialBuilder;
 import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
-
-import java.util.HashSet;
 
 public class MaterialDef {
 
@@ -25,18 +25,17 @@ public class MaterialDef {
     public static void registerMaterials() {
         materials.addAll(createMaterialList());
 
-        for(PowerOverhaulMaterial material : materials)
-            material.register();
+        for (PowerOverhaulMaterial material : materials) material.register();
     }
 
-    public static PowerOverhaulMaterial createMaterial(String name, int hardness, int meltingPoint,
-                                                       int weight, int color) {
-        return new PowerOverhaulMaterial(new MaterialBuilder()
-            .setName(name)
-            .setHardness(hardness)
-            .setMeltingPoint(meltingPoint)
-            .setWeight(weight)
-            .setColor(color));
+    public static PowerOverhaulMaterial createMaterial(String name, int hardness, int meltingPoint, int weight,
+        int color) {
+        return new PowerOverhaulMaterial(
+            new MaterialBuilder().setName(name)
+                .setHardness(hardness)
+                .setMeltingPoint(meltingPoint)
+                .setWeight(weight)
+                .setColor(color));
     }
 
 }

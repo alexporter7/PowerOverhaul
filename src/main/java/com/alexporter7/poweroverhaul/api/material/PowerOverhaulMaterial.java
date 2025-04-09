@@ -4,6 +4,7 @@ import com.alexporter7.poweroverhaul.blocks.MaterialBlock;
 import com.alexporter7.poweroverhaul.blocks.MaterialOreBlock;
 import com.alexporter7.poweroverhaul.items.MaterialItem;
 import com.alexporter7.poweroverhaul.items.components.EngineComponentItem;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -50,19 +51,19 @@ public class PowerOverhaulMaterial {
         hasOreBlock = builder.hasOreBlock;
     }
 
-    //TODO: make this return MaterialItem
+    // TODO: make this return MaterialItem
     public void registerIngot() {
         ingot = new MaterialItem(this);
         GameRegistry.registerItem(ingot, name + "_ingot");
     }
 
-    //TODO: make this return MaterialBlock
+    // TODO: make this return MaterialBlock
     public void registerBlock() {
         block = new MaterialBlock(this);
         GameRegistry.registerBlock(block, name + "_block");
     }
 
-    //TODO: make this return MaterialFluid
+    // TODO: make this return MaterialFluid
     public void registerMolten() {
 
     }
@@ -73,8 +74,12 @@ public class PowerOverhaulMaterial {
     }
 
     public void registerEngineComponent(EngineComponentItem.ComponentType componentType) {
-        MaterialItem component = new EngineComponentItem(componentType,this);
-        GameRegistry.registerItem(component, name + "_engine_" + componentType.toString().toLowerCase());
+        MaterialItem component = new EngineComponentItem(componentType, this);
+        GameRegistry.registerItem(
+            component,
+            name + "_engine_"
+                + componentType.toString()
+                    .toLowerCase());
         switch (componentType) {
             case BLOCK -> engineBlock = component;
             case PISTON -> piston = component;
@@ -87,20 +92,13 @@ public class PowerOverhaulMaterial {
     }
 
     public void register() {
-        if(hasIngot)
-            registerIngot();
-        if(hasBlock)
-            registerBlock();
-        if(hasMolten)
-            registerMolten();
-        if(hasOreBlock)
-            registerOreBlock();
-        if(hasEngineBlock)
-            registerEngineComponent(EngineComponentItem.ComponentType.BLOCK);
-        if(hasEngineHead)
-            registerEngineComponent(EngineComponentItem.ComponentType.HEAD);
-        if(hasPiston)
-            registerEngineComponent(EngineComponentItem.ComponentType.PISTON);
+        if (hasIngot) registerIngot();
+        if (hasBlock) registerBlock();
+        if (hasMolten) registerMolten();
+        if (hasOreBlock) registerOreBlock();
+        if (hasEngineBlock) registerEngineComponent(EngineComponentItem.ComponentType.BLOCK);
+        if (hasEngineHead) registerEngineComponent(EngineComponentItem.ComponentType.HEAD);
+        if (hasPiston) registerEngineComponent(EngineComponentItem.ComponentType.PISTON);
     }
 
     public int getWeight() {

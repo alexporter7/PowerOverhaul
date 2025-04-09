@@ -1,14 +1,16 @@
 package com.alexporter7.poweroverhaul.fluid;
 
-import com.alexporter7.poweroverhaul.PowerOverhaul;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+
+import com.alexporter7.poweroverhaul.PowerOverhaul;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class PowerOverhaulBucket extends ItemBucket {
 
@@ -37,7 +39,7 @@ public class PowerOverhaulBucket extends ItemBucket {
 
     @Override
     public int getColorFromItemStack(ItemStack itemStack, int renderPass) {
-        return switch(renderPass) {
+        return switch (renderPass) {
             case 1 -> this.color;
             default -> 0x00FFFFFF;
         };

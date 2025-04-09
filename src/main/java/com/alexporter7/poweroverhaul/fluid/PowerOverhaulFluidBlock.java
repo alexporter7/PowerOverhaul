@@ -1,14 +1,12 @@
 package com.alexporter7.poweroverhaul.fluid;
 
-import com.alexporter7.poweroverhaul.PowerOverhaul;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.BlockFluidClassic;
-import net.minecraftforge.fluids.BlockFluidFinite;
-import net.minecraftforge.fluids.Fluid;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class PowerOverhaulFluidBlock extends BlockFluidClassic {
 
@@ -26,17 +24,19 @@ public class PowerOverhaulFluidBlock extends BlockFluidClassic {
 
     @Override
     public IIcon getIcon(int side, int meta) {
-        return (side == 0 || side == 1)
-            ? this.still
-            : this.flowing;
+        return (side == 0 || side == 1) ? this.still : this.flowing;
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public void registerBlockIcons(IIconRegister register) {
 
-        this.still = register.registerIcon(this.fluid.getIconStill().toString());
-        this.flowing = register.registerIcon(this.fluid.getIconFlowing().toString());
+        this.still = register.registerIcon(
+            this.fluid.getIconStill()
+                .toString());
+        this.flowing = register.registerIcon(
+            this.fluid.getIconFlowing()
+                .toString());
         this.fluid.setFluidIcons(this.still, this.flowing);
 
     }

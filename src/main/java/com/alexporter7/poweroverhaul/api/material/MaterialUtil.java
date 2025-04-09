@@ -11,6 +11,8 @@ public class MaterialUtil {
     }
 
     public static String getRegistryName(PowerOverhaulMaterial material, MaterialType materialType) {
-        return material.getName() + "_" + materialType.toString().toLowerCase();
+        return material.getName() + "_"
+            + materialType.toString()
+                .toLowerCase();
     }
 }

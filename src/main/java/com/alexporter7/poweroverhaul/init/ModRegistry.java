@@ -1,13 +1,11 @@
 package com.alexporter7.poweroverhaul.init;
 
-import com.alexporter7.poweroverhaul.PowerOverhaul;
-import com.alexporter7.poweroverhaul.blocks.meta.MetaPowerOverhaulTEBase;
-import com.alexporter7.poweroverhaul.items.MaterialItem;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import java.util.HashMap;
+
 import net.minecraft.block.Block;
 
-import java.util.HashMap;
+import com.alexporter7.poweroverhaul.blocks.meta.MetaPowerOverhaulTEBase;
+import com.alexporter7.poweroverhaul.items.MaterialItem;
 
 public class ModRegistry {
 

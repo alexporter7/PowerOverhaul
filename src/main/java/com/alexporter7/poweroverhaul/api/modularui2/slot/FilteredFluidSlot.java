@@ -1,10 +1,11 @@
 package com.alexporter7.poweroverhaul.api.modularui2.slot;
 
-import com.cleanroommc.modularui.widgets.FluidSlot;
+import java.util.HashSet;
+
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
-import java.util.HashSet;
+import com.cleanroommc.modularui.widgets.FluidSlot;
 
 public class FilteredFluidSlot extends FluidSlot {
 
@@ -22,10 +23,7 @@ public class FilteredFluidSlot extends FluidSlot {
     }
 
     public boolean canFill(FluidStack fluidStack) {
-        return (this.fluids.contains(fluidStack.getFluid()))
-            ? WHITE_LIST && true
-            : WHITE_LIST && false;
+        return (this.fluids.contains(fluidStack.getFluid())) ? WHITE_LIST && true : WHITE_LIST && false;
     }
-
 
 }

@@ -1,10 +1,9 @@
 package com.alexporter7.poweroverhaul.util;
 
-import java.util.List;
-
 public class TooltipUtil {
 
     public enum Color {
+
         BLACK("§0"),
         DARK_BLUE("§1"),
         DARK_GREEN("§2"),

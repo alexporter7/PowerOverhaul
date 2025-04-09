@@ -4,5 +4,4 @@ import net.minecraft.tileentity.TileEntity;
 
 public class MetaPowerOverhaulTEBase extends TileEntity {
 
-
 }

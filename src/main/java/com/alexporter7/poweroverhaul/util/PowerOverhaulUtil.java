@@ -1,7 +1,5 @@
 package com.alexporter7.poweroverhaul.util;
 
-import com.alexporter7.poweroverhaul.PowerOverhaul;
-
 import java.util.Random;
 
 public class PowerOverhaulUtil {
@@ -17,14 +15,11 @@ public class PowerOverhaulUtil {
     }
 
     public static int getRandomValue(int percent, int min, int max) {
-        return (getRandomChance(percent))
-            ? RANDOM.nextInt(max + 1) + min
-            : 0;
+        return (getRandomChance(percent)) ? RANDOM.nextInt(max + 1) + min : 0;
     }
 
     public static int getRandomValue(int[] properties) {
-        return (properties.length == 2)
-            ? getRandomValue(properties[0], properties[1])
+        return (properties.length == 2) ? getRandomValue(properties[0], properties[1])
             : getRandomValue(properties[0], properties[1], properties[2]);
     }
 

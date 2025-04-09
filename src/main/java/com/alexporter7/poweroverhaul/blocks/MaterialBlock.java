@@ -1,15 +1,15 @@
 package com.alexporter7.poweroverhaul.blocks;
 
-import com.alexporter7.poweroverhaul.PowerOverhaul;
-import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+
+import com.alexporter7.poweroverhaul.PowerOverhaul;
+import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class MaterialBlock extends Block {
 

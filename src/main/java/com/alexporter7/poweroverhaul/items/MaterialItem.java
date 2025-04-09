@@ -1,14 +1,15 @@
 package com.alexporter7.poweroverhaul.items;
 
-import com.alexporter7.poweroverhaul.PowerOverhaul;
-import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
-import com.alexporter7.poweroverhaul.util.TooltipUtil;
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import java.util.List;
+import com.alexporter7.poweroverhaul.PowerOverhaul;
+import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
+import com.alexporter7.poweroverhaul.util.TooltipUtil;
 
 public class MaterialItem extends Item {
 
@@ -67,12 +68,12 @@ public class MaterialItem extends Item {
         temperature -= amount;
     }
 
-//    @Override
-//    public boolean onItemUse(ItemStack itemStack, EntityPlayer entityPlayer, World world, int x, int y, int z,
-//                             int noIdea, float f1, float f2, float f3) {
-//        this.incrementTemperature();
-//        return super.onItemUse(itemStack, entityPlayer, world, x, y, z, noIdea, f1, f2, f3);
-//    }
+    // @Override
+    // public boolean onItemUse(ItemStack itemStack, EntityPlayer entityPlayer, World world, int x, int y, int z,
+    // int noIdea, float f1, float f2, float f3) {
+    // this.incrementTemperature();
+    // return super.onItemUse(itemStack, entityPlayer, world, x, y, z, noIdea, f1, f2, f3);
+    // }
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer player) {

@@ -21,17 +21,13 @@ public class GeneratorProperties {
         this.engineMaxTemp = properties.getProperty(Generator.TEMP_MAX);
         this.engineWarmUpTargetRpm = properties.getProperty(Generator.TARGET_RPM_WARM_UP);
         this.engineIdleTargetRpm = properties.getProperty(Generator.TARGET_RPM_IDLE);
-        this.engineTargetRpmStep = new int[]{
-            properties.getProperty(Generator.RPM_STEP_MIN),
-            properties.getProperty(Generator.RPM_STEP_MAX)};
-        this.engineOffTempStep = new int[]{
-            properties.getProperty(Generator.TEMP_STEP_OFF_CHANCE),
-            properties.getProperty(Generator.TEMP_STEP_OFF_MIN),
-            properties.getProperty(Generator.TEMP_STEP_OFF_MAX)};
-        this.engineWarmUpTempStep = new int[]{
-            properties.getProperty(Generator.TEMP_STEP_WARM_UP_CHANCE),
+        this.engineTargetRpmStep = new int[] { properties.getProperty(Generator.RPM_STEP_MIN),
+            properties.getProperty(Generator.RPM_STEP_MAX) };
+        this.engineOffTempStep = new int[] { properties.getProperty(Generator.TEMP_STEP_OFF_CHANCE),
+            properties.getProperty(Generator.TEMP_STEP_OFF_MIN), properties.getProperty(Generator.TEMP_STEP_OFF_MAX) };
+        this.engineWarmUpTempStep = new int[] { properties.getProperty(Generator.TEMP_STEP_WARM_UP_CHANCE),
             properties.getProperty(Generator.TEMP_STEP_WARM_UP_MIN),
-            properties.getProperty(Generator.TEMP_STEP_WARM_UP_MAX)};
+            properties.getProperty(Generator.TEMP_STEP_WARM_UP_MAX) };
 
     }
 

@@ -1,11 +1,13 @@
 package com.alexporter7.poweroverhaul.blocks;
 
-import com.alexporter7.poweroverhaul.PowerOverhaul;
-import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.world.IBlockAccess;
+
+import com.alexporter7.poweroverhaul.PowerOverhaul;
+import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class MaterialOreBlock extends MaterialBlock {
 
@@ -28,7 +30,7 @@ public class MaterialOreBlock extends MaterialBlock {
         return 0xFFFFFF;
     }
 
-    //TODO: add in material builder if you want shiny or dull ore
+    // TODO: add in material builder if you want shiny or dull ore
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {

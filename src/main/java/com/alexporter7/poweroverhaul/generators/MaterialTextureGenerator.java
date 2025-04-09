@@ -1,18 +1,18 @@
 package com.alexporter7.poweroverhaul.generators;
 
-import com.alexporter7.poweroverhaul.PowerOverhaul;
-import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
-import com.alexporter7.poweroverhaul.init.MaterialDef;
-import net.minecraft.util.ResourceLocation;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashSet;
+
+import javax.imageio.ImageIO;
+
+import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
+import com.alexporter7.poweroverhaul.init.MaterialDef;
 
 public class MaterialTextureGenerator {
 
@@ -21,14 +21,12 @@ public class MaterialTextureGenerator {
 
     public static void main(String[] args) throws FileNotFoundException {
         generateOreTextures();
-//        File file = new File(".");
-//        System.out.println(Arrays.toString(file.list()));
     }
 
     public static void generateOreTextures() throws FileNotFoundException {
         HashSet<PowerOverhaulMaterial> materials = MaterialDef.createMaterialList();
 
-        for(PowerOverhaulMaterial material : materials) {
+        for (PowerOverhaulMaterial material : materials) {
             BufferedImage result = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
             Graphics2D image = result.createGraphics();
 
@@ -42,8 +40,9 @@ public class MaterialTextureGenerator {
 
                 File outputFile = new File(getFileOutput(material));
                 ImageIO.write(result, "png", outputFile);
+            } catch (IOException exception) {
+                throw new FileNotFoundException();
             }
-            catch (IOException exception) { throw new FileNotFoundException(); }
 
         }
     }
@@ -66,6 +65,7 @@ public class MaterialTextureGenerator {
     }
 
     public static String getFileOutput(PowerOverhaulMaterial material) {
-        return "./src/main/resources/assets/poweroverhaul/textures/blocks/ores/" + material.getName() + "_ore_block.png";
+        return "./src/main/resources/assets/poweroverhaul/textures/blocks/ores/" + material.getName()
+            + "_ore_block.png";
     }
 }

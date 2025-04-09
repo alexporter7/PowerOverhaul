@@ -69,7 +69,7 @@ public class PowerOverhaulMaterial {
 
     public void registerOreBlock() {
         oreBlock = new MaterialOreBlock(this);
-        GameRegistry.registerBlock(oreBlock, name + "_ore");
+        GameRegistry.registerBlock(oreBlock, name + "_ore_block");
     }
 
     public void registerEngineComponent(EngineComponentItem.ComponentType componentType) {

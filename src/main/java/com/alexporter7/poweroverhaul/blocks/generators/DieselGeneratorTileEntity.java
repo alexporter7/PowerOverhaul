@@ -2,25 +2,22 @@ package com.alexporter7.poweroverhaul.blocks.generators;
 
 import com.alexporter7.poweroverhaul.PowerOverhaul;
 import com.alexporter7.poweroverhaul.api.properties.GeneratorProperties;
-import com.alexporter7.poweroverhaul.api.properties.Properties;
 import com.alexporter7.poweroverhaul.fluid.PowerOverhaulFluid;
 import com.alexporter7.poweroverhaul.init.PropertyDef;
 import com.alexporter7.poweroverhaul.util.PowerOverhaulUtil;
-import com.cleanroommc.modularui.value.sync.SyncHandlers;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
 import com.alexporter7.poweroverhaul.gui.GuiDefinitions;
-import com.alexporter7.poweroverhaul.blocks.meta.MetaPowerOverhaulTileEntity;
+import com.alexporter7.poweroverhaul.blocks.meta.MetaPowerOverhaulTileEntityUI;
 import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiHelper;
 import com.cleanroommc.modularui.factory.PosGuiData;
 import com.cleanroommc.modularui.screen.ModularPanel;
 import com.cleanroommc.modularui.utils.item.ItemStackHandler;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 
-public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntity {
+public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntityUI {
 
     private static final GeneratorProperties generatorProperties =
         new GeneratorProperties(PropertyDef.DIESEL_GEN_PROPS);

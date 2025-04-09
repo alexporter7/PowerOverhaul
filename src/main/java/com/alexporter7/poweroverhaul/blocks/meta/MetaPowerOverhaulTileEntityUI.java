@@ -1,6 +1,5 @@
 package com.alexporter7.poweroverhaul.blocks.meta;
 
-import com.alexporter7.poweroverhaul.PowerOverhaul;
 import net.minecraft.tileentity.TileEntity;
 
 import com.cleanroommc.modularui.api.IGuiHolder;
@@ -9,7 +8,7 @@ import com.cleanroommc.modularui.screen.ModularPanel;
 import com.cleanroommc.modularui.screen.ModularScreen;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 
-public class MetaPowerOverhaulTileEntity extends TileEntity implements IGuiHolder<PosGuiData> {
+public class MetaPowerOverhaulTileEntityUI extends MetaPowerOverhaulTEBase implements IGuiHolder<PosGuiData> {
 
     @Override
     public ModularScreen createScreen(PosGuiData data, ModularPanel mainPanel) {

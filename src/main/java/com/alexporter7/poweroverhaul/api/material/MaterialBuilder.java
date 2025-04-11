@@ -1,5 +1,7 @@
 package com.alexporter7.poweroverhaul.api.material;
 
+import java.util.HashSet;
+
 public class MaterialBuilder {
 
     /* Static Properties */
@@ -10,14 +12,7 @@ public class MaterialBuilder {
     public int meltingPoint;
     public int color;
 
-    public boolean hasBlock = true;
-    public boolean hasIngot = true;
-    public boolean hasMolten = true;
-    public boolean hasOreBlock = true;
-
-    public boolean hasEngineHead = true;
-    public boolean hasEngineBlock = true;
-    public boolean hasPiston = true;
+    public HashSet<MaterialUtil.Component> components = new HashSet<>();
 
     public MaterialBuilder() {
 
@@ -48,38 +43,8 @@ public class MaterialBuilder {
         return this;
     }
 
-    public MaterialBuilder noBlock() {
-        this.hasBlock = false;
-        return this;
-    }
-
-    public MaterialBuilder noIngot() {
-        this.hasIngot = false;
-        return this;
-    }
-
-    public MaterialBuilder noMolten() {
-        this.hasMolten = false;
-        return this;
-    }
-
-    public MaterialBuilder noOreBlock() {
-        this.hasOreBlock = false;
-        return this;
-    }
-
-    public MaterialBuilder hasEngineBlock(boolean hasEngineBlock) {
-        this.hasEngineBlock = hasEngineBlock;
-        return this;
-    }
-
-    public MaterialBuilder hasEngineHead(boolean hasEngineHead) {
-        this.hasEngineHead = hasEngineHead;
-        return this;
-    }
-
-    public MaterialBuilder hasPistion(boolean hasPiston) {
-        this.hasPiston = hasPiston;
+    public MaterialBuilder setComponents(HashSet<MaterialUtil.Component> components) {
+        this.components.addAll(components);
         return this;
     }
 

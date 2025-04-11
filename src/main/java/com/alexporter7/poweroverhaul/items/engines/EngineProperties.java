@@ -1,5 +1,6 @@
 package com.alexporter7.poweroverhaul.items.engines;
 
+import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
 import com.alexporter7.poweroverhaul.items.components.ComponentMaterial;
 import com.alexporter7.poweroverhaul.items.components.EngineComponentItem;
 
@@ -22,11 +23,12 @@ public class EngineProperties {
         this.horsepower = horsepower;
     }
 
-    public ComponentMaterial getComponentMaterial(EngineComponentItem.ComponentType componentType) {
+    public ComponentMaterial getComponentMaterial(MaterialUtil.Component componentType) {
         return switch (componentType) {
-            case PISTON -> this.piston;
-            case BLOCK -> this.engineBlock;
-            case HEAD -> this.engineHead;
+            case ENGINE_PISTON -> this.piston;
+            case ENGINE_BLOCK -> this.engineBlock;
+            case ENGINE_HEAD -> this.engineHead;
+            default -> throw new IllegalStateException("Unexpected value: " + componentType);
         };
     }
 

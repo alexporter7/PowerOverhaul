@@ -2,12 +2,13 @@ package com.alexporter7.poweroverhaul.items;
 
 import java.util.List;
 
+import com.alexporter7.poweroverhaul.PowerOverhaul;
+import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.alexporter7.poweroverhaul.PowerOverhaul;
 import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
 import com.alexporter7.poweroverhaul.util.TooltipUtil;
 
@@ -22,13 +23,18 @@ public class MaterialItem extends Item {
     /* Dynamic Properties */
     private int temperature = 75;
 
-    public MaterialItem(PowerOverhaulMaterial material) {
-        this.setUnlocalizedName(material.getName() + "_ingot");
+    private final MaterialUtil.Component component;
+    private final PowerOverhaulMaterial material;
+
+    public MaterialItem(PowerOverhaulMaterial material, MaterialUtil.Component component) {
+        this.material = material;
+        this.component = component;
         this.weight = material.getWeight();
         this.hardness = material.getHardness();
         this.meltingPoint = material.getMeltingPoint();
         this.color = material.getColor();
-        this.setTextureName(PowerOverhaul.MODID + ":ingot");
+        this.setUnlocalizedName(MaterialUtil.getRegistryName(material, component));
+        this.setTextureName(getTexture());
     }
 
     @Override
@@ -38,6 +44,10 @@ public class MaterialItem extends Item {
         tooltip.add(TooltipUtil.createLabelValueTooltip(TooltipUtil.Color.AQUA, "Weight", weight));
         tooltip.add(TooltipUtil.createLabelValueTooltip(TooltipUtil.Color.AQUA, "Hardness", hardness));
         tooltip.add(TooltipUtil.createLabelValueTooltip(TooltipUtil.Color.AQUA, "Melting Point", meltingPoint));
+    }
+
+    private String getTexture() {
+        return PowerOverhaul.MODID + ":" + component.toString().toLowerCase();
     }
 
     public int getWeight() {
@@ -67,13 +77,6 @@ public class MaterialItem extends Item {
     public void decrementTemperature(int amount) {
         temperature -= amount;
     }
-
-    // @Override
-    // public boolean onItemUse(ItemStack itemStack, EntityPlayer entityPlayer, World world, int x, int y, int z,
-    // int noIdea, float f1, float f2, float f3) {
-    // this.incrementTemperature();
-    // return super.onItemUse(itemStack, entityPlayer, world, x, y, z, noIdea, f1, f2, f3);
-    // }
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer player) {

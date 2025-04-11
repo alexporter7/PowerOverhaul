@@ -1,43 +1,37 @@
 package com.alexporter7.poweroverhaul.items.components;
 
+import static com.alexporter7.poweroverhaul.api.material.MaterialUtil.Component.*;
+
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 import com.alexporter7.poweroverhaul.PowerOverhaul;
+import com.alexporter7.poweroverhaul.api.material.MaterialUtil.Component;
 import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
 import com.alexporter7.poweroverhaul.items.MaterialItem;
 
 public class EngineComponentItem extends MaterialItem {
 
-    public enum ComponentType {
-        PISTON,
-        BLOCK,
-        HEAD
+    private final Component componentType;
+
+    public EngineComponentItem(PowerOverhaulMaterial material, Component component) {
+        super(material, component);
+        this.componentType = component;
+        this.setTextureName(this.getDefaultTexture(component));
     }
 
-    private final ComponentType componentType;
-
-    public EngineComponentItem(ComponentType componentType, PowerOverhaulMaterial material) {
-        super(material);
-        this.setUnlocalizedName(
-            material.getName() + "_engine_"
-                + componentType.toString()
-                    .toLowerCase());
-        this.setTextureName(this.getDefaultTexture(componentType));
-        this.componentType = componentType;
-    }
-
-    public ComponentType getComponentType() {
+    public Component getComponentType() {
         return componentType;
     }
 
-    public String getDefaultTexture(ComponentType componentType) {
+    public String getDefaultTexture(Component componentType) {
         return switch (componentType) {
-            case PISTON -> PowerOverhaul.MODID + ":piston_default";
-            case BLOCK -> PowerOverhaul.MODID + ":engine_block_default";
-            case HEAD -> PowerOverhaul.MODID + ":engine_head_default";
+            case ENGINE_PISTON -> PowerOverhaul.MODID + ":piston_default";
+            case ENGINE_BLOCK -> PowerOverhaul.MODID + ":engine_block_default";
+            case ENGINE_HEAD -> PowerOverhaul.MODID + ":engine_head_default";
+            default -> "";
         };
     }
 

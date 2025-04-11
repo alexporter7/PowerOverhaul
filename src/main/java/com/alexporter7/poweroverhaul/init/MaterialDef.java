@@ -1,15 +1,12 @@
 package com.alexporter7.poweroverhaul.init;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-
 import com.alexporter7.poweroverhaul.api.material.MaterialBuilder;
 import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
 import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
 
-import static com.alexporter7.poweroverhaul.api.material.MaterialUtil.*;
+import java.util.HashSet;
+
+import static com.alexporter7.poweroverhaul.api.material.MaterialUtil.Component;
 
 public class MaterialDef {
 

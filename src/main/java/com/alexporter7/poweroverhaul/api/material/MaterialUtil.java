@@ -2,15 +2,17 @@ package com.alexporter7.poweroverhaul.api.material;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.function.Consumer;
 
 import com.alexporter7.poweroverhaul.blocks.MaterialBlock;
 import com.alexporter7.poweroverhaul.blocks.MaterialOreBlock;
+import com.alexporter7.poweroverhaul.init.ModRegistry;
 import com.alexporter7.poweroverhaul.items.MaterialItem;
 import com.alexporter7.poweroverhaul.items.components.EngineComponentItem;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 
 public class MaterialUtil {
 
@@ -28,7 +30,7 @@ public class MaterialUtil {
         BLOCK(Type.BLOCK),
 
         /* Ores */
-        ORE(Type.ORE),
+        ORE_BLOCK(Type.ORE),
 
         /* Fluids */
         //MOLTEN(Type.FLUID),
@@ -55,23 +57,48 @@ public class MaterialUtil {
                 .toLowerCase();
     }
 
+    public static String getLangName(PowerOverhaulMaterial material, Component component) {
+        return switch (component.TYPE) {
+            case BLOCK, ORE -> "tile." + material.getName() + "_" + component.toString().toLowerCase() + ".name=";
+            case ITEM, ENGINE_COMPONENT ->
+                "item." + material.getName() + "_" + component.toString().toLowerCase() + ".name=";
+            default -> null;
+        };
+    }
+
+    public static String getEnglishTranslation(PowerOverhaulMaterial material, Component component) {
+        String name = material.getName().substring(0,1).toUpperCase()
+            + material.getName().substring(1).toLowerCase();
+        for(String word : component.toString().split("_"))
+            name = name + " " + word.substring(0,1).toUpperCase() + word.substring(1).toLowerCase();
+        return name;
+    }
+
     // TODO: fix fluid then do @NotNull
     public static Consumer<Component> getRegister(PowerOverhaulMaterial material, Component component) {
         return switch (component.TYPE) {
             case BLOCK -> (_component -> {
-                GameRegistry.registerBlock(new MaterialBlock(material), getRegistryName(material, _component));
+                Block block = new MaterialBlock(material);
+                ModRegistry.BLOCKS.put(getRegistryName(material, _component), block);
+                GameRegistry.registerBlock(block, getRegistryName(material, _component));
             });
             case ORE -> (_component -> {
-                GameRegistry.registerBlock(new MaterialOreBlock(material), getRegistryName(material, _component));
+                Block block = new MaterialOreBlock(material);
+                ModRegistry.BLOCKS.put(getRegistryName(material, _component), block);
+                GameRegistry.registerBlock(block, getRegistryName(material, _component));
             });
             case FLUID -> null;
             case ITEM -> (_component) -> {
                 String regName = getRegistryName(material, component);
-                GameRegistry.registerItem(new MaterialItem(material, component), regName);
+                Item item = new MaterialItem(material, component);
+                ModRegistry.ITEMS.put(regName, item);
+                GameRegistry.registerItem(item, regName);
             };
             case ENGINE_COMPONENT -> (_component) -> {
                 String regName = getRegistryName(material, component);
-                GameRegistry.registerItem(new EngineComponentItem(material, component), regName);
+                Item item = new EngineComponentItem(material, component);
+                ModRegistry.ITEMS.put(regName, item);
+                GameRegistry.registerItem(item, regName);
             };
         };
     }
@@ -81,7 +108,7 @@ public class MaterialUtil {
     }
 
     public static HashSet<Component> getAllComponentsNoEngine() {
-        return new HashSet<>(Arrays.asList(Component.BLOCK, Component.ORE, //Component.MOLTEN,
+        return new HashSet<>(Arrays.asList(Component.BLOCK, Component.ORE_BLOCK, //Component.MOLTEN,
             Component.INGOT, Component.DUST));
     }
 

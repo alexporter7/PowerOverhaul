@@ -1,19 +1,42 @@
-language.name=English
-language.region=US
-language.code=en_US
-
-item.steel_ingot.name=Steel Ingot
-item.bronze_ingot.name=Bronze Ingot
-item.copper_ingot.name=Copper Ingot
-item.tin_ingot.name=Tin Ingot
-
 tile.steel_block.name=Steel Block
+tile.bronze_ore_block.name=Bronze Ore Block
+item.bronze_engine_piston.name=Bronze Engine Piston
+tile.nickel_ore_block.name=Nickel Ore Block
+tile.tin_ore_block.name=Tin Ore Block
+item.tin_engine_head.name=Tin Engine Head
+item.tin_engine_block.name=Tin Engine Block
+tile.titanium_block.name=Titanium Block
 tile.bronze_block.name=Bronze Block
+item.bronze_engine_block.name=Bronze Engine Block
+tile.nickel_block.name=Nickel Block
+item.copper_engine_block.name=Copper Engine Block
+item.steel_engine_head.name=Steel Engine Head
+item.titanium_dust.name=Titanium Dust
+item.bronze_engine_head.name=Bronze Engine Head
+item.tin_engine_piston.name=Tin Engine Piston
+item.titanium_engine_block.name=Titanium Engine Block
+item.titanium_engine_piston.name=Titanium Engine Piston
+item.bronze_ingot.name=Bronze Ingot
+item.nickel_engine_block.name=Nickel Engine Block
+item.nickel_ingot.name=Nickel Ingot
+item.tin_ingot.name=Tin Ingot
+item.nickel_engine_piston.name=Nickel Engine Piston
+item.tin_dust.name=Tin Dust
+item.steel_engine_piston.name=Steel Engine Piston
+tile.titanium_ore_block.name=Titanium Ore Block
 tile.copper_block.name=Copper Block
+item.titanium_engine_head.name=Titanium Engine Head
 tile.tin_block.name=Tin Block
-
-tile.diesel_generator.name=Diesel Generator
-
-tile.coolant.name=Coolant
-tile.oil.name=Oil
-tile.diesel.name=Diesel Fuel
+item.steel_ingot.name=Steel Ingot
+item.nickel_dust.name=Nickel Dust
+item.copper_engine_piston.name=Copper Engine Piston
+item.nickel_engine_head.name=Nickel Engine Head
+tile.steel_ore_block.name=Steel Ore Block
+item.copper_ingot.name=Copper Ingot
+item.steel_engine_block.name=Steel Engine Block
+item.copper_engine_head.name=Copper Engine Head
+item.steel_dust.name=Steel Dust
+item.bronze_dust.name=Bronze Dust
+tile.copper_ore_block.name=Copper Ore Block
+item.titanium_ingot.name=Titanium Ingot
+item.copper_dust.name=Copper Dust

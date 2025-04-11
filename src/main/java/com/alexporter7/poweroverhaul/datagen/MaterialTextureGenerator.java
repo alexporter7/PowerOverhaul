@@ -1,4 +1,4 @@
-package com.alexporter7.poweroverhaul.generators;
+package com.alexporter7.poweroverhaul.datagen;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;

@@ -10,7 +10,7 @@ import static com.alexporter7.poweroverhaul.api.material.MaterialUtil.Component;
 
 public class MaterialDef {
 
-    public static HashSet<PowerOverhaulMaterial> materials = new HashSet<>();
+    public static final HashSet<PowerOverhaulMaterial> MATERIALS = new HashSet<>();
 
     public static HashSet<Component> ALL_COMPONENTS = MaterialUtil.getAllComponents();
     public static HashSet<Component> COMPONENTS_NO_ENGINE = MaterialUtil.getAllComponentsNoEngine();
@@ -30,9 +30,9 @@ public class MaterialDef {
     }
 
     public static void registerMaterials() {
-        materials.addAll(createMaterialList());
+        MATERIALS.addAll(createMaterialList());
 
-        for (PowerOverhaulMaterial material : materials) material.register();
+        for (PowerOverhaulMaterial material : MATERIALS) material.register();
     }
 
     public static PowerOverhaulMaterial createMaterial(String name, int hardness, int meltingPoint, int weight,

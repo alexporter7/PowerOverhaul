@@ -3,7 +3,6 @@ package com.alexporter7.poweroverhaul.datagen;
 import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
 import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
 import com.alexporter7.poweroverhaul.init.MaterialDef;
-import com.alexporter7.poweroverhaul.init.ModRegistry;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

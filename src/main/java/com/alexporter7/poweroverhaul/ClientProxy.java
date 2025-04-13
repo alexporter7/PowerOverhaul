@@ -1,5 +1,6 @@
 package com.alexporter7.poweroverhaul;
 
+import com.alexporter7.poweroverhaul.init.ModRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
@@ -21,7 +22,7 @@ public class ClientProxy extends CommonProxy {
         super.preInit(event);
 
         PowerOverhaul.LOG.info("Registering Block Renderers");
-        PowerOverhaulRender.registerBlockRenderers();
+        ModRegistry.registerBlockRenderers();
 
         PowerOverhaul.LOG.info("Registering Creative Tab(s)");
         PowerOverhaul.powerOverhaulTab = new CreativeTabs(PowerOverhaul.MOD_LABEL) {

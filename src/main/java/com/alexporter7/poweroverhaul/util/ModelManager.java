@@ -8,7 +8,8 @@ public class ModelManager {
 
     public enum Texture {
 
-        DIESEL_GENERATOR("textures/models/diesel_generator");
+        DIESEL_GENERATOR("textures/models/diesel_generator"),
+        MUSIC_PLAYER("textures/models/music_player");
 
         private final ResourceLocation resourceLocation;
 

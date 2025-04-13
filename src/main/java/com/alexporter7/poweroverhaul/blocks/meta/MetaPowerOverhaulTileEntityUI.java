@@ -15,7 +15,7 @@ public class MetaPowerOverhaulTileEntityUI extends MetaPowerOverhaulTEBase imple
 
     @Override
     public ModularPanel buildUI(PosGuiData data, PanelSyncManager syncManager) {
-        return null;
+        return new ModularPanel("meta_poweroverhaul_te_base");
     }
 
 }

@@ -2,6 +2,7 @@ package com.alexporter7.poweroverhaul;
 
 import com.alexporter7.poweroverhaul.blocks.PowerOverhaulBlocks;
 import com.alexporter7.poweroverhaul.fluid.PowerOverhaulFluids;
+import com.alexporter7.poweroverhaul.init.ModRegistry;
 import com.alexporter7.poweroverhaul.items.PowerOverhaulItems;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -18,11 +19,8 @@ public class CommonProxy {
 
         PowerOverhaul.LOG.info("PowerOverhaul version: " + Tags.VERSION);
 
-        PowerOverhaul.LOG.info("Registering PowerOverhaul Items");
-        PowerOverhaulItems.init();
-
-        PowerOverhaul.LOG.info("Registering PowerOverhaul Blocks");
-        PowerOverhaulBlocks.registerBlocks();
+        ModRegistry.preInit();
+        ModRegistry.registerPreInit();
 
         PowerOverhaul.LOG.info("Registering PowerOverhaul Fluids");
         PowerOverhaulFluids.registerFluids();
@@ -33,7 +31,8 @@ public class CommonProxy {
     public void init(FMLInitializationEvent event) {
 
         PowerOverhaul.LOG.info("Registering PowerOverhaul Tile Entities");
-        PowerOverhaulBlocks.registerTileEntities();
+        ModRegistry.init();
+        ModRegistry.registerInit();
 
     }
 

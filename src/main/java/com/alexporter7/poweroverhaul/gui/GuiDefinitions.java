@@ -4,6 +4,7 @@ import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiBuilder;
 import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiHelper;
 import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiProperties;
 import com.alexporter7.poweroverhaul.blocks.generators.DieselGeneratorTileEntity;
+import com.alexporter7.poweroverhaul.blocks.misc.MusicPlayerTileEntity;
 import com.cleanroommc.modularui.api.widget.IWidget;
 import com.cleanroommc.modularui.factory.PosGuiData;
 import com.cleanroommc.modularui.screen.ModularPanel;
@@ -28,6 +29,23 @@ public class GuiDefinitions {
 
         public static final String DIESEL_GENERATOR = "poweroverhaul:diesel_generator_ui";
 
+    }
+
+    public static ModularPanel buildMusicPlayerGui(PosGuiData posGuiData, PanelSyncManager syncManager,
+                                                   MusicPlayerTileEntity tileEntity) {
+        GuiProperties musicGuiProps = new GuiProperties(176, 166)
+            .addProperty(GuiProperties.Property.GUI_BACKGROUND, GuiTextures.STEEL_BACKGROUND.getLocation())
+            .addProperty(GuiProperties.Property.GUI_NAME, GuiTextures.STEEL_BACKGROUND.getName())
+            .addProperty(GuiProperties.Property.TITLE, "Music Player")
+            .addProperty(GuiProperties.Property.TITLE_NAME, GuiTextures.TITLE_BACKGROUND.getName())
+            .addProperty(GuiProperties.Property.TITLE_BACKGROUND, GuiTextures.TITLE_BACKGROUND.getLocation());
+
+        ModularPanel panel = new GuiBuilder(posGuiData, syncManager, musicGuiProps)
+            .createTitle()
+            .setBackground()
+            .build();
+
+        return panel;
     }
 
     public static ModularPanel buildDieselGeneratorGui(PosGuiData posGuiData, PanelSyncManager syncManager,

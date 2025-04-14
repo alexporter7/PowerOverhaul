@@ -4,8 +4,11 @@ import java.util.HashMap;
 
 import com.alexporter7.poweroverhaul.PowerOverhaul;
 import com.alexporter7.poweroverhaul.blocks.PowerOverhaulBlocks;
+import com.alexporter7.poweroverhaul.blocks.machines.AlloySmelterBlock;
+import com.alexporter7.poweroverhaul.blocks.machines.AlloySmelterTileEntity;
 import com.alexporter7.poweroverhaul.blocks.misc.MusicPlayerBlock;
 import com.alexporter7.poweroverhaul.blocks.misc.MusicPlayerTileEntity;
+import com.alexporter7.poweroverhaul.blocks.models.AlloySmelterModel;
 import com.alexporter7.poweroverhaul.blocks.models.DieselGeneratorModel;
 import com.alexporter7.poweroverhaul.blocks.models.MusicPlayerModel;
 import com.alexporter7.poweroverhaul.render.renderers.PowerOverhaulBlockRenderer;
@@ -43,6 +46,7 @@ public class ModRegistry {
     public static HashMap<String, Block> initBlocks() {
         BLOCKS.put("diesel_generator", new DieselGeneratorBlock());
         BLOCKS.put("music_player", new MusicPlayerBlock());
+        BLOCKS.put("alloy_smelter", new AlloySmelterBlock());
 
         return BLOCKS;
     }
@@ -50,6 +54,7 @@ public class ModRegistry {
     public static void initTileEntities() {
         TILE_ENTITIES.put("diesel_generator_te", DieselGeneratorTileEntity.class);
         TILE_ENTITIES.put("music_player_te", MusicPlayerTileEntity.class);
+        TILE_ENTITIES.put("alloy_smelter_te", AlloySmelterTileEntity.class);
     }
 
     public static void initItems() {
@@ -68,6 +73,12 @@ public class ModRegistry {
             MusicPlayerTileEntity.class,
             new MusicPlayerTileEntity(),
             "music_player"
+        );
+        registerBlockRenderer(
+            new PowerOverhaulBlockRenderer(new AlloySmelterModel(), ModelManager.Texture.ALLOY_SMELTER),
+            AlloySmelterTileEntity.class,
+            new AlloySmelterTileEntity(),
+            "alloy_smelter"
         );
     }
 

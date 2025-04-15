@@ -1,6 +1,7 @@
 package com.alexporter7.poweroverhaul.blocks.generators;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
@@ -100,27 +101,14 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntityUI {
     @Override
     public void updateEntity() {
 
-        if (getWorldObj().isRemote) {
-            updateState();
-            updateRpm();
-            updateFluids();
-            updateTemperature();
-            markDirty();
-            try {
-                // String t = getCoolantString();
-                PowerOverhaul.LOG.info(this.coolant.getFluidAmount());
-            } catch (Exception ignored) {
+        if(this.getWorldObj().isRemote)
+            return;
 
-            }
-
-        }
-        // else {
-        // try {
-        // getCoolantString();
-        // } catch (Exception ignored) {
-        //
-        // }
-        // }
+        updateState();
+        updateRpm();
+        updateFluids();
+        updateTemperature();
+        markDirty();
 
     }
 
@@ -230,6 +218,10 @@ public class DieselGeneratorTileEntity extends MetaPowerOverhaulTileEntityUI {
 
     public boolean canEditFluids() {
         return this.state == State.MAINTENANCE;
+    }
+
+    public void decrementFluidQuality(FluidTank fluidTank) {
+        ((PowerOverhaulFluid)fluidTank.getFluid().getFluid()).decrementQuality();
     }
 
     public String getCoolantString() {

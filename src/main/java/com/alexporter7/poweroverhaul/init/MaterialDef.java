@@ -18,12 +18,30 @@ public class MaterialDef {
     public static HashSet<PowerOverhaulMaterial> createMaterialList() {
         HashSet<PowerOverhaulMaterial> materialsList = new HashSet<>();
 
-        materialsList.add(createMaterial("tin", 10, 450, 15, 0xD3D4D5, COMPONENTS_NO_ENGINE));
-        materialsList.add(createMaterial("copper", 10, 1983, 15, 0xB87333, COMPONENTS_NO_ENGINE));
-        materialsList.add(createMaterial("nickel", 10, 2651, 15, 0xC1BCAF, COMPONENTS_NO_ENGINE));
+        /*
+        Base Materials
+        */
+
+        /* Weak */
+        materialsList.add(createMaterial("tin", 10, 450, 118, 0xD3D4D5, COMPONENTS_NO_ENGINE));
+        materialsList.add(createMaterial("copper", 3, 1983, 64, 0xB87333, COMPONENTS_NO_ENGINE));
+        materialsList.add(createMaterial("nickel", 10, 2651, 59, 0xC1BCAF, COMPONENTS_NO_ENGINE));
+        materialsList.add(createMaterial("lithium", 10, 357, 7, 0xB3CCD1, COMPONENTS_NO_ENGINE));
+        materialsList.add(createMaterial("sodium", 10, 208, 23, 0x54BBD2, COMPONENTS_NO_ENGINE));
+        materialsList.add(createMaterial("magnesium", 10, 1202, 24, 0xC2C4BF, COMPONENTS_NO_ENGINE));
+
+        /* Strong */
+        materialsList.add(createMaterial("titanium", 10, 3040, 48, 0x5B798E, ALL_COMPONENTS));
+        materialsList.add(createMaterial("aluminium", 10, 1220, 27, 0xADB2BD, ALL_COMPONENTS));
+
+        /*
+        Alloys
+        */
+
+        /* Weak */
         materialsList.add(createMaterial("bronze", 10, 1675, 15, 0xCE8946, COMPONENTS_NO_ENGINE));
 
-        materialsList.add(createMaterial("titanium", 10, 3040, 15, 0x5B798E, ALL_COMPONENTS));
+        /* Strong */
         materialsList.add(createMaterial("steel", 10, 1500, 15, 0x71797E, ALL_COMPONENTS));
 
         return materialsList;

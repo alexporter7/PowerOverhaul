@@ -5,13 +5,12 @@ import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiHelper;
 import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiProperties;
 import com.alexporter7.poweroverhaul.blocks.generators.DieselGeneratorTileEntity;
 import com.alexporter7.poweroverhaul.blocks.misc.MusicPlayerTileEntity;
+import com.cleanroommc.modularui.api.IPanelHandler;
+import com.cleanroommc.modularui.api.drawable.IKey;
 import com.cleanroommc.modularui.api.widget.IWidget;
 import com.cleanroommc.modularui.factory.PosGuiData;
 import com.cleanroommc.modularui.screen.ModularPanel;
-import com.cleanroommc.modularui.value.sync.BooleanSyncValue;
-import com.cleanroommc.modularui.value.sync.DoubleSyncValue;
-import com.cleanroommc.modularui.value.sync.FluidSlotSyncHandler;
-import com.cleanroommc.modularui.value.sync.PanelSyncManager;
+import com.cleanroommc.modularui.value.sync.*;
 import com.cleanroommc.modularui.widget.ParentWidget;
 import com.cleanroommc.modularui.widgets.PageButton;
 import com.cleanroommc.modularui.widgets.PagedWidget;
@@ -57,18 +56,20 @@ public class GuiDefinitions {
             .addProperty(GuiProperties.Property.TITLE_NAME, GuiTextures.TITLE_BACKGROUND.getName())
             .addProperty(GuiProperties.Property.TITLE_BACKGROUND, GuiTextures.TITLE_BACKGROUND.getLocation());
 
-        syncManager.syncValue("coolant", new FluidSlotSyncHandler(tileEntity.coolant));
+        syncManager.syncValue("stateSync", new StringSyncValue(tileEntity::getState, tileEntity::setState));
+        syncManager.syncValue("rpmSync", new IntSyncValue(tileEntity::getRpm, tileEntity::setRpm));
+        syncManager.syncValue("hpSync", new IntSyncValue(tileEntity::getHp, tileEntity::setHp));
+        syncManager.syncValue("tempSync", new IntSyncValue(tileEntity::getTemp, tileEntity::setTemp));
 
         ModularPanel panel = new GuiBuilder(posGuiData, syncManager, dieselGuiProps).createTitle()
             .setBackground()
             .build();
-        // panel.flex();
 
         IWidget operationLabels = new Column()
             .child(
                 GuiHelper.createToggleButtonRow(
                     "Ignition: ",
-                    new BooleanSyncValue(() -> tileEntity.ignition, value -> tileEntity.ignition = value)))
+                    new BooleanSyncValue(tileEntity::getIgnition, tileEntity::setIgnition)))
             .child(GuiHelper.createDynamicRow("Throttle: ", tileEntity::getThrottleString))
             .child(
                 new Row().child(

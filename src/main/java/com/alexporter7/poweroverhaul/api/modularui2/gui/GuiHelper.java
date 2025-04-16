@@ -3,6 +3,7 @@ package com.alexporter7.poweroverhaul.api.modularui2.gui;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+import com.cleanroommc.modularui.value.sync.SyncHandler;
 import net.minecraftforge.fluids.FluidTank;
 
 import org.jetbrains.annotations.NotNull;
@@ -73,6 +74,17 @@ public class GuiHelper {
                     .width(14)
                     .rightRelAnchor(0f, 0f)
                     .value(value))
+            .coverChildrenHeight()
+            .marginTop(2);
+    }
+
+    public static IWidget createToggleButtonRow(String label, SyncHandler syncHandler) {
+        return new Row().child(textWidget(label, 0, 0).alignment(Alignment.CenterLeft))
+            .child(
+                new ToggleButton().height(14)
+                    .width(14)
+                    .rightRelAnchor(0f, 0f)
+                    .syncHandler(syncHandler.getKey()))
             .coverChildrenHeight()
             .marginTop(2);
     }

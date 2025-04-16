@@ -1,5 +1,9 @@
 package com.alexporter7.poweroverhaul.blocks.meta;
 
+import com.alexporter7.poweroverhaul.api.enums.FluidEnum;
+import com.alexporter7.poweroverhaul.api.enums.SlotType;
+import com.alexporter7.poweroverhaul.api.manager.FluidTankManager;
+import com.alexporter7.poweroverhaul.api.manager.ItemStackManager;
 import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiHelper;
 import com.alexporter7.poweroverhaul.api.properties.GeneratorProperties;
 import com.alexporter7.poweroverhaul.blocks.generators.DieselGeneratorTileEntity;
@@ -20,7 +24,9 @@ public class MetaGeneratorTileEntity extends MetaPowerOverhaulTileEntityUI {
         PROBLEM
     }
 
-    private final GeneratorProperties generatorProperties;
+    protected final GeneratorProperties generatorProperties;
+    protected final FluidTankManager fluidTankManager = new FluidTankManager();
+    protected final ItemStackManager itemStackManager = new ItemStackManager();
 
     /* Configuration */
     public boolean turbo = false;
@@ -36,17 +42,6 @@ public class MetaGeneratorTileEntity extends MetaPowerOverhaulTileEntityUI {
     public int horsepower = 0;
     public int engineTemp = 0;
     public int throttle = 0;
-
-    /* Slots */
-    //TODO: probably create some ItemSlotManager object as a wrapper
-    public final ItemStackHandler engineSlot = GuiHelper.createStackHandlerLimit(1);
-    public final ItemStackHandler turboSlot = GuiHelper.createStackHandlerLimit(1);
-    public final ItemStackHandler nosSlot = GuiHelper.createStackHandlerLimit(1);
-
-    //TODO: probably create some FluidTankManager object as a wrapper (look at GTNH Railcraft)
-    public final FluidTank coolant = new FluidTank(16000);
-    public final FluidTank oil = new FluidTank(16000);
-    public final FluidTank fuel = new FluidTank(16000);
 
     public State state = State.OFF;
 
@@ -72,13 +67,6 @@ public class MetaGeneratorTileEntity extends MetaPowerOverhaulTileEntityUI {
         compound.setBoolean("turbo", this.turbo);
         compound.setBoolean("nos", this.nos);
 
-        compound.setTag("engineSlot", this.engineSlot.serializeNBT());
-        compound.setTag("turboSlot", this.turboSlot.serializeNBT());
-        compound.setTag("nosSlot", this.nosSlot.serializeNBT());
-
-        compound.setTag("coolant", this.coolant.writeToNBT(new NBTTagCompound()));
-        compound.setTag("oil", this.oil.writeToNBT(new NBTTagCompound()));
-        compound.setTag("fuel", this.fuel.writeToNBT(new NBTTagCompound()));
     }
 
     @Override
@@ -96,14 +84,22 @@ public class MetaGeneratorTileEntity extends MetaPowerOverhaulTileEntityUI {
         this.turbo = compound.getBoolean("turbo");
         this.nos = compound.getBoolean("nos");
 
-        this.engineSlot.deserializeNBT(compound.getCompoundTag("engineSlot"));
-        this.turboSlot.deserializeNBT(compound.getCompoundTag("turboSlot"));
-        this.nosSlot.deserializeNBT(compound.getCompoundTag("nosSlot"));
+    }
 
-        this.coolant.readFromNBT(compound.getCompoundTag("coolant"));
-        this.oil.readFromNBT(compound.getCompoundTag("oil"));
-        this.fuel.readFromNBT(compound.getCompoundTag("fuel"));
+    public FluidTankManager getFluidTankManager() {
+        return this.fluidTankManager;
+    }
 
+    public ItemStackManager getItemStackManager() {
+        return this.itemStackManager;
+    }
+
+    public FluidTank getFluidTank(Enum<FluidEnum> key) {
+        return this.fluidTankManager.getTank(key);
+    }
+
+    public ItemStackHandler getItemStack(Enum<SlotType> key) {
+        return this.itemStackManager.getItemStack(key);
     }
 
     protected void updateRpm() {
@@ -138,14 +134,6 @@ public class MetaGeneratorTileEntity extends MetaPowerOverhaulTileEntityUI {
         else this.state = (this.throttle == 0) ? State.IDLE : State.ACTIVE;
     }
 
-    protected void updateHorsepower() {
-
-    }
-
-    protected void updateFluids() {
-
-    }
-
     protected void updateTemperature() {
         switch (this.state) {
             case OFF -> decrementEngineTemp(PowerOverhaulUtil.getRandomValue(generatorProperties.engineOffTempStep));
@@ -163,18 +151,6 @@ public class MetaGeneratorTileEntity extends MetaPowerOverhaulTileEntityUI {
             this.engineTemp = Math.min(this.engineTemp + temp, generatorProperties.engineMaxTemp);
         else
             this.engineTemp = Math.min(this.engineTemp + temp, generatorProperties.engineIdleTemp);
-    }
-
-    protected boolean hasCoolant() {
-        return this.coolant.getFluidAmount() != 0;
-    }
-
-    protected boolean hasOil() {
-        return this.oil.getFluidAmount() != 0;
-    }
-
-    protected boolean hasFuel() {
-        return this.fuel.getFluidAmount() != 0;
     }
 
     protected double getThrottlePercent() {
@@ -206,6 +182,9 @@ public class MetaGeneratorTileEntity extends MetaPowerOverhaulTileEntityUI {
             .toLowerCase()
             .replaceAll("_", " ");
     }
+
+    protected void updateHorsepower() {}
+    protected void updateFluids() {}
 
     public String getState() { return this.state.toString(); }
     public void setState(String state) { this.state = State.valueOf(state); }

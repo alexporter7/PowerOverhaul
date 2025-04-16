@@ -1,12 +1,11 @@
 package com.alexporter7.poweroverhaul.gui;
 
+import com.alexporter7.poweroverhaul.api.enums.FluidEnum;
 import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiBuilder;
 import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiHelper;
 import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiProperties;
 import com.alexporter7.poweroverhaul.blocks.generators.DieselGeneratorTileEntity;
 import com.alexporter7.poweroverhaul.blocks.misc.MusicPlayerTileEntity;
-import com.cleanroommc.modularui.api.IPanelHandler;
-import com.cleanroommc.modularui.api.drawable.IKey;
 import com.cleanroommc.modularui.api.widget.IWidget;
 import com.cleanroommc.modularui.factory.PosGuiData;
 import com.cleanroommc.modularui.screen.ModularPanel;
@@ -17,6 +16,9 @@ import com.cleanroommc.modularui.widgets.PagedWidget;
 import com.cleanroommc.modularui.widgets.SliderWidget;
 import com.cleanroommc.modularui.widgets.layout.Column;
 import com.cleanroommc.modularui.widgets.layout.Row;
+
+import static com.alexporter7.poweroverhaul.api.enums.FluidEnum.*;
+import static com.alexporter7.poweroverhaul.api.enums.SlotType.*;
 
 public class GuiDefinitions {
 
@@ -105,24 +107,27 @@ public class GuiDefinitions {
             .paddingTop(6)
             .paddingRight(12);
 
-        IWidget itemSlots = new Column().child(GuiHelper.createItemSlotRow("Engine: ", tileEntity.engineSlot, 0))
-            .child(GuiHelper.createItemSlotRow("Turbo: ", tileEntity.turboSlot, 0))
-            .child(GuiHelper.createItemSlotRow("NO2: ", tileEntity.nosSlot, 0))
+        IWidget itemSlots = new Column()
+            .child(GuiHelper.createItemSlotRow("Engine: ", tileEntity.getItemStack(ENGINE_SLOT), 0))
+            .child(GuiHelper.createItemSlotRow("Turbo: ", tileEntity.getItemStack(TURBO_SLOT), 0))
+            .child(GuiHelper.createItemSlotRow("NO2: ", tileEntity.getItemStack(NOS_SLOT), 0))
             .leftRelAnchor(0f, 0f)
             .sizeRel(0.5f)
             .paddingTop(6)
             .paddingLeft(12);
 
-        IWidget fluidSlots = new Column().child(GuiHelper.createFluidSlotRow("Coolant: ", tileEntity.coolant))
-            .child(GuiHelper.createFluidSlotRow("Oil: ", tileEntity.oil))
-            .child(GuiHelper.createFluidSlotRow("Fuel: ", tileEntity.fuel))
+        IWidget fluidSlots = new Column()
+            .child(GuiHelper.createFluidSlotRow("Coolant: ", tileEntity.getFluidTank(COOLANT)))
+            .child(GuiHelper.createFluidSlotRow("Oil: ", tileEntity.getFluidTank(OIL)))
+            .child(GuiHelper.createFluidSlotRow("Fuel: ", tileEntity.getFluidTank(DIESEL)))
             .leftRelAnchor(0.5f, 0f)
             .sizeRel(0.5f)
             .paddingTop(6)
             .paddingRight(12);
 
         PagedWidget.Controller tabController = new PagedWidget.Controller();
-        IWidget tabs = new Column().child(new PageButton(0, tabController).tab(GuiTextures.STEEL_TAB_RIGHT, -1))
+        IWidget tabs = new Column()
+            .child(new PageButton(0, tabController).tab(GuiTextures.STEEL_TAB_RIGHT, -1))
             .child(new PageButton(1, tabController).tab(GuiTextures.STEEL_TAB_RIGHT, 0))
             .coverChildren()
             .rightRel(0f, 4, 1f);

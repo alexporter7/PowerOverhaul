@@ -6,6 +6,7 @@ import com.alexporter7.poweroverhaul.api.manager.FluidTankManager;
 import com.alexporter7.poweroverhaul.api.manager.ItemStackManager;
 import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiHelper;
 import com.alexporter7.poweroverhaul.api.properties.GeneratorProperties;
+import com.alexporter7.poweroverhaul.api.state.StateManager;
 import com.alexporter7.poweroverhaul.blocks.generators.DieselGeneratorTileEntity;
 import com.alexporter7.poweroverhaul.util.PowerOverhaulUtil;
 import com.cleanroommc.modularui.utils.item.ItemStackHandler;

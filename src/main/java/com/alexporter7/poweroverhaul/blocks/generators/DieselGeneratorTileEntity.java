@@ -1,10 +1,14 @@
 package com.alexporter7.poweroverhaul.blocks.generators;
 
 import com.alexporter7.poweroverhaul.api.enums.FluidEnum;
+import com.alexporter7.poweroverhaul.api.enums.Sound;
+import com.alexporter7.poweroverhaul.api.sound.MachineSoundHandler;
 import com.alexporter7.poweroverhaul.api.state.IStateManager;
 import com.alexporter7.poweroverhaul.api.state.StateManager;
 import com.alexporter7.poweroverhaul.blocks.meta.MetaGeneratorTileEntity;
 import com.alexporter7.poweroverhaul.init.StateDef;
+import com.alexporter7.poweroverhaul.util.SoundManager;
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 
 import com.alexporter7.poweroverhaul.PowerOverhaul;
@@ -22,7 +26,9 @@ public class DieselGeneratorTileEntity extends MetaGeneratorTileEntity<MetaGener
     implements IStateManager<MetaGeneratorTileEntity.State> {
 
     private final StateManager<State, DieselGeneratorTileEntity> stateManager;
-    private final int totalStartingTicks = 14;
+    private final SoundManager<MachineSoundHandler> soundManager;
+    //private final int totalStartingTicks = 14;
+    private final int totalStartingTicks = 28;
     private int startingTicks = 0;
 
     public DieselGeneratorTileEntity() {
@@ -37,7 +43,13 @@ public class DieselGeneratorTileEntity extends MetaGeneratorTileEntity<MetaGener
             .createItemStackHandler(TURBO_SLOT)
             .createItemStackHandler(NOS_SLOT);
         this.stateManager = StateDef.initDieselGenStateManager(this);
+        this.soundManager = new SoundManager<MachineSoundHandler>()
+            .addSound(Sound.DIESEL_ENGINE_START, new MachineSoundHandler(Sound.DIESEL_ENGINE_START, this))
+            .addSound(Sound.DIESEL_ENGINE_WARM_UP, new MachineSoundHandler(Sound.DIESEL_ENGINE_WARM_UP, this))
+            .addSound(Sound.DIESEL_ENGINE_IDLE, new MachineSoundHandler(Sound.DIESEL_ENGINE_IDLE, this));
     }
+
+
 
     @Override
     public void writeToNBT(NBTTagCompound compound) {
@@ -96,23 +108,22 @@ public class DieselGeneratorTileEntity extends MetaGeneratorTileEntity<MetaGener
         stateManager.tickState();
     }
 
-    public void playStartingSound() {
-        getWorldObj().playSoundEffect(xCoord, yCoord, zCoord, PowerOverhaul.MODID + ":diesel_engine_start",
-            1.0f, 1.0f);
-
+    public void requestSound(State previousState, State newState) {
+        soundManager.requestSound(getSoundFromState(newState));
     }
 
-    public void stopStartingSound() {
-
+    public void stopSound(State previousState, State newState) {
+        if(soundManager != null)
+            soundManager.stopSound();
     }
 
-    public void playIdleSound() {
-        getWorldObj().playSoundEffect(xCoord, yCoord, zCoord, PowerOverhaul.MODID + ":diesel_engine_idle",
-            1.0f, 1.0f);
-    }
-
-    public void stopIdleSound() {
-
+    private Sound getSoundFromState(State state) {
+        return switch(state) {
+            case STARTING -> Sound.DIESEL_ENGINE_START;
+            case WARM_UP -> Sound.DIESEL_ENGINE_WARM_UP;
+            case IDLE -> Sound.DIESEL_ENGINE_IDLE;
+            default -> null;
+        };
     }
 
     public boolean hasCoolant() {

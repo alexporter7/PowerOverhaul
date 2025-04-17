@@ -1,6 +1,7 @@
 package com.alexporter7.poweroverhaul.api.state;
 
 import java.util.HashSet;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -8,8 +9,8 @@ public class StateDefinition<T extends Enum<T>> {
 
     private final T state;
     private final HashSet<T> nextStates;
-    private final Consumer<T> onEnter;
-    private final Consumer<T> onExit;
+    private final BiConsumer<T, T> onEnter;
+    private final BiConsumer<T, T> onExit;
     private final Supplier<T> conditions;
     private final Consumer<T> eventTick;
 
@@ -30,14 +31,14 @@ public class StateDefinition<T extends Enum<T>> {
         return state;
     }
 
-    public void enterState(T previousState) {
+    public void enterState(T previousState, T thisState) {
         if(onEnter != null)
-            onEnter.accept(previousState);
+            onEnter.accept(previousState, thisState);
     }
 
-    public void exitState(T nextState) {
+    public void exitState(T nextState, T thisState) {
         if(onExit != null)
-            onExit.accept(nextState);
+            onExit.accept(nextState, thisState);
     }
 
     public T checkConditions() {
@@ -55,8 +56,8 @@ public class StateDefinition<T extends Enum<T>> {
 
         public T state;
         public final HashSet<T> nextStates = new HashSet<>();
-        public Consumer<T> onEnter;
-        public Consumer<T> onExit;
+        public BiConsumer<T, T> onEnter;
+        public BiConsumer<T, T> onExit;
         public Supplier<T> conditions;
         public Consumer<T> eventTick;
 
@@ -75,7 +76,7 @@ public class StateDefinition<T extends Enum<T>> {
          * @param consumer function that executes when this state is successfully requested
          * @return Builder
          */
-        public Builder<T> registerOnEnter(Consumer<T> consumer) {
+        public Builder<T> registerOnEnter(BiConsumer<T, T> consumer) {
             this.onEnter = consumer;
             return this;
         }
@@ -85,7 +86,7 @@ public class StateDefinition<T extends Enum<T>> {
          * @param consumer function that executes when the next state is successfully requested
          * @return Builder
          */
-        public Builder<T> registerOnExit(Consumer<T> consumer) {
+        public Builder<T> registerOnExit(BiConsumer<T, T> consumer) {
             this.onExit = consumer;
             return this;
         }

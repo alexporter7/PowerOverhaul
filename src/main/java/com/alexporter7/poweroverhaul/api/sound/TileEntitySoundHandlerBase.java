@@ -1,21 +1,23 @@
 package com.alexporter7.poweroverhaul.api.sound;
 
+import com.alexporter7.poweroverhaul.PowerOverhaul;
+import com.alexporter7.poweroverhaul.api.enums.Sound;
 import com.alexporter7.poweroverhaul.blocks.meta.MetaPowerOverhaulTEBase;
-import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.ITickableSound;
+import net.minecraft.client.audio.MovingSound;
 import net.minecraft.client.audio.PositionedSound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
-public class TileEntitySound extends PositionedSound implements ITickableSound {
+public class TileEntitySoundHandlerBase extends MovingSound {
 
     private final MetaPowerOverhaulTEBase<?> TILE_ENTITY;
     private boolean isPlaying = false;
     private float volume = 1.0f;
     private float pitch = 1.0f;
+    private boolean requestPlay = false;
 
-    protected TileEntitySound(ResourceLocation soundResource, MetaPowerOverhaulTEBase<?> tileEntity) {
-        super(soundResource);
+    public TileEntitySoundHandlerBase(Sound sound, MetaPowerOverhaulTEBase<?> tileEntity) {
+        super(new ResourceLocation(PowerOverhaul.MODID + ":" + sound.toString().toLowerCase()));
         TILE_ENTITY = tileEntity;
     }
 
@@ -25,6 +27,18 @@ public class TileEntitySound extends PositionedSound implements ITickableSound {
 
     public void setPitch(float pitch) {
         this.pitch = pitch;
+    }
+
+    public void requestStop() {
+        requestPlay = false;
+    }
+
+    public void requestStart() {
+        requestPlay = true;
+    }
+
+    public void togglePlay() {
+        requestPlay = !requestPlay;
     }
 
     @Override
@@ -63,12 +77,7 @@ public class TileEntitySound extends PositionedSound implements ITickableSound {
     }
 
     @Override
-    public boolean isDonePlaying() {
-        return isPlaying;
-    }
-
-    @Override
     public void update() {
-        isPlaying = TILE_ENTITY.isActive();
+        donePlaying = !requestPlay;
     }
 }

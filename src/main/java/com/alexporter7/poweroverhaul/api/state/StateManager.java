@@ -25,7 +25,7 @@ public class StateManager<T extends Enum<T>, C extends MetaPowerOverhaulTEBase<T
 
     public void initialState(T state) {
         currentState = STATES.get(state);
-        currentState.enterState(STATES.get(state).getState());
+        currentState.enterState(STATES.get(state).getState(), STATES.get(state).getState());
     }
 
     public void tickState() {
@@ -41,8 +41,8 @@ public class StateManager<T extends Enum<T>, C extends MetaPowerOverhaulTEBase<T
     public boolean requestNextState(StateDefinition<T> nextState) {
         if(!currentState.isValidExit(nextState.getState()))
             return false;
-        currentState.exitState(nextState.getState());
-        nextState.enterState(currentState.getState());
+        currentState.exitState(nextState.getState(), currentState.getState());
+        nextState.enterState(currentState.getState(), nextState.getState());
         previousState = currentState;
         currentState = nextState;
         logEvent();

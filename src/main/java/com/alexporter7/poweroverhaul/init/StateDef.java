@@ -19,7 +19,9 @@ public class StateDef {
                 .registerNextState(State.STARTING)
                 .registerNextState(State.MAINTENANCE)
                 .registerNextState(State.PROBLEM)
-                .registerOnEnter((previousState) -> tileEntity.resetStartingTickes())
+                .registerOnEnter((previousState, thisState) -> {
+                    tileEntity.resetStartingTickes();
+                    tileEntity.stopSound(previousState, thisState);})
                 .registerConditions(tileEntity::checkOffConditions)
                 .build();
         StateDefinition<State> STARTING =
@@ -29,8 +31,8 @@ public class StateDef {
                 .registerNextState(State.WARM_UP)
                 .registerNextState(State.IDLE)
                 .registerNextState(State.ACTIVE)
-                .registerOnEnter((previousState) -> tileEntity.playStartingSound())
-                .registerOnExit((nextState) -> tileEntity.stopStartingSound())
+                .registerOnEnter(tileEntity::requestSound)
+//                .registerOnExit((nextState, thisState) -> tileEntity.stopStartingSound())
                 .registerConditions(tileEntity::checkStartingConditions)
                 .registerEventTick((tileEntity::decrementStartingTicks))
                 .build();
@@ -40,8 +42,8 @@ public class StateDef {
                 .registerNextState(State.OFF)
                 .registerNextState(State.IDLE)
                 .registerNextState(State.ACTIVE)
-                .registerOnEnter((previousState) -> tileEntity.playIdleSound())
-                .registerOnExit((nextState) -> tileEntity.stopIdleSound())
+                .registerOnEnter(tileEntity::requestSound)
+//                .registerOnExit((nextState, thisState) -> tileEntity.stopWarmUpSound())
                 .registerConditions(tileEntity::checkWarmUpConditions)
                 .build();
         StateDefinition<State> IDLE =
@@ -49,6 +51,8 @@ public class StateDef {
                 .fromState(State.IDLE)
                 .registerNextState(State.OFF)
                 .registerNextState(State.ACTIVE)
+                .registerOnEnter(tileEntity::requestSound)
+//                .registerOnExit((nextState, thisState) -> tileEntity.stopIdleSound())
                 .registerConditions(tileEntity::checkIdleConditions)
                 .build();
         StateDefinition<State> ACTIVE =

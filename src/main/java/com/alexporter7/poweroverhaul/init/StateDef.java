@@ -3,63 +3,64 @@ package com.alexporter7.poweroverhaul.init;
 import com.alexporter7.poweroverhaul.api.state.StateDefinition;
 import com.alexporter7.poweroverhaul.api.state.StateManager;
 import com.alexporter7.poweroverhaul.blocks.generators.DieselGeneratorTileEntity;
-import com.alexporter7.poweroverhaul.blocks.meta.MetaGeneratorTileEntity.State;
+import com.alexporter7.poweroverhaul.api.enums.TileEntityState.GeneratorState;
 
 public class StateDef {
 
-    public static StateManager<State, DieselGeneratorTileEntity>
+    public static StateManager<GeneratorState, DieselGeneratorTileEntity>
             initDieselGenStateManager(DieselGeneratorTileEntity tileEntity) {
 
-        StateManager<State, DieselGeneratorTileEntity> stateManager =
+        StateManager<GeneratorState, DieselGeneratorTileEntity> stateManager =
             new StateManager<>(tileEntity);
 
-        StateDefinition<State> OFF =
-            new StateDefinition.Builder<State>()
-                .fromState(State.OFF)
-                .registerNextState(State.STARTING)
-                .registerNextState(State.MAINTENANCE)
-                .registerNextState(State.PROBLEM)
+        StateDefinition<GeneratorState> OFF =
+            new StateDefinition.Builder<GeneratorState>()
+                .fromState(GeneratorState.OFF)
+                .registerNextState(GeneratorState.STARTING)
+                .registerNextState(GeneratorState.MAINTENANCE)
+                .registerNextState(GeneratorState.PROBLEM)
                 .registerOnEnter((previousState, thisState) -> {
                     tileEntity.resetStartingTickes();
                     tileEntity.stopSound(previousState, thisState);})
                 .registerConditions(tileEntity::checkOffConditions)
                 .build();
-        StateDefinition<State> STARTING =
-            new StateDefinition.Builder<State>()
-                .fromState(State.STARTING)
-                .registerNextState(State.OFF)
-                .registerNextState(State.WARM_UP)
-                .registerNextState(State.IDLE)
-                .registerNextState(State.ACTIVE)
+        StateDefinition<GeneratorState> STARTING =
+            new StateDefinition.Builder<GeneratorState>()
+                .fromState(GeneratorState.STARTING)
+                .registerNextState(GeneratorState.OFF)
+                .registerNextState(GeneratorState.WARM_UP)
+                .registerNextState(GeneratorState.IDLE)
+                .registerNextState(GeneratorState.ACTIVE)
                 .registerOnEnter(tileEntity::requestSound)
 //                .registerOnExit((nextState, thisState) -> tileEntity.stopStartingSound())
                 .registerConditions(tileEntity::checkStartingConditions)
                 .registerEventTick((tileEntity::decrementStartingTicks))
                 .build();
-        StateDefinition<State> WARM_UP =
-            new StateDefinition.Builder<State>()
-                .fromState(State.WARM_UP)
-                .registerNextState(State.OFF)
-                .registerNextState(State.IDLE)
-                .registerNextState(State.ACTIVE)
+        StateDefinition<GeneratorState> WARM_UP =
+            new StateDefinition.Builder<GeneratorState>()
+                .fromState(GeneratorState.WARM_UP)
+                .registerNextState(GeneratorState.OFF)
+                .registerNextState(GeneratorState.IDLE)
+                .registerNextState(GeneratorState.ACTIVE)
                 .registerOnEnter(tileEntity::requestSound)
 //                .registerOnExit((nextState, thisState) -> tileEntity.stopWarmUpSound())
                 .registerConditions(tileEntity::checkWarmUpConditions)
                 .build();
-        StateDefinition<State> IDLE =
-            new StateDefinition.Builder<State>()
-                .fromState(State.IDLE)
-                .registerNextState(State.OFF)
-                .registerNextState(State.ACTIVE)
+        StateDefinition<GeneratorState> IDLE =
+            new StateDefinition.Builder<GeneratorState>()
+                .fromState(GeneratorState.IDLE)
+                .registerNextState(GeneratorState.OFF)
+                .registerNextState(GeneratorState.ACTIVE)
                 .registerOnEnter(tileEntity::requestSound)
 //                .registerOnExit((nextState, thisState) -> tileEntity.stopIdleSound())
                 .registerConditions(tileEntity::checkIdleConditions)
                 .build();
-        StateDefinition<State> ACTIVE =
-            new StateDefinition.Builder<State>()
-                .fromState(State.ACTIVE)
-                .registerNextState(State.OFF)
-                .registerNextState(State.IDLE)
+        StateDefinition<GeneratorState> ACTIVE =
+            new StateDefinition.Builder<GeneratorState>()
+                .fromState(GeneratorState.ACTIVE)
+                .registerNextState(GeneratorState.OFF)
+                .registerNextState(GeneratorState.IDLE)
+                .registerOnEnter(tileEntity::requestSound)
                 .registerConditions(tileEntity::checkActiveConditions)
                 .build();
 
@@ -69,7 +70,7 @@ public class StateDef {
             .addStateDefinition(WARM_UP)
             .addStateDefinition(IDLE)
             .addStateDefinition(ACTIVE)
-            .initialState(State.OFF);
+            .initialState(GeneratorState.OFF);
 
         return stateManager;
     }

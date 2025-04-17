@@ -1,10 +1,6 @@
-package com.alexporter7.poweroverhaul.util;
+package com.alexporter7.poweroverhaul.api.sound;
 
-import com.alexporter7.poweroverhaul.api.sound.TileEntitySoundHandlerBase;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.PositionedSound;
 import com.alexporter7.poweroverhaul.api.enums.Sound;
 
 import java.util.HashMap;

@@ -23,4 +23,10 @@ public class PowerOverhaulUtil {
             : getRandomValue(properties[0], properties[1], properties[2]);
     }
 
+    public static float getPitchFromRpm(int minRpm, int maxRpm, int rpm) {
+        float range = maxRpm - minRpm;
+        float percentage = rpm / range;
+        return 1.0f + percentage;
+    }
+
 }

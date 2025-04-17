@@ -11,7 +11,6 @@ import net.minecraft.util.ResourceLocation;
 public class TileEntitySoundHandlerBase extends MovingSound {
 
     private final MetaPowerOverhaulTEBase<?> TILE_ENTITY;
-    private boolean isPlaying = false;
     private float volume = 1.0f;
     private float pitch = 1.0f;
     private boolean requestPlay = false;

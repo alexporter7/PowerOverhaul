@@ -2,16 +2,17 @@ package com.alexporter7.poweroverhaul.blocks.generators;
 
 import com.alexporter7.poweroverhaul.api.enums.FluidEnum;
 import com.alexporter7.poweroverhaul.api.enums.Sound;
+import com.alexporter7.poweroverhaul.api.enums.TileEntityState;
+import com.alexporter7.poweroverhaul.api.sound.ISoundManager;
 import com.alexporter7.poweroverhaul.api.sound.MachineSoundHandler;
 import com.alexporter7.poweroverhaul.api.state.IStateManager;
 import com.alexporter7.poweroverhaul.api.state.StateManager;
 import com.alexporter7.poweroverhaul.blocks.meta.MetaGeneratorTileEntity;
 import com.alexporter7.poweroverhaul.init.StateDef;
-import com.alexporter7.poweroverhaul.util.SoundManager;
-import net.minecraft.client.Minecraft;
+import com.alexporter7.poweroverhaul.api.sound.SoundManager;
+import com.alexporter7.poweroverhaul.util.PowerOverhaulUtil;
 import net.minecraft.nbt.NBTTagCompound;
 
-import com.alexporter7.poweroverhaul.PowerOverhaul;
 import com.alexporter7.poweroverhaul.api.properties.GeneratorProperties;
 import com.alexporter7.poweroverhaul.gui.GuiDefinitions;
 import com.alexporter7.poweroverhaul.init.PropertyDef;
@@ -22,13 +23,14 @@ import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import static com.alexporter7.poweroverhaul.api.enums.FluidEnum.*;
 import static com.alexporter7.poweroverhaul.api.enums.SlotType.*;
 
-public class DieselGeneratorTileEntity extends MetaGeneratorTileEntity<MetaGeneratorTileEntity.State>
-    implements IStateManager<MetaGeneratorTileEntity.State> {
+//TODO: make ISoundManager interface
+public class DieselGeneratorTileEntity extends MetaGeneratorTileEntity<TileEntityState.GeneratorState>
+    implements IStateManager<TileEntityState.GeneratorState>, ISoundManager<TileEntityState.GeneratorState> {
 
-    private final StateManager<State, DieselGeneratorTileEntity> stateManager;
+    private final StateManager<TileEntityState.GeneratorState, DieselGeneratorTileEntity> stateManager;
     private final SoundManager<MachineSoundHandler> soundManager;
     //private final int totalStartingTicks = 14;
-    private final int totalStartingTicks = 28;
+    private final int totalStartingTicks = 14;
     private int startingTicks = 0;
 
     public DieselGeneratorTileEntity() {
@@ -46,10 +48,9 @@ public class DieselGeneratorTileEntity extends MetaGeneratorTileEntity<MetaGener
         this.soundManager = new SoundManager<MachineSoundHandler>()
             .addSound(Sound.DIESEL_ENGINE_START, new MachineSoundHandler(Sound.DIESEL_ENGINE_START, this))
             .addSound(Sound.DIESEL_ENGINE_WARM_UP, new MachineSoundHandler(Sound.DIESEL_ENGINE_WARM_UP, this))
-            .addSound(Sound.DIESEL_ENGINE_IDLE, new MachineSoundHandler(Sound.DIESEL_ENGINE_IDLE, this));
+            .addSound(Sound.DIESEL_ENGINE_IDLE, new MachineSoundHandler(Sound.DIESEL_ENGINE_IDLE, this))
+            .addSound(Sound.DIESEL_ENGINE_ACTIVE, new MachineSoundHandler(Sound.DIESEL_ENGINE_ACTIVE, this));
     }
-
-
 
     @Override
     public void writeToNBT(NBTTagCompound compound) {
@@ -106,22 +107,33 @@ public class DieselGeneratorTileEntity extends MetaGeneratorTileEntity<MetaGener
     @Override
     protected void updateState() {
         stateManager.tickState();
+        if(state != TileEntityState.GeneratorState.OFF && state != TileEntityState.GeneratorState.STARTING)
+            updateEnginePitch();
     }
 
-    public void requestSound(State previousState, State newState) {
+    public void updateEnginePitch() {
+        this.soundManager.getSoundHandler(getSoundFromState(state))
+            .setPitch(PowerOverhaulUtil.getPitchFromRpm(generatorProperties.engineIdleTargetRpm, maxRpm, rpm));
+    }
+
+    @Override
+    public void requestSound(TileEntityState.GeneratorState previousState, TileEntityState.GeneratorState newState) {
         soundManager.requestSound(getSoundFromState(newState));
     }
 
-    public void stopSound(State previousState, State newState) {
+    @Override
+    public void stopSound(TileEntityState.GeneratorState previousState, TileEntityState.GeneratorState newState) {
         if(soundManager != null)
             soundManager.stopSound();
     }
 
-    private Sound getSoundFromState(State state) {
+    @Override
+    public Sound getSoundFromState(TileEntityState.GeneratorState state) {
         return switch(state) {
             case STARTING -> Sound.DIESEL_ENGINE_START;
             case WARM_UP -> Sound.DIESEL_ENGINE_WARM_UP;
             case IDLE -> Sound.DIESEL_ENGINE_IDLE;
+            case ACTIVE -> Sound.DIESEL_ENGINE_ACTIVE;
             default -> null;
         };
     }
@@ -143,59 +155,59 @@ public class DieselGeneratorTileEntity extends MetaGeneratorTileEntity<MetaGener
         startingTicks = totalStartingTicks;
     }
 
-    public State checkOffConditions() {
-        return (ignition) ? State.STARTING : State.OFF;
+    public TileEntityState.GeneratorState checkOffConditions() {
+        return (ignition) ? TileEntityState.GeneratorState.STARTING : TileEntityState.GeneratorState.OFF;
     }
 
     /* Starting State */
-    public State checkStartingConditions() {
+    public TileEntityState.GeneratorState checkStartingConditions() {
         if(!ignition)
-            return State.OFF;
+            return TileEntityState.GeneratorState.OFF;
         if(startingTicks == 0)
             return checkWarmUpConditions();
-        return State.STARTING;
+        return TileEntityState.GeneratorState.STARTING;
     }
 
-    public void decrementStartingTicks(Enum<State> state) {
+    public void decrementStartingTicks(Enum<TileEntityState.GeneratorState> state) {
         if(startingTicks > 0)
             startingTicks--;
     }
 
     /* Warm Up State */
-    public State checkWarmUpConditions() {
+    public TileEntityState.GeneratorState checkWarmUpConditions() {
         if(!ignition)
-            return State.OFF;
+            return TileEntityState.GeneratorState.OFF;
         if (this.engineTemp < generatorProperties.engineIdleTemp)
-            return State.WARM_UP;
+            return TileEntityState.GeneratorState.WARM_UP;
         else
-            return (this.throttle == 0) ? State.IDLE : State.ACTIVE;
+            return (this.throttle == 0) ? TileEntityState.GeneratorState.IDLE : TileEntityState.GeneratorState.ACTIVE;
     }
 
     /* Idle State */
-    public State checkIdleConditions() {
+    public TileEntityState.GeneratorState checkIdleConditions() {
         if(!ignition)
-            return State.OFF;
+            return TileEntityState.GeneratorState.OFF;
         if(throttle != 0)
-            return State.ACTIVE;
-        return State.IDLE;
+            return TileEntityState.GeneratorState.ACTIVE;
+        return TileEntityState.GeneratorState.IDLE;
     }
 
     /* Active State */
-    public State checkActiveConditions() {
+    public TileEntityState.GeneratorState checkActiveConditions() {
         if(!ignition)
-            return State.OFF;
+            return TileEntityState.GeneratorState.OFF;
         if(throttle == 0)
-            return State.IDLE;
-        return State.ACTIVE;
+            return TileEntityState.GeneratorState.IDLE;
+        return TileEntityState.GeneratorState.ACTIVE;
     }
 
     @Override
-    public void updateEntityState(State state) {
+    public void updateEntityState(TileEntityState.GeneratorState state) {
         this.state = state;
     }
 
     @Override
-    public State getEntityState() {
+    public TileEntityState.GeneratorState getEntityState() {
         return this.state;
     }
 }

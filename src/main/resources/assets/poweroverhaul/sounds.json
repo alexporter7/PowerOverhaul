@@ -1,5 +1,6 @@
 {
   "diesel_engine_start": {"category":  "master", "sounds":  [{"name":  "diesel_engine_start", "stream":  false}]},
   "diesel_engine_warm_up": {"category":  "master", "sounds":  [{"name":  "diesel_engine_idle", "stream":  false}]},
-  "diesel_engine_idle": {"category":  "master", "sounds":  [{"name":  "diesel_engine_idle", "stream":  false}]}
+  "diesel_engine_idle": {"category":  "master", "sounds":  [{"name":  "diesel_engine_idle", "stream":  false}]},
+  "diesel_engine_active": {"category":  "master", "sounds":  [{"name":  "diesel_engine_idle", "stream":  false}]}
 }

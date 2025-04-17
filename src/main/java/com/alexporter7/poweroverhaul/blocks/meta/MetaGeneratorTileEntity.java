@@ -2,28 +2,16 @@ package com.alexporter7.poweroverhaul.blocks.meta;
 
 import com.alexporter7.poweroverhaul.api.enums.FluidEnum;
 import com.alexporter7.poweroverhaul.api.enums.SlotType;
+import com.alexporter7.poweroverhaul.api.enums.TileEntityState;
 import com.alexporter7.poweroverhaul.api.manager.FluidTankManager;
 import com.alexporter7.poweroverhaul.api.manager.ItemStackManager;
-import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiHelper;
 import com.alexporter7.poweroverhaul.api.properties.GeneratorProperties;
-import com.alexporter7.poweroverhaul.api.state.StateManager;
-import com.alexporter7.poweroverhaul.blocks.generators.DieselGeneratorTileEntity;
 import com.alexporter7.poweroverhaul.util.PowerOverhaulUtil;
 import com.cleanroommc.modularui.utils.item.ItemStackHandler;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidTank;
 
 public class MetaGeneratorTileEntity<T extends Enum<T>> extends MetaPowerOverhaulTileEntityUI<T> {
-
-    public enum State {
-        OFF,
-        STARTING,
-        WARM_UP,
-        IDLE,
-        ACTIVE,
-        MAINTENANCE,
-        PROBLEM
-    }
 
     protected final GeneratorProperties generatorProperties;
     protected final FluidTankManager fluidTankManager = new FluidTankManager();
@@ -37,14 +25,14 @@ public class MetaGeneratorTileEntity<T extends Enum<T>> extends MetaPowerOverhau
     public int maxRpm;
     public int torque = 0;
 
-    /* State */
+    /* Machine Stats */
     public boolean ignition = false;
     public int rpm = 0;
     public int horsepower = 0;
     public int engineTemp = 0;
     public int throttle = 0;
 
-    public State state = State.OFF;
+    public TileEntityState.GeneratorState state = TileEntityState.GeneratorState.OFF;
 
     public MetaGeneratorTileEntity(GeneratorProperties generatorProperties) {
         this.generatorProperties = generatorProperties;
@@ -74,7 +62,7 @@ public class MetaGeneratorTileEntity<T extends Enum<T>> extends MetaPowerOverhau
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
 
-        this.state = State.valueOf(compound.getString("engineState"));
+        this.state = TileEntityState.GeneratorState.valueOf(compound.getString("engineState"));
 
         this.rpm = compound.getInteger("rpm");
         this.horsepower = compound.getInteger("horsepower");
@@ -114,25 +102,25 @@ public class MetaGeneratorTileEntity<T extends Enum<T>> extends MetaPowerOverhau
     }
 
     protected int getTargetRpm() {
-        if (this.state == State.OFF) return 0;
-        else if (this.state == State.WARM_UP && this.throttle == 0) return generatorProperties.engineWarmUpTargetRpm;
-        else if (this.state == State.IDLE && this.throttle == 0) return generatorProperties.engineIdleTargetRpm;
+        if (this.state == TileEntityState.GeneratorState.OFF) return 0;
+        else if (this.state == TileEntityState.GeneratorState.WARM_UP && this.throttle == 0) return generatorProperties.engineWarmUpTargetRpm;
+        else if (this.state == TileEntityState.GeneratorState.IDLE && this.throttle == 0) return generatorProperties.engineIdleTargetRpm;
         else return (int) (Math.max(getThrottlePercent() * this.maxRpm, getIdleRpmTarget()));
     }
 
     private int getIdleRpmTarget() {
-        return (this.state == State.WARM_UP) ? generatorProperties.engineWarmUpTargetRpm
+        return (this.state == TileEntityState.GeneratorState.WARM_UP) ? generatorProperties.engineWarmUpTargetRpm
             : generatorProperties.engineIdleTargetRpm;
     }
 
     protected void updateState() {
-        if (!this.ignition && this.state != State.MAINTENANCE) {
-            this.state = State.OFF;
+        if (!this.ignition && this.state != TileEntityState.GeneratorState.MAINTENANCE) {
+            this.state = TileEntityState.GeneratorState.OFF;
             return;
         }
 
-        if (this.engineTemp < generatorProperties.engineIdleTemp) this.state = State.WARM_UP;
-        else this.state = (this.throttle == 0) ? State.IDLE : State.ACTIVE;
+        if (this.engineTemp < generatorProperties.engineIdleTemp) this.state = TileEntityState.GeneratorState.WARM_UP;
+        else this.state = (this.throttle == 0) ? TileEntityState.GeneratorState.IDLE : TileEntityState.GeneratorState.ACTIVE;
     }
 
     protected void updateTemperature() {
@@ -148,7 +136,7 @@ public class MetaGeneratorTileEntity<T extends Enum<T>> extends MetaPowerOverhau
     }
 
     protected void incrementEngineTemp(int temp) {
-        if (this.state == State.ACTIVE)
+        if (this.state == TileEntityState.GeneratorState.ACTIVE)
             this.engineTemp = Math.min(this.engineTemp + temp, generatorProperties.engineMaxTemp);
         else
             this.engineTemp = Math.min(this.engineTemp + temp, generatorProperties.engineIdleTemp);
@@ -186,14 +174,14 @@ public class MetaGeneratorTileEntity<T extends Enum<T>> extends MetaPowerOverhau
 
     @Override
     public boolean isActive() {
-        return state != State.OFF && state != State.MAINTENANCE;
+        return state != TileEntityState.GeneratorState.OFF && state != TileEntityState.GeneratorState.MAINTENANCE;
     }
 
     protected void updateHorsepower() {}
     protected void updateFluids() {}
 
     public String getState() { return this.state.toString(); }
-    public void setState(String state) { this.state = State.valueOf(state); }
+    public void setState(String state) { this.state = TileEntityState.GeneratorState.valueOf(state); }
     public int getRpm() { return this.rpm; }
     public void setRpm(int rpm) { this.rpm = rpm; }
     public int getHp() { return this.horsepower; }

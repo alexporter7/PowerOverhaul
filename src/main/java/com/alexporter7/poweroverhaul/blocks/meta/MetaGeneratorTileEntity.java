@@ -13,7 +13,7 @@ import com.cleanroommc.modularui.utils.item.ItemStackHandler;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidTank;
 
-public class MetaGeneratorTileEntity extends MetaPowerOverhaulTileEntityUI {
+public class MetaGeneratorTileEntity<T extends Enum<T>> extends MetaPowerOverhaulTileEntityUI<T> {
 
     public enum State {
         OFF,

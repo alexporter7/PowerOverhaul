@@ -6,7 +6,7 @@ import com.cleanroommc.modularui.screen.ModularPanel;
 import com.cleanroommc.modularui.screen.ModularScreen;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 
-public class MetaPowerOverhaulTileEntityUI extends MetaPowerOverhaulTEBase implements IGuiHolder<PosGuiData> {
+public class MetaPowerOverhaulTileEntityUI<T extends Enum<T>> extends MetaPowerOverhaulTEBase<T> implements IGuiHolder<PosGuiData> {
 
     @Override
     public ModularScreen createScreen(PosGuiData data, ModularPanel mainPanel) {

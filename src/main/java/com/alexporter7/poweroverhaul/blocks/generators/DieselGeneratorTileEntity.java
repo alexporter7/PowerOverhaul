@@ -1,37 +1,27 @@
 package com.alexporter7.poweroverhaul.blocks.generators;
 
 import com.alexporter7.poweroverhaul.api.enums.FluidEnum;
-import com.alexporter7.poweroverhaul.api.enums.SlotType;
-import com.alexporter7.poweroverhaul.api.manager.FluidTankManager;
+import com.alexporter7.poweroverhaul.api.state.IStateManager;
 import com.alexporter7.poweroverhaul.api.state.StateManager;
 import com.alexporter7.poweroverhaul.blocks.meta.MetaGeneratorTileEntity;
 import com.alexporter7.poweroverhaul.init.StateDef;
-import com.cleanroommc.modularui.api.IPanelHandler;
-import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
 
 import com.alexporter7.poweroverhaul.PowerOverhaul;
-import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiHelper;
 import com.alexporter7.poweroverhaul.api.properties.GeneratorProperties;
-import com.alexporter7.poweroverhaul.blocks.meta.MetaPowerOverhaulTileEntityUI;
-import com.alexporter7.poweroverhaul.fluid.PowerOverhaulFluid;
 import com.alexporter7.poweroverhaul.gui.GuiDefinitions;
 import com.alexporter7.poweroverhaul.init.PropertyDef;
-import com.alexporter7.poweroverhaul.util.PowerOverhaulUtil;
 import com.cleanroommc.modularui.factory.PosGuiData;
 import com.cleanroommc.modularui.screen.ModularPanel;
-import com.cleanroommc.modularui.utils.item.ItemStackHandler;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 
 import static com.alexporter7.poweroverhaul.api.enums.FluidEnum.*;
 import static com.alexporter7.poweroverhaul.api.enums.SlotType.*;
 
-public class DieselGeneratorTileEntity extends MetaGeneratorTileEntity {
+public class DieselGeneratorTileEntity extends MetaGeneratorTileEntity<MetaGeneratorTileEntity.State>
+    implements IStateManager<MetaGeneratorTileEntity.State> {
 
-    private final StateManager<State> stateManager;
+    private final StateManager<State, DieselGeneratorTileEntity> stateManager;
     private final int totalStartingTicks = 14;
     private int startingTicks = 0;
 
@@ -47,10 +37,6 @@ public class DieselGeneratorTileEntity extends MetaGeneratorTileEntity {
             .createItemStackHandler(TURBO_SLOT)
             .createItemStackHandler(NOS_SLOT);
         this.stateManager = StateDef.initDieselGenStateManager(this);
-    }
-
-    public StateManager<State> getStateManager() {
-        return stateManager;
     }
 
     @Override
@@ -107,28 +93,7 @@ public class DieselGeneratorTileEntity extends MetaGeneratorTileEntity {
     //TODO: implement maintenance
     @Override
     protected void updateState() {
-        if(!ignition) {
-            state = State.OFF;
-            startingTicks = totalStartingTicks;
-            return;
-        }
-        if(state == State.OFF) {
-            state = State.STARTING;
-            playStartingSound();
-            return;
-        }
-        if(state == State.STARTING && startingTicks > 0) {
-            startingTicks--;
-            return;
-        } else if (state == State.STARTING && startingTicks == 0){
-            state = State.WARM_UP;
-            startingTicks = totalStartingTicks;
-            playIdleSound();
-        }
-
-        if (this.engineTemp < generatorProperties.engineIdleTemp) this.state = State.WARM_UP;
-        else this.state = (this.throttle == 0) ? State.IDLE : State.ACTIVE;
-
+        stateManager.tickState();
     }
 
     public void playStartingSound() {
@@ -162,4 +127,64 @@ public class DieselGeneratorTileEntity extends MetaGeneratorTileEntity {
         return this.fluidTankManager.getTank(FluidEnum.DIESEL).getFluidAmount() != 0;
     }
 
+    /* Off State */
+    public void resetStartingTickes() {
+        startingTicks = totalStartingTicks;
+    }
+
+    public State checkOffConditions() {
+        return (ignition) ? State.STARTING : State.OFF;
+    }
+
+    /* Starting State */
+    public State checkStartingConditions() {
+        if(!ignition)
+            return State.OFF;
+        if(startingTicks == 0)
+            return checkWarmUpConditions();
+        return State.STARTING;
+    }
+
+    public void decrementStartingTicks(Enum<State> state) {
+        if(startingTicks > 0)
+            startingTicks--;
+    }
+
+    /* Warm Up State */
+    public State checkWarmUpConditions() {
+        if(!ignition)
+            return State.OFF;
+        if (this.engineTemp < generatorProperties.engineIdleTemp)
+            return State.WARM_UP;
+        else
+            return (this.throttle == 0) ? State.IDLE : State.ACTIVE;
+    }
+
+    /* Idle State */
+    public State checkIdleConditions() {
+        if(!ignition)
+            return State.OFF;
+        if(throttle != 0)
+            return State.ACTIVE;
+        return State.IDLE;
+    }
+
+    /* Active State */
+    public State checkActiveConditions() {
+        if(!ignition)
+            return State.OFF;
+        if(throttle == 0)
+            return State.IDLE;
+        return State.ACTIVE;
+    }
+
+    @Override
+    public void updateEntityState(State state) {
+        this.state = state;
+    }
+
+    @Override
+    public State getEntityState() {
+        return this.state;
+    }
 }

@@ -184,6 +184,11 @@ public class MetaGeneratorTileEntity<T extends Enum<T>> extends MetaPowerOverhau
             .replaceAll("_", " ");
     }
 
+    @Override
+    public boolean isActive() {
+        return state != State.OFF && state != State.MAINTENANCE;
+    }
+
     protected void updateHorsepower() {}
     protected void updateFluids() {}
 

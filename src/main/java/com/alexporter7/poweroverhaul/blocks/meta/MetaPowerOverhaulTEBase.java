@@ -5,6 +5,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class MetaPowerOverhaulTEBase<T extends Enum<T>> extends TileEntity implements IStateManager<T> {
 
+    public boolean isActive() { return false; }
 
     @Override
     public void updateEntityState(T state) {

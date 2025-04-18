@@ -13,53 +13,67 @@ import net.minecraft.entity.Entity;
 public class AlloySmelterModel extends PowerOverhaulModelBase {
     private final ModelRenderer outline;
     private final ModelRenderer frontFace;
-    private final ModelRenderer interior;
-    private final ModelRenderer top;
+    private final ModelRenderer leftWindow;
+    private final ModelRenderer rightWindow;
 
     public AlloySmelterModel() {
+        textureWidth = 128;
+        textureHeight = 128;
+
         outline = new ModelRenderer(this);
         outline.setRotationPoint(0.0F, 24.0F, 0.0F);
-        outline.cubeList.add(new ModelBox(outline, 0, 30, 6.0F, -16.0F, -7.0F, 2, 16, 14, 0.0F));
-        outline.cubeList.add(new ModelBox(outline, 1, 0, -6.0F, -1.0F, -7.0F, 12, 1, 14, 0.0F));
-        outline.cubeList.add(new ModelBox(outline, 32, 30, -8.0F, -16.0F, -7.0F, 2, 16, 14, 0.0F));
-        outline.cubeList.add(new ModelBox(outline, 56, 0, -8.0F, -16.0F, 7.0F, 16, 16, 1, 0.0F));
+        outline.cubeList.add(new ModelBox(outline, 0, 36, -7.0F, -15.0F, -3.0F, 14, 14, 11, 0.0F));
+        outline.cubeList.add(new ModelBox(outline, 86, 34, 5.0F, -15.0F, -8.0F, 2, 1, 5, 0.0F));
+        outline.cubeList.add(new ModelBox(outline, 67, 91, 6.0F, -14.0F, -8.0F, 1, 1, 5, 0.0F));
+        outline.cubeList.add(new ModelBox(outline, 65, 0, -7.0F, -15.0F, -8.0F, 8, 1, 5, 0.0F));
+        outline.cubeList.add(new ModelBox(outline, 35, 75, -7.0F, -14.0F, -8.0F, 7, 1, 5, 0.0F));
+        outline.cubeList.add(new ModelBox(outline, 60, 75, -7.0F, -13.0F, -8.0F, 6, 1, 5, 0.0F));
+        outline.cubeList.add(new ModelBox(outline, 0, 0, -8.0F, -16.0F, -8.0F, 16, 1, 16, 0.0F));
+        outline.cubeList.add(new ModelBox(outline, 0, 62, -8.0F, -15.0F, -8.0F, 1, 15, 16, 0.0F));
+        outline.cubeList.add(new ModelBox(outline, 0, 18, -7.0F, -1.0F, -8.0F, 14, 1, 16, 0.0F));
+        outline.cubeList.add(new ModelBox(outline, 51, 36, 7.0F, -15.0F, -8.0F, 1, 15, 16, 0.0F));
 
         frontFace = new ModelRenderer(this);
-        frontFace.setRotationPoint(0.0F, 24.0F, 0.0F);
-        frontFace.cubeList.add(new ModelBox(frontFace, 64, 34, -8.0F, -4.0F, -8.0F, 16, 4, 1, 0.0F));
-        frontFace.cubeList.add(new ModelBox(frontFace, 64, 39, -8.0F, -16.0F, -8.0F, 16, 3, 1, 0.0F));
-        frontFace.cubeList.add(new ModelBox(frontFace, 87, 68, -8.0F, -13.0F, -8.0F, 2, 9, 1, 0.0F));
-        frontFace.cubeList.add(new ModelBox(frontFace, 72, 75, 6.0F, -13.0F, -8.0F, 2, 9, 1, 0.0F));
+        frontFace.setRotationPoint(0.0F, 25.0F, 0.0F);
+        frontFace.cubeList.add(new ModelBox(frontFace, 61, 27, -7.0F, -3.0F, -8.0F, 14, 1, 5, 0.0F));
+        frontFace.cubeList.add(new ModelBox(frontFace, 61, 18, -7.0F, -9.0F, -8.0F, 14, 3, 5, 0.0F));
+        frontFace.cubeList.add(new ModelBox(frontFace, 67, 82, -7.0F, -6.0F, -8.0F, 1, 3, 5, 0.0F));
+        frontFace.cubeList.add(new ModelBox(frontFace, 80, 82, -0.5F, -6.0F, -8.0F, 1, 3, 5, 0.0F));
+        frontFace.cubeList.add(new ModelBox(frontFace, 85, 68, 6.0F, -6.0F, -8.0F, 1, 3, 5, 0.0F));
 
-        interior = new ModelRenderer(this);
-        interior.setRotationPoint(0.0F, 24.0F, 0.0F);
-        interior.cubeList.add(new ModelBox(interior, 64, 43, -6.0F, -13.0F, -8.0F, 12, 9, 1, 0.0F));
-        interior.cubeList.add(new ModelBox(interior, 0, 15, -6.0F, -2.0F, -7.0F, 12, 1, 13, 0.0F));
-        interior.cubeList.add(new ModelBox(interior, 64, 17, -6.0F, -16.0F, 6.0F, 12, 15, 1, 0.0F));
+        leftWindow = new ModelRenderer(this);
+        leftWindow.setRotationPoint(-1.0F, 24.0F, 0.0F);
+        leftWindow.cubeList.add(new ModelBox(leftWindow, 65, 7, -6.0F, -9.0F, -8.0F, 7, 1, 5, 0.0F));
+        leftWindow.cubeList.add(new ModelBox(leftWindow, 35, 68, -6.0F, -12.0F, -8.0F, 7, 1, 5, 0.0F));
+        leftWindow.cubeList.add(new ModelBox(leftWindow, 86, 41, -6.0F, -11.0F, -8.0F, 1, 2, 5, 0.0F));
+        leftWindow.cubeList.add(new ModelBox(leftWindow, 86, 49, 0.0F, -11.0F, -8.0F, 1, 2, 5, 0.0F));
 
-        top = new ModelRenderer(this);
-        top.setRotationPoint(0.0F, 24.0F, 0.0F);
-        top.cubeList.add(new ModelBox(top, 0, 60, -6.0F, -16.0F, -7.0F, 4, 2, 13, 0.0F));
-        top.cubeList.add(new ModelBox(top, 34, 60, 2.0F, -16.0F, -7.0F, 4, 2, 13, 0.0F));
-        top.cubeList.add(new ModelBox(top, 68, 66, -2.0F, -16.0F, 2.0F, 4, 2, 4, 0.0F));
-        top.cubeList.add(new ModelBox(top, 64, 53, -2.0F, -16.0F, -7.0F, 4, 2, 5, 0.0F));
+        rightWindow = new ModelRenderer(this);
+        rightWindow.setRotationPoint(0.0F, 24.0F, 0.0F);
+        rightWindow.cubeList.add(new ModelBox(rightWindow, 60, 68, 0.0F, -9.0F, -8.0F, 7, 1, 5, 0.0F));
+        rightWindow.cubeList.add(new ModelBox(rightWindow, 86, 57, -1.0F, -13.0F, -8.0F, 1, 1, 5, 0.0F));
+        rightWindow.cubeList.add(new ModelBox(rightWindow, 35, 89, 0.0F, -14.0F, -8.0F, 1, 1, 5, 0.0F));
+        rightWindow.cubeList.add(new ModelBox(rightWindow, 35, 82, 1.0F, -15.0F, -8.0F, 4, 1, 5, 0.0F));
+        rightWindow.cubeList.add(new ModelBox(rightWindow, 54, 82, 6.0F, -13.0F, -8.0F, 1, 4, 5, 0.0F));
+        rightWindow.cubeList.add(new ModelBox(rightWindow, 90, 7, 5.0F, -14.0F, -8.0F, 1, 1, 5, 0.0F));
     }
+
 
     @Override
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         outline.render(f5);
         frontFace.render(f5);
-        interior.render(f5);
-        top.render(f5);
+        leftWindow.render(f5);
+        rightWindow.render(f5);
     }
 
     @Override
     public void renderModel(float f5) {
         outline.render(f5);
         frontFace.render(f5);
-        interior.render(f5);
-        top.render(f5);
+        leftWindow.render(f5);
+        rightWindow.render(f5);
     }
 
     @Override

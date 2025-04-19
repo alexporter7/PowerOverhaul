@@ -6,15 +6,18 @@ import com.alexporter7.poweroverhaul.api.enums.TileEntityState;
 import com.alexporter7.poweroverhaul.api.manager.FluidTankManager;
 import com.alexporter7.poweroverhaul.api.manager.ItemStackManager;
 import com.alexporter7.poweroverhaul.api.properties.GeneratorProperties;
+import com.alexporter7.poweroverhaul.fluid.PowerOverhaulFluid;
 import com.alexporter7.poweroverhaul.util.PowerOverhaulUtil;
 import com.cleanroommc.modularui.utils.item.ItemStackHandler;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidTank;
 
+import static com.alexporter7.poweroverhaul.api.enums.FluidEnum.COOLANT;
+
 public class MetaGeneratorTileEntity<T extends Enum<T>> extends MetaPowerOverhaulTileEntityUI<T> {
 
     protected final GeneratorProperties generatorProperties;
-    protected final FluidTankManager fluidTankManager = new FluidTankManager();
+    protected final FluidTankManager<PowerOverhaulFluid> fluidTankManager = new FluidTankManager();
     protected final ItemStackManager itemStackManager = new ItemStackManager();
 
     /* Configuration */
@@ -75,7 +78,7 @@ public class MetaGeneratorTileEntity<T extends Enum<T>> extends MetaPowerOverhau
 
     }
 
-    public FluidTankManager getFluidTankManager() {
+    public FluidTankManager<PowerOverhaulFluid> getFluidTankManager() {
         return this.fluidTankManager;
     }
 
@@ -170,6 +173,14 @@ public class MetaGeneratorTileEntity<T extends Enum<T>> extends MetaPowerOverhau
             .substring(1)
             .toLowerCase()
             .replaceAll("_", " ");
+    }
+
+    public String getFluidQuality(FluidEnum fluid) {
+        if(fluidTankManager.getTank(fluid).getFluidAmount() != 0)
+            return PowerOverhaulUtil.formatEnum(fluid)
+                + " quality: "
+                + this.fluidTankManager.getFluid(fluid).getQuality() + "%";
+        return "No fluid";
     }
 
     @Override

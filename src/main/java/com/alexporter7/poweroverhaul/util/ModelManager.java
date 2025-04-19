@@ -8,9 +8,13 @@ public class ModelManager {
 
     public enum Texture {
 
+        /* Blocks */
         DIESEL_GENERATOR("textures/models/diesel_generator"),
         MUSIC_PLAYER("textures/models/music_player"),
-        ALLOY_SMELTER("textures/models/alloy_smelter");
+        ALLOY_SMELTER("textures/models/alloy_smelter"),
+
+        /* Items */
+        NETWORK_TOOL("textures/models/network_tool");
 
         private final ResourceLocation resourceLocation;
 

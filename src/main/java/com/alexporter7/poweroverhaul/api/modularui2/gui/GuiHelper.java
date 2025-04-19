@@ -78,13 +78,14 @@ public class GuiHelper {
             .marginTop(2);
     }
 
-    public static IWidget createToggleButtonRow(String label, SyncHandler syncHandler) {
+    public static IWidget createToggleButtonRow(String label, BooleanSyncValue value, Predicate<ToggleButton> predicate) {
         return new Row().child(textWidget(label, 0, 0).alignment(Alignment.CenterLeft))
             .child(
                 new ToggleButton().height(14)
                     .width(14)
                     .rightRelAnchor(0f, 0f)
-                    .syncHandler(syncHandler.getKey()))
+                    .value(value)
+                    .setEnabledIf(predicate))
             .coverChildrenHeight()
             .marginTop(2);
     }
@@ -110,7 +111,7 @@ public class GuiHelper {
             .child(
                 new FluidSlot().syncHandler(fluidTank)
                     .rightRelAnchor(0f, 0f)
-                    .addTooltipElement(IKey.dynamic(value)))
+                    .tooltip((tooltip) -> tooltip.addLine(IKey.dynamic(value))))
             .coverChildrenHeight();
     }
 

@@ -16,8 +16,4 @@ public class AlloySmelterBlock extends MetaCustomRenderBlock {
         return new AlloySmelterTileEntity();
     }
 
-    @Override
-    public int getRenderBlockPass() {
-        return 1;
-    }
 }

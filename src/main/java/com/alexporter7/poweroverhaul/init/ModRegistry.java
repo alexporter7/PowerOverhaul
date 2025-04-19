@@ -3,7 +3,6 @@ package com.alexporter7.poweroverhaul.init;
 import java.util.HashMap;
 
 import com.alexporter7.poweroverhaul.PowerOverhaul;
-import com.alexporter7.poweroverhaul.blocks.PowerOverhaulBlocks;
 import com.alexporter7.poweroverhaul.blocks.machines.AlloySmelterBlock;
 import com.alexporter7.poweroverhaul.blocks.machines.AlloySmelterTileEntity;
 import com.alexporter7.poweroverhaul.blocks.misc.MusicPlayerBlock;
@@ -11,8 +10,11 @@ import com.alexporter7.poweroverhaul.blocks.misc.MusicPlayerTileEntity;
 import com.alexporter7.poweroverhaul.blocks.models.AlloySmelterModel;
 import com.alexporter7.poweroverhaul.blocks.models.DieselGeneratorModel;
 import com.alexporter7.poweroverhaul.blocks.models.MusicPlayerModel;
+import com.alexporter7.poweroverhaul.items.NetworkToolItem;
+import com.alexporter7.poweroverhaul.items.models.NetworkToolModel;
 import com.alexporter7.poweroverhaul.render.renderers.PowerOverhaulBlockRenderer;
 import com.alexporter7.poweroverhaul.render.renderers.PowerOverhaulItemRenderer;
+import com.alexporter7.poweroverhaul.render.renderers.PowerOverhaulTEItemRenderer;
 import com.alexporter7.poweroverhaul.util.ModelManager;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -58,7 +60,7 @@ public class ModRegistry {
     }
 
     public static void initItems() {
-
+        ITEMS.put("network_tool", new NetworkToolItem());
     }
 
     @SideOnly(Side.CLIENT)
@@ -91,14 +93,29 @@ public class ModRegistry {
         ClientRegistry.bindTileEntitySpecialRenderer(tileEntityClass, renderer);
         MinecraftForgeClient.registerItemRenderer(
             Item.getItemFromBlock(BLOCKS.get(blockName)),
-            new PowerOverhaulItemRenderer(renderer, tileEntity));
+            new PowerOverhaulTEItemRenderer(renderer, tileEntity));
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void registerItemRenderers() {
+
+        MinecraftForgeClient.registerItemRenderer(ITEMS.get("network_tool"),
+            new PowerOverhaulItemRenderer(new NetworkToolModel()));
+
     }
 
     public static void registerPreInit() {
+        PowerOverhaul.LOG.info("Registering Blocks");
         BLOCKS.forEach((key, block) -> {
             block.setBlockName(key);
             GameRegistry.registerBlock(block, key);
         });
+        PowerOverhaul.LOG.info("Registering Items");
+        ITEMS.forEach((key, item) -> {
+            item.setUnlocalizedName(key);
+            GameRegistry.registerItem(item, key);
+        });
+        PowerOverhaul.LOG.info("Registering Materials");
         MaterialDef.registerMaterials();
     }
 

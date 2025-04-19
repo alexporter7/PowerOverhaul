@@ -1,6 +1,7 @@
 package com.alexporter7.poweroverhaul.gui;
 
 import com.alexporter7.poweroverhaul.api.enums.FluidEnum;
+import com.alexporter7.poweroverhaul.api.enums.TileEntityState;
 import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiBuilder;
 import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiHelper;
 import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiProperties;
@@ -14,8 +15,12 @@ import com.cleanroommc.modularui.widget.ParentWidget;
 import com.cleanroommc.modularui.widgets.PageButton;
 import com.cleanroommc.modularui.widgets.PagedWidget;
 import com.cleanroommc.modularui.widgets.SliderWidget;
+import com.cleanroommc.modularui.widgets.ToggleButton;
 import com.cleanroommc.modularui.widgets.layout.Column;
 import com.cleanroommc.modularui.widgets.layout.Row;
+
+import java.awt.*;
+import java.util.function.Predicate;
 
 import static com.alexporter7.poweroverhaul.api.enums.FluidEnum.*;
 import static com.alexporter7.poweroverhaul.api.enums.SlotType.*;
@@ -117,7 +122,7 @@ public class GuiDefinitions {
             .paddingLeft(12);
 
         IWidget fluidSlots = new Column()
-            .child(GuiHelper.createFluidSlotRow("Coolant: ", tileEntity.getFluidTank(COOLANT)))
+            .child(GuiHelper.createFluidSlotRow("Coolant: ", tileEntity.getFluidTank(COOLANT), () -> tileEntity.getFluidQuality(COOLANT)))
             .child(GuiHelper.createFluidSlotRow("Oil: ", tileEntity.getFluidTank(OIL)))
             .child(GuiHelper.createFluidSlotRow("Fuel: ", tileEntity.getFluidTank(DIESEL)))
             .leftRelAnchor(0.5f, 0f)

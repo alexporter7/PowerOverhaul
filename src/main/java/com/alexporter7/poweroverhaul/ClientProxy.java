@@ -24,6 +24,9 @@ public class ClientProxy extends CommonProxy {
         PowerOverhaul.LOG.info("Registering Block Renderers");
         ModRegistry.registerBlockRenderers();
 
+        PowerOverhaul.LOG.info("Registering Item Renderers");
+        ModRegistry.registerItemRenderers();
+
         PowerOverhaul.LOG.info("Registering Creative Tab(s)");
         PowerOverhaul.powerOverhaulTab = new CreativeTabs(PowerOverhaul.MOD_LABEL) {
 

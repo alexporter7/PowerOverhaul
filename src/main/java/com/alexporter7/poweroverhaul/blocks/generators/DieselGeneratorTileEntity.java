@@ -98,6 +98,9 @@ public class DieselGeneratorTileEntity extends MetaGeneratorTileEntity<TileEntit
             throttle = 0;
             return;
         }
+        if(hasCoolant())
+            if(PowerOverhaulUtil.getRandomChance(1))
+                fluidTankManager.getFluid(COOLANT).decrementQuality();
 
 //        if(state != State.OFF && state != State.MAINTENANCE && state != State.PROBLEM)
 //            fluidTankManager.getTank(DIESEL).drain(10, true);

@@ -22,9 +22,9 @@ public class PowerOverhaulModelBase extends ModelBase {
     }
 
     @Override
-    public void render(Entity p_78088_1_, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_,
-        float p_78088_6_, float p_78088_7_) {
-        super.render(p_78088_1_, p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, p_78088_7_);
+    public void render(Entity entity, float f1, float f2, float f3, float f4,
+        float f5, float f6) {
+        super.render(entity, f1, f2, f3, f4, f5, f6);
     }
 
     @Override

@@ -8,14 +8,12 @@ import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiProperties;
 import com.alexporter7.poweroverhaul.blocks.generators.DieselGeneratorTileEntity;
 import com.alexporter7.poweroverhaul.blocks.misc.MusicPlayerTileEntity;
 import com.cleanroommc.modularui.api.widget.IWidget;
+import com.cleanroommc.modularui.factory.GuiData;
 import com.cleanroommc.modularui.factory.PosGuiData;
 import com.cleanroommc.modularui.screen.ModularPanel;
 import com.cleanroommc.modularui.value.sync.*;
 import com.cleanroommc.modularui.widget.ParentWidget;
-import com.cleanroommc.modularui.widgets.PageButton;
-import com.cleanroommc.modularui.widgets.PagedWidget;
-import com.cleanroommc.modularui.widgets.SliderWidget;
-import com.cleanroommc.modularui.widgets.ToggleButton;
+import com.cleanroommc.modularui.widgets.*;
 import com.cleanroommc.modularui.widgets.layout.Column;
 import com.cleanroommc.modularui.widgets.layout.Row;
 
@@ -46,7 +44,7 @@ public class GuiDefinitions {
             .addProperty(GuiProperties.Property.TITLE_NAME, GuiTextures.TITLE_BACKGROUND.getName())
             .addProperty(GuiProperties.Property.TITLE_BACKGROUND, GuiTextures.TITLE_BACKGROUND.getLocation());
 
-        ModularPanel panel = new GuiBuilder(posGuiData, syncManager, musicGuiProps)
+        ModularPanel panel = new GuiBuilder<PosGuiData>(posGuiData, syncManager, musicGuiProps)
             .createTitle()
             .setBackground()
             .build();
@@ -68,7 +66,8 @@ public class GuiDefinitions {
         syncManager.syncValue("hpSync", new IntSyncValue(tileEntity::getHp, tileEntity::setHp));
         syncManager.syncValue("tempSync", new IntSyncValue(tileEntity::getTemp, tileEntity::setTemp));
 
-        ModularPanel panel = new GuiBuilder(posGuiData, syncManager, dieselGuiProps).createTitle()
+        ModularPanel panel = new GuiBuilder<PosGuiData>(posGuiData, syncManager, dieselGuiProps)
+            .createTitle()
             .setBackground()
             .build();
 
@@ -152,6 +151,48 @@ public class GuiDefinitions {
                     .coverChildrenHeight());
 
         return panel;
+    }
+
+    public static ModularPanel buildNetworkToolGui(GuiData guiData, PanelSyncManager syncManager) {
+
+        GuiProperties networkToolGuiProps = new GuiProperties(176, 166)
+            .addProperty(GuiProperties.Property.GUI_BACKGROUND, GuiTextures.STEEL_BACKGROUND.getLocation())
+            .addProperty(GuiProperties.Property.GUI_NAME, GuiTextures.STEEL_BACKGROUND.getName())
+            .addProperty(GuiProperties.Property.TITLE, "Network Tool")
+            .addProperty(GuiProperties.Property.TITLE_NAME, GuiTextures.TITLE_BACKGROUND.getName())
+            .addProperty(GuiProperties.Property.TITLE_BACKGROUND, GuiTextures.TITLE_BACKGROUND.getLocation());
+
+        ModularPanel panel = new GuiBuilder<GuiData>(guiData, syncManager, networkToolGuiProps)
+            .createTitle()
+            .setBackground()
+            .build();
+
+        PagedWidget.Controller tabController = new PagedWidget.Controller();
+        IWidget tabs = new Column()
+            .child(new PageButton(0, tabController).tab(GuiTextures.STEEL_TAB_RIGHT, -1))
+            .child(new PageButton(1, tabController).tab(GuiTextures.STEEL_TAB_RIGHT, 0))
+            .coverChildren()
+            .rightRel(0f, 4, 1f);
+
+//        IWidget networkList = new Column()
+//            .child(new ListWidget<>())
+//        panel.child(tabs)
+//            .child(
+//                new PagedWidget<>().sizeRel(1f)
+//                    .controller(tabController)
+//                    .addPage(
+//                        new ParentWidget<>().sizeRel(1f)
+//                            .child(operationLabels)
+//                            .child(operationStats))
+//                    .addPage(
+//                        new ParentWidget<>().sizeRel(1f)
+//                            .child(itemSlots)
+//                            .child(fluidSlots))
+//                    .coverChildrenHeight());
+
+
+        return panel;
+
     }
 
 }

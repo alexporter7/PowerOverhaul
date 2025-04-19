@@ -1,17 +1,17 @@
 package com.alexporter7.poweroverhaul.api.modularui2.gui;
 
-import com.cleanroommc.modularui.api.IPanelHandler;
 import com.cleanroommc.modularui.api.drawable.IKey;
 import com.cleanroommc.modularui.api.widget.IWidget;
 import com.cleanroommc.modularui.drawable.UITexture;
+import com.cleanroommc.modularui.factory.GuiData;
 import com.cleanroommc.modularui.factory.PosGuiData;
 import com.cleanroommc.modularui.screen.ModularPanel;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.cleanroommc.modularui.widget.ParentWidget;
 
-public class GuiBuilder {
+public class GuiBuilder<T extends GuiData> {
 
-    private final PosGuiData posGuiData;
+    private final T guiData;
     private final PanelSyncManager syncManager;
     private final GuiProperties guiProperties;
     private ModularPanel panel;
@@ -19,8 +19,8 @@ public class GuiBuilder {
     private final int width;
     private final int height;
 
-    public GuiBuilder(PosGuiData data, PanelSyncManager syncManager, GuiProperties guiProperties) {
-        this.posGuiData = data;
+    public GuiBuilder(T data, PanelSyncManager syncManager, GuiProperties guiProperties) {
+        this.guiData = data;
         this.syncManager = syncManager;
         this.guiProperties = guiProperties;
         this.width = guiProperties.getWidth();
@@ -34,7 +34,7 @@ public class GuiBuilder {
         return this.panel;
     }
 
-    public GuiBuilder createTitle() {
+    public GuiBuilder<T> createTitle() {
         this.panel.child(
             new ParentWidget<>().coverChildren()
                 .topRelAnchor(0, 1)
@@ -50,12 +50,12 @@ public class GuiBuilder {
         return this;
     }
 
-    public GuiBuilder setBackground() {
+    public GuiBuilder<T> setBackground() {
         this.panel.background(buildGuiBackground());
         return this;
     }
 
-    public GuiBuilder addWidget(IWidget widget) {
+    public GuiBuilder<T> addWidget(IWidget widget) {
         this.panel.child(widget);
         return this;
     }

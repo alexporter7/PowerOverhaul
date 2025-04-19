@@ -16,6 +16,8 @@ import com.alexporter7.poweroverhaul.render.renderers.PowerOverhaulBlockRenderer
 import com.alexporter7.poweroverhaul.render.renderers.PowerOverhaulItemRenderer;
 import com.alexporter7.poweroverhaul.render.renderers.PowerOverhaulTEItemRenderer;
 import com.alexporter7.poweroverhaul.util.ModelManager;
+import com.alexporter7.poweroverhaul.util.TestGuiBlock;
+import com.alexporter7.poweroverhaul.util.TestTileGui;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -46,6 +48,9 @@ public class ModRegistry {
     }
 
     public static HashMap<String, Block> initBlocks() {
+        /* For GUI Testing */
+        BLOCKS.put("test_gui", new TestGuiBlock());
+
         BLOCKS.put("diesel_generator", new DieselGeneratorBlock());
         BLOCKS.put("music_player", new MusicPlayerBlock());
         BLOCKS.put("alloy_smelter", new AlloySmelterBlock());
@@ -54,6 +59,9 @@ public class ModRegistry {
     }
 
     public static void initTileEntities() {
+        /* For GUI Testing */
+        TILE_ENTITIES.put("test_gui_te", TestTileGui.class);
+
         TILE_ENTITIES.put("diesel_generator_te", DieselGeneratorTileEntity.class);
         TILE_ENTITIES.put("music_player_te", MusicPlayerTileEntity.class);
         TILE_ENTITIES.put("alloy_smelter_te", AlloySmelterTileEntity.class);

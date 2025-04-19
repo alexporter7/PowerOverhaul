@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 
+import com.cleanroommc.modularui.api.IGuiHolder;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -56,7 +57,7 @@ import com.cleanroommc.modularui.widgets.slot.ModularSlot;
 import com.cleanroommc.modularui.widgets.slot.SlotGroup;
 import com.cleanroommc.modularui.widgets.textfield.TextFieldWidget;
 
-public class TestTileGui extends TileEntity {
+public class TestTileGui extends TileEntity implements IGuiHolder<PosGuiData> {
 
     private final FluidTank fluidTank = new FluidTank(16000);
     private final FluidTank fluidTankPhantom = new FluidTank(Integer.MAX_VALUE);
@@ -84,7 +85,8 @@ public class TestTileGui extends TileEntity {
     private int num = 2;
     private int currentDropdownIndex = -1;
 
-    public ModularPanel buildUITest(PosGuiData guiData, PanelSyncManager guiSyncManager) {
+    @Override
+    public ModularPanel buildUI(PosGuiData guiData, PanelSyncManager guiSyncManager) {
         guiSyncManager.addOpenListener(player -> {
             PowerOverhaul.LOG.info(
                 "Test Tile panel open by {} on {}",

@@ -6,6 +6,8 @@ import java.util.function.Consumer;
 
 import com.alexporter7.poweroverhaul.blocks.MaterialBlock;
 import com.alexporter7.poweroverhaul.blocks.MaterialOreBlock;
+import com.alexporter7.poweroverhaul.blocks.engine.EngineBlock;
+import com.alexporter7.poweroverhaul.blocks.engine.EngineComponentBlock;
 import com.alexporter7.poweroverhaul.init.ModRegistry;
 import com.alexporter7.poweroverhaul.items.MaterialItem;
 import com.alexporter7.poweroverhaul.items.components.EngineComponentItem;
@@ -21,7 +23,8 @@ public class MaterialUtil {
         ORE,
         FLUID,
         ITEM,
-        ENGINE_COMPONENT
+        ENGINE_COMPONENT,
+        ENGINE_COMPONENT_RENDER
     }
 
     public enum Component {
@@ -41,7 +44,7 @@ public class MaterialUtil {
 
         /* Engine Component */
         ENGINE_HEAD(Type.ENGINE_COMPONENT),
-        ENGINE_BLOCK(Type.ENGINE_COMPONENT),
+        ENGINE_BLOCK(Type.ENGINE_COMPONENT_RENDER),
         ENGINE_PISTON(Type.ENGINE_COMPONENT);
 
         public final Type TYPE;
@@ -100,8 +103,32 @@ public class MaterialUtil {
                 ModRegistry.ITEMS.put(regName, item);
                 GameRegistry.registerItem(item, regName);
             };
+            case ENGINE_COMPONENT_RENDER -> (_component) -> {
+                HashSet<EngineComponentBlock> blocks = getEngineComponentClass(material, component);
+                blocks.forEach((block -> {
+                    ModRegistry.BLOCKS.put(block.getBlockName(), block);
+                    GameRegistry.registerBlock(block, block.getBlockName());
+                    ModRegistry.registerEngineRendererFromComponent(
+                        block, component
+                    );
+                }));
+            };
         };
     }
+
+    public static HashSet<EngineComponentBlock> getEngineComponentClass(PowerOverhaulMaterial material, Component component) {
+        switch (component) {
+            case ENGINE_BLOCK -> {
+                return new HashSet<>(Arrays.asList(new EngineBlock(material, 4),
+                    new EngineBlock(material, 6),
+                    new EngineBlock(material, 8)));
+            }
+            default -> {
+                return null;
+            }
+        }
+    }
+
 
     public static HashSet<Component> getAllComponents() {
         return new HashSet<>(Arrays.asList(Component.values()));

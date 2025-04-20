@@ -13,6 +13,10 @@ public class ModelManager {
         MUSIC_PLAYER("textures/models/music_player"),
         ALLOY_SMELTER("textures/models/alloy_smelter"),
 
+        ENGINE_BLOCK_4("textures/models/engine_block_4"),
+        ENGINE_BLOCK_6("textures/models/engine_block_6"),
+        ENGINE_BLOCK_8("textures/models/engine_block_8"),
+
         /* Items */
         NETWORK_TOOL("textures/models/network_tool");
 

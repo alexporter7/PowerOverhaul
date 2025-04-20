@@ -6,4 +6,8 @@ public class RenderUtil {
         return new float[] { (float) x + 0.5f, (float) y + 1.5f, (float) z + 0.5f };
     }
 
+    public static float getFloatColorFromInt(int value) {
+        return ((float)value) / 255;
+    }
+
 }

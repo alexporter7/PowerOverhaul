@@ -10,12 +10,12 @@ import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
 import com.alexporter7.poweroverhaul.util.ModelManager;
 import com.alexporter7.poweroverhaul.util.RenderUtil;
 
-public class PowerOverhaulBlockRenderer extends TileEntitySpecialRenderer {
+public class PowerOverhaulTEBlockRenderer extends TileEntitySpecialRenderer {
 
     private final PowerOverhaulModelBase model;
     private final ResourceLocation texture;
 
-    public PowerOverhaulBlockRenderer(PowerOverhaulModelBase model, ModelManager.Texture texture) {
+    public PowerOverhaulTEBlockRenderer(PowerOverhaulModelBase model, ModelManager.Texture texture) {
         this.model = model;
         this.texture = texture.getResourceLocation();
     }

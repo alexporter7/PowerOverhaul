@@ -8,8 +8,8 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import com.alexporter7.poweroverhaul.PowerOverhaul;
 import com.alexporter7.poweroverhaul.blocks.PowerOverhaulBlocks;
 import com.alexporter7.poweroverhaul.blocks.generators.DieselGeneratorTileEntity;
-import com.alexporter7.poweroverhaul.blocks.models.DieselGeneratorModel;
-import com.alexporter7.poweroverhaul.render.renderers.PowerOverhaulBlockRenderer;
+import com.alexporter7.poweroverhaul.blocks.models.generator.DieselGeneratorModel;
+import com.alexporter7.poweroverhaul.render.renderers.PowerOverhaulTEBlockRenderer;
 import com.alexporter7.poweroverhaul.render.renderers.PowerOverhaulTEItemRenderer;
 import com.alexporter7.poweroverhaul.util.ModelManager;
 
@@ -20,7 +20,7 @@ public class PowerOverhaulRender {
     public static void registerBlockRenderers() {
 
         registerBlockRenderer(
-            new PowerOverhaulBlockRenderer(new DieselGeneratorModel(), ModelManager.Texture.DIESEL_GENERATOR),
+            new PowerOverhaulTEBlockRenderer(new DieselGeneratorModel(), ModelManager.Texture.DIESEL_GENERATOR),
             DieselGeneratorTileEntity.class,
             new DieselGeneratorTileEntity(),
             "diesel_generator");

@@ -10,12 +10,12 @@ import net.minecraft.util.ResourceLocation;
 
 public class TileEntitySoundHandlerBase extends MovingSound {
 
-    private final MetaPowerOverhaulTEBase<?> TILE_ENTITY;
+    private final MetaPowerOverhaulTEBase TILE_ENTITY;
     private float volume = 1.0f;
     private float pitch = 1.0f;
     private boolean requestPlay = false;
 
-    public TileEntitySoundHandlerBase(Sound sound, MetaPowerOverhaulTEBase<?> tileEntity) {
+    public TileEntitySoundHandlerBase(Sound sound, MetaPowerOverhaulTEBase tileEntity) {
         super(new ResourceLocation(PowerOverhaul.MODID + ":" + sound.toString().toLowerCase()));
         TILE_ENTITY = tileEntity;
     }

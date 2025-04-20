@@ -27,4 +27,8 @@ public class PropertyList {
         GENERATE_IN,
         ORE
     }
+
+    public enum ENGINE {
+        CYLINDERS
+    }
 }

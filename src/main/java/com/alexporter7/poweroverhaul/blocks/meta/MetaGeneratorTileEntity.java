@@ -183,11 +183,6 @@ public class MetaGeneratorTileEntity<T extends Enum<T>> extends MetaPowerOverhau
         return "No fluid";
     }
 
-    @Override
-    public boolean isActive() {
-        return state != TileEntityState.GeneratorState.OFF && state != TileEntityState.GeneratorState.MAINTENANCE;
-    }
-
     protected void updateHorsepower() {}
     protected void updateFluids() {}
 

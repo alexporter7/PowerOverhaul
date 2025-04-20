@@ -20,4 +20,8 @@ public class MachineStat {
         RECIPE_PROGRESS
     }
 
+    public enum ENGINE_BLOCK {
+        DURABILITY
+    }
+
 }

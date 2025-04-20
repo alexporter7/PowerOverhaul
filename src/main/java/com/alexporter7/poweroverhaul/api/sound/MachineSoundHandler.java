@@ -5,7 +5,7 @@ import com.alexporter7.poweroverhaul.blocks.meta.MetaPowerOverhaulTEBase;
 
 public class MachineSoundHandler extends TileEntitySoundHandlerBase{
 
-    public MachineSoundHandler(Sound sound, MetaPowerOverhaulTEBase<?> tileEntity) {
+    public MachineSoundHandler(Sound sound, MetaPowerOverhaulTEBase tileEntity) {
         super(sound, tileEntity);
     }
 

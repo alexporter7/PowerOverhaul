@@ -1,11 +1,11 @@
 package com.alexporter7.poweroverhaul.api.state;
 
 import com.alexporter7.poweroverhaul.PowerOverhaul;
-import com.alexporter7.poweroverhaul.blocks.meta.MetaPowerOverhaulTEBase;
+import com.alexporter7.poweroverhaul.blocks.meta.MetaPowerOverhaulTileEntityUI;
 
 import java.util.HashMap;
 
-public class StateManager<T extends Enum<T>, C extends MetaPowerOverhaulTEBase<T>> {
+public class StateManager<T extends Enum<T>, C extends MetaPowerOverhaulTileEntityUI<T>> {
 
     private StateDefinition<T> previousState;
     private StateDefinition<T> currentState;

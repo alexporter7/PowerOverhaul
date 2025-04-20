@@ -1,9 +1,9 @@
 package com.alexporter7.poweroverhaul.api.network;
 
-import net.minecraft.tileentity.TileEntity;
-
 import java.util.HashSet;
 import java.util.UUID;
+
+import net.minecraft.tileentity.TileEntity;
 
 public class Network {
 

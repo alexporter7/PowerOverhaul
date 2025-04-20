@@ -1,12 +1,12 @@
 package com.alexporter7.poweroverhaul.init;
 
-import com.alexporter7.poweroverhaul.api.material.MaterialBuilder;
-import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
-import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
+import static com.alexporter7.poweroverhaul.api.material.MaterialUtil.Component;
 
 import java.util.HashSet;
 
-import static com.alexporter7.poweroverhaul.api.material.MaterialUtil.Component;
+import com.alexporter7.poweroverhaul.api.material.MaterialBuilder;
+import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
+import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
 
 public class MaterialDef {
 
@@ -19,8 +19,8 @@ public class MaterialDef {
         HashSet<PowerOverhaulMaterial> materialsList = new HashSet<>();
 
         /*
-        Base Materials
-        */
+         * Base Materials
+         */
 
         /* Weak */
         materialsList.add(createMaterial("tin", 10, 450, 118, 0xD3D4D5, COMPONENTS_NO_ENGINE));
@@ -35,8 +35,8 @@ public class MaterialDef {
         materialsList.add(createMaterial("aluminium", 10, 1220, 27, 0xADB2BD, ALL_COMPONENTS));
 
         /*
-        Alloys
-        */
+         * Alloys
+         */
 
         /* Weak */
         materialsList.add(createMaterial("bronze", 10, 1675, 15, 0xCE8946, COMPONENTS_NO_ENGINE));

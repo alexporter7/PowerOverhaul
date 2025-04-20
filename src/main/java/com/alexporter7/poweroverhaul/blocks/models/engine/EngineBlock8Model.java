@@ -4,13 +4,14 @@ package com.alexporter7.poweroverhaul.blocks.models.engine;
 // Exported for Minecraft version 1.7 - 1.12
 // Paste this class into your mod and generate all required imports
 
-
-import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
+import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
+
 public class EngineBlock8Model extends PowerOverhaulModelBase {
+
     private final ModelRenderer base;
     private final ModelRenderer top;
     private final ModelRenderer cylinders;
@@ -46,11 +47,9 @@ public class EngineBlock8Model extends PowerOverhaulModelBase {
         cylinders = new ModelRenderer(this);
         cylinders.setRotationPoint(0.0F, 24.0F, 0.0F);
 
-
         leftBank = new ModelRenderer(this);
         leftBank.setRotationPoint(0.0F, 0.0F, 1.0F);
         cylinders.addChild(leftBank);
-
 
         cylinderB = new ModelRenderer(this);
         cylinderB.setRotationPoint(-3.0F, 0.0F, 1.0F);
@@ -87,7 +86,6 @@ public class EngineBlock8Model extends PowerOverhaulModelBase {
         rightBank = new ModelRenderer(this);
         rightBank.setRotationPoint(1.0F, 0.0F, -1.0F);
         cylinders.addChild(rightBank);
-
 
         cylinderB2 = new ModelRenderer(this);
         cylinderB2.setRotationPoint(2.0F, 0.0F, -1.0F);

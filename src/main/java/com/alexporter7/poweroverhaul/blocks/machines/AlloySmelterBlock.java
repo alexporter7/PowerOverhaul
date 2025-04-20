@@ -1,9 +1,10 @@
 package com.alexporter7.poweroverhaul.blocks.machines;
 
-import com.alexporter7.poweroverhaul.blocks.meta.MetaCustomRenderBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
+import com.alexporter7.poweroverhaul.blocks.meta.MetaCustomRenderBlock;
 
 public class AlloySmelterBlock extends MetaCustomRenderBlock {
 

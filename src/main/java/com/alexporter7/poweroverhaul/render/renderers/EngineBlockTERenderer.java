@@ -1,5 +1,13 @@
 package com.alexporter7.poweroverhaul.render.renderers;
 
+import java.awt.*;
+
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
+
 import com.alexporter7.poweroverhaul.blocks.engine.EngineBlockTileEntity;
 import com.alexporter7.poweroverhaul.blocks.models.engine.EngineBlock4Model;
 import com.alexporter7.poweroverhaul.blocks.models.engine.EngineBlock6Model;
@@ -7,12 +15,6 @@ import com.alexporter7.poweroverhaul.blocks.models.engine.EngineBlock8Model;
 import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
 import com.alexporter7.poweroverhaul.util.ModelManager;
 import com.alexporter7.poweroverhaul.util.RenderUtil;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
-
-import java.awt.*;
 
 public class EngineBlockTERenderer extends TileEntitySpecialRenderer {
 
@@ -23,7 +25,9 @@ public class EngineBlockTERenderer extends TileEntitySpecialRenderer {
     @Override
     public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float f) {
         EngineBlockTileEntity engineBlockTileEntity = (EngineBlockTileEntity) tileEntity;
-        Color tintColor = new Color(engineBlockTileEntity.getPowerOverhaulMaterial().getColor());
+        Color tintColor = new Color(
+            engineBlockTileEntity.getPowerOverhaulMaterial()
+                .getColor());
 
         float[] coordinates = RenderUtil.getCorrectedTranslateFloats(x, y, z);
 
@@ -32,12 +36,14 @@ public class EngineBlockTERenderer extends TileEntitySpecialRenderer {
         GL11.glRotatef(180, 0f, 0f, 1f);
 
         this.bindTexture(getTexture(engineBlockTileEntity));
-        GL11.glColor4f(RenderUtil.getFloatColorFromInt(tintColor.getRed()),
+        GL11.glColor4f(
+            RenderUtil.getFloatColorFromInt(tintColor.getRed()),
             RenderUtil.getFloatColorFromInt(tintColor.getGreen()),
             RenderUtil.getFloatColorFromInt(tintColor.getBlue()),
             0.25f);
         GL11.glPushMatrix();
-        this.getModel(engineBlockTileEntity).renderModel(0.0625f);
+        this.getModel(engineBlockTileEntity)
+            .renderModel(0.0625f);
         GL11.glPopMatrix();
 
         GL11.glPopMatrix();

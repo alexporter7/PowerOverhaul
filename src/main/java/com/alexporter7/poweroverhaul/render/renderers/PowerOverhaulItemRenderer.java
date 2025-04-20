@@ -1,14 +1,15 @@
 package com.alexporter7.poweroverhaul.render.renderers;
 
-import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
+import static com.alexporter7.poweroverhaul.util.ModelManager.Texture.NETWORK_TOOL;
+
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
 
-import static com.alexporter7.poweroverhaul.util.ModelManager.Texture.NETWORK_TOOL;
+import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
 
 public class PowerOverhaulItemRenderer implements IItemRenderer {
 
@@ -20,7 +21,7 @@ public class PowerOverhaulItemRenderer implements IItemRenderer {
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-        switch(type) {
+        switch (type) {
             case EQUIPPED:
             case EQUIPPED_FIRST_PERSON:
             case INVENTORY:
@@ -37,7 +38,7 @@ public class PowerOverhaulItemRenderer implements IItemRenderer {
 
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-        switch(type) {
+        switch (type) {
             case EQUIPPED:
                 GL11.glPushMatrix();
                 Minecraft.getMinecraft().renderEngine.bindTexture(NETWORK_TOOL.getResourceLocation());
@@ -45,7 +46,7 @@ public class PowerOverhaulItemRenderer implements IItemRenderer {
                 GL11.glTranslatef(0.5f, 1.75f, 0.5f);
                 GL11.glRotatef(180, 0, 0, 1);
                 GL11.glRotatef(150, 0, 1, 0);
-                MODEL.render((Entity)data[1], 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0625f);
+                MODEL.render((Entity) data[1], 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0625f);
                 GL11.glPopMatrix();
                 break;
             case EQUIPPED_FIRST_PERSON:
@@ -55,7 +56,7 @@ public class PowerOverhaulItemRenderer implements IItemRenderer {
                 GL11.glTranslatef(0.5f, 2.0f, 0.25f);
                 GL11.glRotatef(180, 0, 0, 1);
                 GL11.glRotatef(240, 0, 1, 0);
-                MODEL.render((Entity)data[1], 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0625f);
+                MODEL.render((Entity) data[1], 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0625f);
                 GL11.glPopMatrix();
                 break;
             case INVENTORY:
@@ -70,8 +71,6 @@ public class PowerOverhaulItemRenderer implements IItemRenderer {
             default:
                 break;
         }
-
-
 
     }
 }

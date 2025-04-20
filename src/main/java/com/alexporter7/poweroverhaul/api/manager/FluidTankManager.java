@@ -1,11 +1,10 @@
 package com.alexporter7.poweroverhaul.api.manager;
 
-import com.alexporter7.poweroverhaul.api.enums.FluidEnum;
+import java.util.HashMap;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
-
-import java.util.HashMap;
 
 public class FluidTankManager<T extends Fluid> {
 
@@ -21,7 +20,9 @@ public class FluidTankManager<T extends Fluid> {
     }
 
     public T getFluid(Enum<?> fluid) {
-        return (T) TANKS.get(fluid).getFluid().getFluid();
+        return (T) TANKS.get(fluid)
+            .getFluid()
+            .getFluid();
     }
 
     public FluidTank getTank(Enum<?> fluid) {

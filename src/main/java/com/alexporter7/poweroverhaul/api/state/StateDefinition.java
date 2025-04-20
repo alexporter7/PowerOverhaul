@@ -32,24 +32,20 @@ public class StateDefinition<T extends Enum<T>> {
     }
 
     public void enterState(T previousState, T thisState) {
-        if(onEnter != null)
-            onEnter.accept(previousState, thisState);
+        if (onEnter != null) onEnter.accept(previousState, thisState);
     }
 
     public void exitState(T nextState, T thisState) {
-        if(onExit != null)
-            onExit.accept(nextState, thisState);
+        if (onExit != null) onExit.accept(nextState, thisState);
     }
 
     public T checkConditions() {
-        if(conditions != null)
-            return conditions.get();
+        if (conditions != null) return conditions.get();
         return this.state;
     }
 
     public void executeAction(T currentState) {
-        if(eventTick != null)
-            eventTick.accept(currentState);
+        if (eventTick != null) eventTick.accept(currentState);
     }
 
     public static class Builder<T extends Enum<T>> {
@@ -73,6 +69,7 @@ public class StateDefinition<T extends Enum<T>> {
 
         /**
          * Accepts consumer with previous state
+         * 
          * @param consumer function that executes when this state is successfully requested
          * @return Builder
          */
@@ -83,6 +80,7 @@ public class StateDefinition<T extends Enum<T>> {
 
         /**
          * Accepts consumer with next state
+         * 
          * @param consumer function that executes when the next state is successfully requested
          * @return Builder
          */

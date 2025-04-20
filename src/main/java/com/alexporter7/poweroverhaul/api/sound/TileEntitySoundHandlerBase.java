@@ -1,12 +1,11 @@
 package com.alexporter7.poweroverhaul.api.sound;
 
+import net.minecraft.client.audio.MovingSound;
+import net.minecraft.util.ResourceLocation;
+
 import com.alexporter7.poweroverhaul.PowerOverhaul;
 import com.alexporter7.poweroverhaul.api.enums.Sound;
 import com.alexporter7.poweroverhaul.blocks.meta.MetaPowerOverhaulTEBase;
-import net.minecraft.client.audio.ITickableSound;
-import net.minecraft.client.audio.MovingSound;
-import net.minecraft.client.audio.PositionedSound;
-import net.minecraft.util.ResourceLocation;
 
 public class TileEntitySoundHandlerBase extends MovingSound {
 
@@ -16,7 +15,11 @@ public class TileEntitySoundHandlerBase extends MovingSound {
     private boolean requestPlay = false;
 
     public TileEntitySoundHandlerBase(Sound sound, MetaPowerOverhaulTEBase tileEntity) {
-        super(new ResourceLocation(PowerOverhaul.MODID + ":" + sound.toString().toLowerCase()));
+        super(
+            new ResourceLocation(
+                PowerOverhaul.MODID + ":"
+                    + sound.toString()
+                        .toLowerCase()));
         TILE_ENTITY = tileEntity;
     }
 

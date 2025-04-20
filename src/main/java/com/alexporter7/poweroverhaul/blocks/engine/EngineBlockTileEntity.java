@@ -1,7 +1,6 @@
 package com.alexporter7.poweroverhaul.blocks.engine;
 
 import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
-import com.alexporter7.poweroverhaul.blocks.meta.MetaCustomRenderBlock;
 import com.alexporter7.poweroverhaul.blocks.meta.MetaPowerOverhaulTEBase;
 
 public class EngineBlockTileEntity extends MetaPowerOverhaulTEBase {
@@ -21,6 +20,5 @@ public class EngineBlockTileEntity extends MetaPowerOverhaulTEBase {
     public PowerOverhaulMaterial getPowerOverhaulMaterial() {
         return MATERIAL;
     }
-
 
 }

@@ -1,11 +1,12 @@
 package com.alexporter7.poweroverhaul.api.manager;
 
+import java.util.HashMap;
+
+import net.minecraft.nbt.NBTTagCompound;
+
 import com.alexporter7.poweroverhaul.api.enums.SlotType;
 import com.alexporter7.poweroverhaul.api.modularui2.gui.GuiHelper;
 import com.cleanroommc.modularui.utils.item.ItemStackHandler;
-import net.minecraft.nbt.NBTTagCompound;
-
-import java.util.HashMap;
 
 public class ItemStackManager {
 
@@ -22,6 +23,7 @@ public class ItemStackManager {
 
     public ItemStackManager createItemStackHandler(Enum<SlotType> slotType, int limit) {
         STACK_HANDLERS.put(slotType, new ItemStackHandler(limit) {
+
             @Override
             public int getSlotLimit(int slot) {
                 return super.getSlotLimit(limit);
@@ -35,8 +37,7 @@ public class ItemStackManager {
     }
 
     public void writeItemStacksToNbt(NBTTagCompound compound) {
-        STACK_HANDLERS.forEach((key, itemStack) ->
-            this.writeItemStackToNbt(compound, key, itemStack));
+        STACK_HANDLERS.forEach((key, itemStack) -> this.writeItemStackToNbt(compound, key, itemStack));
     }
 
     public void writeItemStackToNbt(NBTTagCompound compound, Enum<SlotType> key, ItemStackHandler itemStackHandler) {
@@ -44,8 +45,7 @@ public class ItemStackManager {
     }
 
     public void readItemStacksFromNbt(NBTTagCompound compound) {
-        STACK_HANDLERS.forEach((key, itemStack) ->
-            this.readItemStackFromNbt(compound, key, itemStack));
+        STACK_HANDLERS.forEach((key, itemStack) -> this.readItemStackFromNbt(compound, key, itemStack));
     }
 
     public void readItemStackFromNbt(NBTTagCompound compound, Enum<SlotType> key, ItemStackHandler itemStackHandler) {

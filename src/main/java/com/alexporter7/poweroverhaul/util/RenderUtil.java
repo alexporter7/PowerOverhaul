@@ -7,7 +7,7 @@ public class RenderUtil {
     }
 
     public static float getFloatColorFromInt(int value) {
-        return ((float)value) / 255;
+        return ((float) value) / 255;
     }
 
 }

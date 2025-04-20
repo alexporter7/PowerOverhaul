@@ -4,7 +4,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 
-import com.cleanroommc.modularui.api.IGuiHolder;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -14,6 +13,7 @@ import net.minecraftforge.fluids.FluidTank;
 import org.jetbrains.annotations.NotNull;
 
 import com.alexporter7.poweroverhaul.PowerOverhaul;
+import com.cleanroommc.modularui.api.IGuiHolder;
 import com.cleanroommc.modularui.api.IPanelHandler;
 import com.cleanroommc.modularui.api.drawable.IKey;
 import com.cleanroommc.modularui.drawable.Circle;

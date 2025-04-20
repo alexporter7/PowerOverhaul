@@ -2,13 +2,13 @@ package com.alexporter7.poweroverhaul.items;
 
 import java.util.List;
 
-import com.alexporter7.poweroverhaul.PowerOverhaul;
-import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import com.alexporter7.poweroverhaul.PowerOverhaul;
+import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
 import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
 import com.alexporter7.poweroverhaul.util.TooltipUtil;
 
@@ -47,7 +47,9 @@ public class MaterialItem extends Item {
     }
 
     private String getTexture() {
-        return PowerOverhaul.MODID + ":" + component.toString().toLowerCase();
+        return PowerOverhaul.MODID + ":"
+            + component.toString()
+                .toLowerCase();
     }
 
     public int getWeight() {

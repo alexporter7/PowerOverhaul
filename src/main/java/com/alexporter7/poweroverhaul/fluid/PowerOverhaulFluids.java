@@ -1,9 +1,10 @@
 package com.alexporter7.poweroverhaul.fluid;
 
+import static com.alexporter7.poweroverhaul.api.enums.FluidEnum.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import com.alexporter7.poweroverhaul.api.enums.FluidEnum;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
@@ -11,9 +12,9 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.IFluidBlock;
 
-import cpw.mods.fml.common.registry.GameRegistry;
+import com.alexporter7.poweroverhaul.api.enums.FluidEnum;
 
-import static com.alexporter7.poweroverhaul.api.enums.FluidEnum.*;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class PowerOverhaulFluids {
 
@@ -29,7 +30,8 @@ public class PowerOverhaulFluids {
     }
 
     public static void registerFluid(FluidEnum fluidDef, int color) {
-        String fluidName = fluidDef.toString().toLowerCase();
+        String fluidName = fluidDef.toString()
+            .toLowerCase();
         PowerOverhaulFluid fluid = new PowerOverhaulFluid(fluidName);
         FluidRegistry.registerFluid(fluid);
 

@@ -6,6 +6,7 @@ public interface IEnergyProvider {
 
     /**
      * Whether a machine can export energy (if it has enough, if there's something that can accept it)
+     * 
      * @param side Side to export energy
      * @return true if conditions are met
      */
@@ -13,6 +14,7 @@ public interface IEnergyProvider {
 
     /**
      * Exports energy to the side specified
+     * 
      * @param side Side to export energy
      * @return Returns true if the block accepting the energy was able to accept
      */

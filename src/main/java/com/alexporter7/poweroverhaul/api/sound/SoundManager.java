@@ -1,9 +1,10 @@
 package com.alexporter7.poweroverhaul.api.sound;
 
-import net.minecraft.client.Minecraft;
-import com.alexporter7.poweroverhaul.api.enums.Sound;
-
 import java.util.HashMap;
+
+import net.minecraft.client.Minecraft;
+
+import com.alexporter7.poweroverhaul.api.enums.Sound;
 
 public class SoundManager<T extends TileEntitySoundHandlerBase> {
 
@@ -20,16 +21,19 @@ public class SoundManager<T extends TileEntitySoundHandlerBase> {
     }
 
     public void requestSound(Sound sound) {
-        if(currentSound != null)
-            SOUNDS.get(currentSound).requestStop();
+        if (currentSound != null) SOUNDS.get(currentSound)
+            .requestStop();
         currentSound = sound;
-        Minecraft.getMinecraft().getSoundHandler().playSound(SOUNDS.get(sound));
-        SOUNDS.get(currentSound).requestStart();
+        Minecraft.getMinecraft()
+            .getSoundHandler()
+            .playSound(SOUNDS.get(sound));
+        SOUNDS.get(currentSound)
+            .requestStart();
     }
 
     public void stopSound() {
-        if(currentSound != null)
-            SOUNDS.get(currentSound).requestStop();
+        if (currentSound != null) SOUNDS.get(currentSound)
+            .requestStop();
     }
 
     public T getSoundHandler(Sound sound) {

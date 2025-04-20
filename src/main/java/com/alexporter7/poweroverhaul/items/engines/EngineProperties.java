@@ -2,7 +2,6 @@ package com.alexporter7.poweroverhaul.items.engines;
 
 import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
 import com.alexporter7.poweroverhaul.items.components.ComponentMaterial;
-import com.alexporter7.poweroverhaul.items.components.EngineComponentItem;
 
 public class EngineProperties {
 

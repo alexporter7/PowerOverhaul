@@ -3,12 +3,14 @@ package com.alexporter7.poweroverhaul.blocks.models;
 // Made with Blockbench 4.12.3
 // Exported for Minecraft version 1.7 - 1.12
 // Paste this class into your mod and generate all required imports
-import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
+import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
+
 public class MusicPlayerModel extends PowerOverhaulModelBase {
+
     private final ModelRenderer body;
     private final ModelRenderer radioInterface;
 

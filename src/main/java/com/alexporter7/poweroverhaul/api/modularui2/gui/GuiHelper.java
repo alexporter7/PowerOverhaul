@@ -3,7 +3,6 @@ package com.alexporter7.poweroverhaul.api.modularui2.gui;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import com.cleanroommc.modularui.value.sync.SyncHandler;
 import net.minecraftforge.fluids.FluidTank;
 
 import org.jetbrains.annotations.NotNull;
@@ -78,7 +77,8 @@ public class GuiHelper {
             .marginTop(2);
     }
 
-    public static IWidget createToggleButtonRow(String label, BooleanSyncValue value, Predicate<ToggleButton> predicate) {
+    public static IWidget createToggleButtonRow(String label, BooleanSyncValue value,
+        Predicate<ToggleButton> predicate) {
         return new Row().child(textWidget(label, 0, 0).alignment(Alignment.CenterLeft))
             .child(
                 new ToggleButton().height(14)

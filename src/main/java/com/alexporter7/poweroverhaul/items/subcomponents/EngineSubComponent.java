@@ -2,11 +2,10 @@ package com.alexporter7.poweroverhaul.items.subcomponents;
 
 import java.util.List;
 
-import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
-import com.alexporter7.poweroverhaul.items.components.ComponentMaterial;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
+import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
 import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
 import com.alexporter7.poweroverhaul.items.MaterialItem;
 

@@ -30,7 +30,11 @@ public class PowerOverhaulUtil {
     }
 
     public static String formatEnum(Enum<?> value) {
-        return value.toString().charAt(0) + value.toString().substring(1).toLowerCase();
+        return value.toString()
+            .charAt(0)
+            + value.toString()
+                .substring(1)
+                .toLowerCase();
     }
 
 }

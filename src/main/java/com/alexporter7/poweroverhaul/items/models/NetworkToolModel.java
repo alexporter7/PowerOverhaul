@@ -4,12 +4,14 @@ package com.alexporter7.poweroverhaul.items.models;
 // Exported for Minecraft version 1.7 - 1.12
 // Paste this class into your mod and generate all required imports
 
-import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
+import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
+
 public class NetworkToolModel extends PowerOverhaulModelBase {
+
     private final ModelRenderer screen;
     private final ModelRenderer outline;
     private final ModelRenderer antenna;

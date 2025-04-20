@@ -2,8 +2,6 @@ package com.alexporter7.poweroverhaul.api.material;
 
 import java.util.HashSet;
 
-import cpw.mods.fml.common.registry.LanguageRegistry;
-
 public class PowerOverhaulMaterial {
 
     private final String name;
@@ -15,8 +13,6 @@ public class PowerOverhaulMaterial {
     private final int color;
 
     private final HashSet<MaterialUtil.Component> COMPONENTS;
-
-    private final LanguageRegistry languageRegistry = LanguageRegistry.instance();
 
     public PowerOverhaulMaterial(MaterialBuilder builder) {
         name = builder.name;
@@ -32,29 +28,6 @@ public class PowerOverhaulMaterial {
         MaterialUtil.getRegister(this, component)
             .accept(component);
     }
-
-    // // TODO: make this return MaterialItem
-    // public void registerItem(MaterialItem item) {
-    // GameRegistry.registerItem(item, name + "_ingot");
-    // }
-    //
-    // // TODO: make this return MaterialBlock
-    // public void registerBlock(MaterialBlock block) {
-    // GameRegistry.registerBlock(block, name + "_block");
-    // }
-    //
-    // // TODO: make this return MaterialFluid
-    // public void registerFluid(PowerOverhaulFluid fluid) {
-    //
-    // }
-    //
-    // public void registerOreBlock(MaterialOreBlock oreBlock) {
-    // GameRegistry.registerBlock(oreBlock, name + "_ore_block");
-    // }
-    //
-    // public void registerComponent(MaterialComponent component) {
-    //
-    // }
 
     public void register() {
         COMPONENTS.forEach(this::register);

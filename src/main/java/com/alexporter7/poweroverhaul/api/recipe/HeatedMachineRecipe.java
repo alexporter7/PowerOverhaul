@@ -1,8 +1,8 @@
 package com.alexporter7.poweroverhaul.api.recipe;
 
-import com.alexporter7.poweroverhaul.items.MaterialItem;
-
 import java.util.HashSet;
+
+import com.alexporter7.poweroverhaul.items.MaterialItem;
 
 public class HeatedMachineRecipe {
 
@@ -11,11 +11,11 @@ public class HeatedMachineRecipe {
     private final int requiredTemperature;
     private final int duration;
 
-    //TODO: probably use a wrapper for energy
+    // TODO: probably use a wrapper for energy
     private final int powerPerTick;
 
-    public HeatedMachineRecipe(HashSet<MaterialItem> inputs, MaterialItem output,
-                               int requiredTemperature, int duration, int powerPerTick) {
+    public HeatedMachineRecipe(HashSet<MaterialItem> inputs, MaterialItem output, int requiredTemperature, int duration,
+        int powerPerTick) {
         this.inputs.addAll(inputs);
         this.output = output;
         this.requiredTemperature = requiredTemperature;

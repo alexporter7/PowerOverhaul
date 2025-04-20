@@ -1,9 +1,7 @@
 package com.alexporter7.poweroverhaul;
 
-import com.alexporter7.poweroverhaul.blocks.PowerOverhaulBlocks;
 import com.alexporter7.poweroverhaul.fluid.PowerOverhaulFluids;
 import com.alexporter7.poweroverhaul.init.ModRegistry;
-import com.alexporter7.poweroverhaul.items.PowerOverhaulItems;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;

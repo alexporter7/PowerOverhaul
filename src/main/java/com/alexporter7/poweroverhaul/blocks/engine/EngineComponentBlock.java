@@ -1,14 +1,15 @@
 package com.alexporter7.poweroverhaul.blocks.engine;
 
-import com.alexporter7.poweroverhaul.PowerOverhaul;
+import net.minecraft.block.material.Material;
+import net.minecraft.world.IBlockAccess;
+
 import com.alexporter7.poweroverhaul.api.material.IMaterial;
 import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
 import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
 import com.alexporter7.poweroverhaul.blocks.meta.MetaCustomRenderBlock;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.material.Material;
-import net.minecraft.world.IBlockAccess;
 
 public class EngineComponentBlock extends MetaCustomRenderBlock implements IMaterial {
 
@@ -16,7 +17,8 @@ public class EngineComponentBlock extends MetaCustomRenderBlock implements IMate
     private final PowerOverhaulMaterial MATERIAL;
     private final MaterialUtil.Component COMPONENT;
 
-    public EngineComponentBlock(PowerOverhaulMaterial material, MaterialUtil.Component component, String internalBlockName) {
+    public EngineComponentBlock(PowerOverhaulMaterial material, MaterialUtil.Component component,
+        String internalBlockName) {
         super(Material.iron);
         MATERIAL = material;
         COMPONENT = component;

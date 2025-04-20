@@ -4,13 +4,14 @@ package com.alexporter7.poweroverhaul.blocks.models.machine;
 // Exported for Minecraft version 1.7 - 1.12
 // Paste this class into your mod and generate all required imports
 
-
-import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
+import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
+
 public class AlloySmelterModel extends PowerOverhaulModelBase {
+
     private final ModelRenderer outline;
     private final ModelRenderer frontFace;
     private final ModelRenderer leftWindow;
@@ -57,7 +58,6 @@ public class AlloySmelterModel extends PowerOverhaulModelBase {
         rightWindow.cubeList.add(new ModelBox(rightWindow, 54, 82, 6.0F, -13.0F, -8.0F, 1, 4, 5, 0.0F));
         rightWindow.cubeList.add(new ModelBox(rightWindow, 90, 7, 5.0F, -14.0F, -8.0F, 1, 1, 5, 0.0F));
     }
-
 
     @Override
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {

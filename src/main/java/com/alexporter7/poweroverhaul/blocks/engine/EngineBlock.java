@@ -1,23 +1,21 @@
 package com.alexporter7.poweroverhaul.blocks.engine;
 
-import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
-import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
-import com.alexporter7.poweroverhaul.blocks.meta.MetaCustomRenderBlock;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
+import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class EngineBlock extends EngineComponentBlock {
 
     private final int CYLINDERS;
 
     public EngineBlock(PowerOverhaulMaterial material, int cylinders) {
-        super(material,
-            MaterialUtil.Component.ENGINE_BLOCK,
-            material.getName() + "_engine_block_" + cylinders);
+        super(material, MaterialUtil.Component.ENGINE_BLOCK, material.getName() + "_engine_block_" + cylinders);
         CYLINDERS = cylinders;
         this.setBlockName(material.getName() + "_engine_block_" + cylinders);
     }

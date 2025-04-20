@@ -3,7 +3,6 @@ package com.alexporter7.poweroverhaul.api.modularui2.slot;
 import java.util.HashSet;
 
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
 
 import com.cleanroommc.modularui.widgets.FluidSlot;
 
@@ -29,7 +28,5 @@ public class FilteredFluidSlot<T extends Fluid> extends FluidSlot {
     public boolean canFill(T fluid) {
         return this.FLUIDS.contains(fluid) && WHITE_LIST;
     }
-
-
 
 }

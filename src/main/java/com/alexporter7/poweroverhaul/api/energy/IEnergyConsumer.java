@@ -6,6 +6,7 @@ public interface IEnergyConsumer {
 
     /**
      * Whether a machine can import energy (if not at capacity, if there's something that can export it)
+     * 
      * @param side Side to import energy
      * @return True if conditions are met
      */
@@ -13,6 +14,7 @@ public interface IEnergyConsumer {
 
     /**
      * Imports energy from the side specified
+     * 
      * @param side Side to import energy
      * @return Returns true if the block providing the energy was able to export
      */

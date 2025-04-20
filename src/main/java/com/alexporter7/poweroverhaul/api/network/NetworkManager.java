@@ -20,9 +20,9 @@ public class NetworkManager {
         NETWORKS.put(network.getID(), network);
     }
 
-    //TODO: writeToNBT
+    // TODO: writeToNBT
 
-    //TODO: readFromNBT
+    // TODO: readFromNBT
 
-    //TODO: onWorldStop
+    // TODO: onWorldStop
 }

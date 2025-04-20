@@ -1,9 +1,9 @@
 package com.alexporter7.poweroverhaul.api.state;
 
+import java.util.HashMap;
+
 import com.alexporter7.poweroverhaul.PowerOverhaul;
 import com.alexporter7.poweroverhaul.blocks.meta.MetaPowerOverhaulTileEntityUI;
-
-import java.util.HashMap;
 
 public class StateManager<T extends Enum<T>, C extends MetaPowerOverhaulTileEntityUI<T>> {
 
@@ -25,22 +25,23 @@ public class StateManager<T extends Enum<T>, C extends MetaPowerOverhaulTileEnti
 
     public void initialState(T state) {
         currentState = STATES.get(state);
-        currentState.enterState(STATES.get(state).getState(), STATES.get(state).getState());
+        currentState.enterState(
+            STATES.get(state)
+                .getState(),
+            STATES.get(state)
+                .getState());
     }
 
     public void tickState() {
         currentState.executeAction(currentState.getState());
-        if(!needStateChange())
-            return;
-        if(!requestNextState(nextState))
-            logEvent();
+        if (!needStateChange()) return;
+        if (!requestNextState(nextState)) logEvent();
         updateTileEntityState(currentState.getState());
 
     }
 
     public boolean requestNextState(StateDefinition<T> nextState) {
-        if(!currentState.isValidExit(nextState.getState()))
-            return false;
+        if (!currentState.isValidExit(nextState.getState())) return false;
         currentState.exitState(nextState.getState(), currentState.getState());
         nextState.enterState(currentState.getState(), nextState.getState());
         previousState = currentState;
@@ -60,9 +61,10 @@ public class StateManager<T extends Enum<T>, C extends MetaPowerOverhaulTileEnti
 
     private void logEvent() {
         PowerOverhaul.LOG.info(
-            "PowerOverhaulStateManager: TileEntity went from ["
-                + previousState.getState()
-                + "] to [" + currentState.getState() + "]");
+            "PowerOverhaulStateManager: TileEntity went from [" + previousState.getState()
+                + "] to ["
+                + currentState.getState()
+                + "]");
     }
 
 }

@@ -1,11 +1,10 @@
 package com.alexporter7.poweroverhaul;
 
-import com.alexporter7.poweroverhaul.init.ModRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
 import com.alexporter7.poweroverhaul.blocks.PowerOverhaulBlocks;
-import com.alexporter7.poweroverhaul.render.PowerOverhaulRender;
+import com.alexporter7.poweroverhaul.init.ModRegistry;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;

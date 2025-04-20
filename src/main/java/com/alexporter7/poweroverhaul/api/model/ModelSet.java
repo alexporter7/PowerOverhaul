@@ -1,9 +1,9 @@
 package com.alexporter7.poweroverhaul.api.model;
 
-import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
-
 import java.util.HashMap;
 import java.util.function.Supplier;
+
+import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
 
 public class ModelSet<T extends Enum<T>> {
 

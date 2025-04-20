@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.function.Consumer;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+
 import com.alexporter7.poweroverhaul.blocks.MaterialBlock;
 import com.alexporter7.poweroverhaul.blocks.MaterialOreBlock;
 import com.alexporter7.poweroverhaul.blocks.engine.EngineBlock;
@@ -13,8 +16,6 @@ import com.alexporter7.poweroverhaul.items.MaterialItem;
 import com.alexporter7.poweroverhaul.items.components.EngineComponentItem;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 
 public class MaterialUtil {
 
@@ -36,7 +37,7 @@ public class MaterialUtil {
         ORE_BLOCK(Type.ORE),
 
         /* Fluids */
-        //MOLTEN(Type.FLUID),
+        // MOLTEN(Type.FLUID),
 
         /* Items */
         INGOT(Type.ITEM),
@@ -62,18 +63,34 @@ public class MaterialUtil {
 
     public static String getLangName(PowerOverhaulMaterial material, Component component) {
         return switch (component.TYPE) {
-            case BLOCK, ORE -> "tile." + material.getName() + "_" + component.toString().toLowerCase() + ".name=";
-            case ITEM, ENGINE_COMPONENT ->
-                "item." + material.getName() + "_" + component.toString().toLowerCase() + ".name=";
+            case BLOCK, ORE -> "tile." + material.getName()
+                + "_"
+                + component.toString()
+                    .toLowerCase()
+                + ".name=";
+            case ITEM, ENGINE_COMPONENT -> "item." + material.getName()
+                + "_"
+                + component.toString()
+                    .toLowerCase()
+                + ".name=";
             default -> null;
         };
     }
 
     public static String getEnglishTranslation(PowerOverhaulMaterial material, Component component) {
-        String name = material.getName().substring(0,1).toUpperCase()
-            + material.getName().substring(1).toLowerCase();
-        for(String word : component.toString().split("_"))
-            name = name + " " + word.substring(0,1).toUpperCase() + word.substring(1).toLowerCase();
+        String name = material.getName()
+            .substring(0, 1)
+            .toUpperCase()
+            + material.getName()
+                .substring(1)
+                .toLowerCase();
+        for (String word : component.toString()
+            .split("_"))
+            name = name + " "
+                + word.substring(0, 1)
+                    .toUpperCase()
+                + word.substring(1)
+                    .toLowerCase();
         return name;
     }
 
@@ -108,20 +125,21 @@ public class MaterialUtil {
                 blocks.forEach((block -> {
                     ModRegistry.BLOCKS.put(block.getBlockName(), block);
                     GameRegistry.registerBlock(block, block.getBlockName());
-                    ModRegistry.registerEngineRendererFromComponent(
-                        block, component
-                    );
+                    ModRegistry.registerEngineRendererFromComponent(block, component);
                 }));
             };
         };
     }
 
-    public static HashSet<EngineComponentBlock> getEngineComponentClass(PowerOverhaulMaterial material, Component component) {
+    public static HashSet<EngineComponentBlock> getEngineComponentClass(PowerOverhaulMaterial material,
+        Component component) {
         switch (component) {
             case ENGINE_BLOCK -> {
-                return new HashSet<>(Arrays.asList(new EngineBlock(material, 4),
-                    new EngineBlock(material, 6),
-                    new EngineBlock(material, 8)));
+                return new HashSet<>(
+                    Arrays.asList(
+                        new EngineBlock(material, 4),
+                        new EngineBlock(material, 6),
+                        new EngineBlock(material, 8)));
             }
             default -> {
                 return null;
@@ -129,14 +147,17 @@ public class MaterialUtil {
         }
     }
 
-
     public static HashSet<Component> getAllComponents() {
         return new HashSet<>(Arrays.asList(Component.values()));
     }
 
     public static HashSet<Component> getAllComponentsNoEngine() {
-        return new HashSet<>(Arrays.asList(Component.BLOCK, Component.ORE_BLOCK, //Component.MOLTEN,
-            Component.INGOT, Component.DUST));
+        return new HashSet<>(
+            Arrays.asList(
+                Component.BLOCK,
+                Component.ORE_BLOCK, // Component.MOLTEN,
+                Component.INGOT,
+                Component.DUST));
     }
 
 }

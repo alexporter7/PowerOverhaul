@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.function.Consumer;
 
+import com.alexporter7.poweroverhaul.blocks.engine.EngineHead;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
@@ -44,7 +45,7 @@ public class MaterialUtil {
         DUST(Type.ITEM),
 
         /* Engine Component */
-        ENGINE_HEAD(Type.ENGINE_COMPONENT),
+        ENGINE_HEAD(Type.ENGINE_COMPONENT_RENDER),
         ENGINE_BLOCK(Type.ENGINE_COMPONENT_RENDER),
         ENGINE_PISTON(Type.ENGINE_COMPONENT);
 
@@ -140,6 +141,13 @@ public class MaterialUtil {
                         new EngineBlock(material, 4),
                         new EngineBlock(material, 6),
                         new EngineBlock(material, 8)));
+            }
+            case ENGINE_HEAD -> {
+                return new HashSet<>(
+                    Arrays.asList(
+                        new EngineHead(material, 4),
+                        new EngineHead(material, 6),
+                        new EngineHead(material, 8)));
             }
             default -> {
                 return null;

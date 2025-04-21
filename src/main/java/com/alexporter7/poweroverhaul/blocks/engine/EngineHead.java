@@ -5,14 +5,14 @@ import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class EngineBlock extends EngineComponentBlock {
+public class EngineHead extends EngineComponentBlock{
 
     private final int CYLINDERS;
 
-    public EngineBlock(PowerOverhaulMaterial material, int cylinders) {
-        super(material, MaterialUtil.Component.ENGINE_BLOCK, material.getName() + "_engine_block_" + cylinders);
+    public EngineHead(PowerOverhaulMaterial material, int cylinders) {
+        super(material, MaterialUtil.Component.ENGINE_HEAD, material.getName() + "_engine_head_" + cylinders);
         CYLINDERS = cylinders;
-        this.setBlockName(material.getName() + "_engine_block_" + cylinders);
+        this.setBlockName(material.getName() + "_engine_head_" + cylinders);
     }
 
     public int getCylinders() {
@@ -21,8 +21,6 @@ public class EngineBlock extends EngineComponentBlock {
 
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new EngineBlockTileEntity(this.getPowerOverhaulMaterial(), this.getComponent(), CYLINDERS);
+        return new EngineHeadTileEntity(this.getPowerOverhaulMaterial(), this.getComponent(), CYLINDERS);
     }
-
-
 }

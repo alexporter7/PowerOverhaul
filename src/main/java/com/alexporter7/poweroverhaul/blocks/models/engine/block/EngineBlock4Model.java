@@ -1,4 +1,4 @@
-package com.alexporter7.poweroverhaul.blocks.models.engine;
+package com.alexporter7.poweroverhaul.blocks.models.engine.block;
 
 // Made with Blockbench 4.12.4
 // Exported for Minecraft version 1.7 - 1.12

@@ -17,6 +17,10 @@ public class ModelManager {
         ENGINE_BLOCK_6("textures/models/engine_block_6"),
         ENGINE_BLOCK_8("textures/models/engine_block_8"),
 
+        ENGINE_HEAD_4("textures/models/engine_head_4"),
+        ENGINE_HEAD_6("textures/models/engine_head_6"),
+        ENGINE_HEAD_8("textures/models/engine_head_8"),
+
         /* Items */
         NETWORK_TOOL("textures/models/network_tool");
 

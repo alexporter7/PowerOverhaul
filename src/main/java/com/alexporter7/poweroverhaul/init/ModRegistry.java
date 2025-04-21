@@ -2,6 +2,7 @@ package com.alexporter7.poweroverhaul.init;
 
 import java.util.HashMap;
 
+import com.alexporter7.poweroverhaul.blocks.engine.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.Item;
@@ -10,9 +11,6 @@ import net.minecraftforge.client.MinecraftForgeClient;
 
 import com.alexporter7.poweroverhaul.PowerOverhaul;
 import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
-import com.alexporter7.poweroverhaul.blocks.engine.EngineBlock;
-import com.alexporter7.poweroverhaul.blocks.engine.EngineBlockTileEntity;
-import com.alexporter7.poweroverhaul.blocks.engine.EngineComponentBlock;
 import com.alexporter7.poweroverhaul.blocks.generators.DieselGeneratorBlock;
 import com.alexporter7.poweroverhaul.blocks.generators.DieselGeneratorTileEntity;
 import com.alexporter7.poweroverhaul.blocks.machines.AlloySmelterBlock;
@@ -24,7 +22,7 @@ import com.alexporter7.poweroverhaul.blocks.models.generator.DieselGeneratorMode
 import com.alexporter7.poweroverhaul.blocks.models.machine.AlloySmelterModel;
 import com.alexporter7.poweroverhaul.items.NetworkToolItem;
 import com.alexporter7.poweroverhaul.items.models.NetworkToolModel;
-import com.alexporter7.poweroverhaul.render.renderers.EngineBlockTERenderer;
+import com.alexporter7.poweroverhaul.render.renderers.EngineComponentTERenderer;
 import com.alexporter7.poweroverhaul.render.renderers.PowerOverhaulItemRenderer;
 import com.alexporter7.poweroverhaul.render.renderers.PowerOverhaulTEBlockRenderer;
 import com.alexporter7.poweroverhaul.render.renderers.PowerOverhaulTEItemRenderer;
@@ -60,10 +58,6 @@ public class ModRegistry {
         BLOCKS.put("music_player", new MusicPlayerBlock());
         BLOCKS.put("alloy_smelter", new AlloySmelterBlock());
 
-        // BLOCKS.put("engine_block_4", new EngineBlock(4));
-        // BLOCKS.put("engine_block_6", new EngineBlock(6));
-        // BLOCKS.put("engine_block_8", new EngineBlock(8));
-
         return BLOCKS;
     }
 
@@ -76,6 +70,7 @@ public class ModRegistry {
         TILE_ENTITIES.put("alloy_smelter_te", AlloySmelterTileEntity.class);
 
         TILE_ENTITIES.put("engine_block_te", EngineBlockTileEntity.class);
+        TILE_ENTITIES.put("engine_head_te", EngineHeadTileEntity.class);
     }
 
     public static void initItems() {
@@ -100,22 +95,6 @@ public class ModRegistry {
             new AlloySmelterTileEntity(),
             "alloy_smelter");
 
-        // /* Engine Blocks */
-        // registerBlockRenderer(
-        // new EngineBlockTERenderer(),
-        // EngineBlockTileEntity.class,
-        // new EngineBlockTileEntity(4),
-        // "engine_block_4");
-        // registerBlockRenderer(
-        // new EngineBlockTERenderer(),
-        // EngineBlockTileEntity.class,
-        // new EngineBlockTileEntity(6),
-        // "engine_block_6");
-        // registerBlockRenderer(
-        // new EngineBlockTERenderer(),
-        // EngineBlockTileEntity.class,
-        // new EngineBlockTileEntity(8),
-        // "engine_block_8");
     }
 
     @SideOnly(Side.CLIENT)
@@ -145,12 +124,17 @@ public class ModRegistry {
                 EngineBlock block = (EngineBlock) engineComponentBlock;
                 registerEngineComponentRenderer(
                     EngineBlockTileEntity.class,
-                    new EngineBlockTileEntity(engineComponentBlock.getPowerOverhaulMaterial(), block.getCylinders()),
-                    new EngineBlockTERenderer(),
+                    new EngineBlockTileEntity(engineComponentBlock.getPowerOverhaulMaterial(), component, block.getCylinders()),
+                    new EngineComponentTERenderer(),
                     block.getBlockName());
             }
             case ENGINE_HEAD -> {
-
+                EngineHead block = (EngineHead) engineComponentBlock;
+                registerEngineComponentRenderer(
+                    EngineHeadTileEntity.class,
+                    new EngineHeadTileEntity(engineComponentBlock.getPowerOverhaulMaterial(), component, block.getCylinders()),
+                    new EngineComponentTERenderer(),
+                    block.getBlockName());
             }
         }
     }

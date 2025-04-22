@@ -1,7 +1,9 @@
 package com.alexporter7.poweroverhaul.blocks.meta;
 
-import java.util.Random;
-
+import com.alexporter7.poweroverhaul.PowerOverhaul;
+import com.alexporter7.poweroverhaul.init.ModRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -10,11 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import com.alexporter7.poweroverhaul.PowerOverhaul;
-import com.alexporter7.poweroverhaul.blocks.PowerOverhaulBlocks;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Random;
 
 public class MetaPowerOverhaulBlock extends BlockContainer implements ITileEntityProvider {
 
@@ -35,7 +33,7 @@ public class MetaPowerOverhaulBlock extends BlockContainer implements ITileEntit
 
     @Override
     public Item getItemDropped(int meta, Random random, int fortune) {
-        return Item.getItemFromBlock(PowerOverhaulBlocks.blocks.get(this.getUnlocalizedName()));
+        return Item.getItemFromBlock(ModRegistry.BLOCKS.get(this.getUnlocalizedName()));
     }
 
     @SideOnly(Side.CLIENT)

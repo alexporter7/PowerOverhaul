@@ -1,15 +1,12 @@
 package com.alexporter7.poweroverhaul;
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-
-import com.alexporter7.poweroverhaul.blocks.PowerOverhaulBlocks;
 import com.alexporter7.poweroverhaul.init.ModRegistry;
-
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 
 public class ClientProxy extends CommonProxy {
 
@@ -26,12 +23,15 @@ public class ClientProxy extends CommonProxy {
         PowerOverhaul.LOG.info("Registering Item Renderers");
         ModRegistry.registerItemRenderers();
 
+        PowerOverhaul.LOG.info("Registering Entity Renderers");
+        ModRegistry.registerEntityRenderers();
+
         PowerOverhaul.LOG.info("Registering Creative Tab(s)");
         PowerOverhaul.powerOverhaulTab = new CreativeTabs(PowerOverhaul.MOD_LABEL) {
 
             @Override
             public Item getTabIconItem() {
-                return Item.getItemFromBlock(PowerOverhaulBlocks.blocks.get("diesel_generator"));
+                return Item.getItemFromBlock(ModRegistry.BLOCKS.get("diesel_generator"));
             }
         };
     }

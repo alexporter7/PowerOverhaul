@@ -22,7 +22,10 @@ public class ModelManager {
         ENGINE_HEAD_8("textures/models/engine_head_8"),
 
         /* Items */
-        NETWORK_TOOL("textures/models/network_tool");
+        NETWORK_TOOL("textures/models/network_tool"),
+
+        /* Entities */
+        APPA_ENTITY("textures/models/entities/appa");
 
         private final ResourceLocation resourceLocation;
 

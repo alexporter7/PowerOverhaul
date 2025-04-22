@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.function.Consumer;
 
 import com.alexporter7.poweroverhaul.blocks.engine.EngineHead;
+import com.alexporter7.poweroverhaul.util.RegistryUtil;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
@@ -100,13 +101,13 @@ public class MaterialUtil {
         return switch (component.TYPE) {
             case BLOCK -> (_component -> {
                 Block block = new MaterialBlock(material);
-                ModRegistry.BLOCKS.put(getRegistryName(material, _component), block);
-                GameRegistry.registerBlock(block, getRegistryName(material, _component));
+                ModRegistry.BLOCKS.put(getRegistryName(material, component), block);
+                GameRegistry.registerBlock(block, getRegistryName(material, component));
             });
             case ORE -> (_component -> {
                 Block block = new MaterialOreBlock(material);
-                ModRegistry.BLOCKS.put(getRegistryName(material, _component), block);
-                GameRegistry.registerBlock(block, getRegistryName(material, _component));
+                ModRegistry.BLOCKS.put(getRegistryName(material, component), block);
+                GameRegistry.registerBlock(block, getRegistryName(material, component));
             });
             case FLUID -> null;
             case ITEM -> (_component) -> {
@@ -126,7 +127,7 @@ public class MaterialUtil {
                 blocks.forEach((block -> {
                     ModRegistry.BLOCKS.put(block.getBlockName(), block);
                     GameRegistry.registerBlock(block, block.getBlockName());
-                    ModRegistry.registerEngineRendererFromComponent(block, component);
+                    RegistryUtil.registerEngineRendererFromComponent(block, component);
                 }));
             };
         };
@@ -149,10 +150,8 @@ public class MaterialUtil {
                         new EngineHead(material, 6),
                         new EngineHead(material, 8)));
             }
-            default -> {
-                return null;
-            }
         }
+        return null;
     }
 
     public static HashSet<Component> getAllComponents() {

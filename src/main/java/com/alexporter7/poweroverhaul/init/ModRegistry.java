@@ -3,14 +3,18 @@ package com.alexporter7.poweroverhaul.init;
 import java.util.HashMap;
 
 import com.alexporter7.poweroverhaul.blocks.engine.*;
+import com.alexporter7.poweroverhaul.entity.AppaEntity;
+import com.alexporter7.poweroverhaul.entity.models.AppaEntityModel;
+import com.alexporter7.poweroverhaul.render.renderers.*;
+import com.alexporter7.poweroverhaul.util.RegistryUtil;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.MinecraftForgeClient;
 
 import com.alexporter7.poweroverhaul.PowerOverhaul;
-import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
 import com.alexporter7.poweroverhaul.blocks.generators.DieselGeneratorBlock;
 import com.alexporter7.poweroverhaul.blocks.generators.DieselGeneratorTileEntity;
 import com.alexporter7.poweroverhaul.blocks.machines.AlloySmelterBlock;
@@ -22,15 +26,10 @@ import com.alexporter7.poweroverhaul.blocks.models.generator.DieselGeneratorMode
 import com.alexporter7.poweroverhaul.blocks.models.machine.AlloySmelterModel;
 import com.alexporter7.poweroverhaul.items.NetworkToolItem;
 import com.alexporter7.poweroverhaul.items.models.NetworkToolModel;
-import com.alexporter7.poweroverhaul.render.renderers.EngineComponentTERenderer;
-import com.alexporter7.poweroverhaul.render.renderers.PowerOverhaulItemRenderer;
-import com.alexporter7.poweroverhaul.render.renderers.PowerOverhaulTEBlockRenderer;
-import com.alexporter7.poweroverhaul.render.renderers.PowerOverhaulTEItemRenderer;
 import com.alexporter7.poweroverhaul.util.ModelManager;
 import com.alexporter7.poweroverhaul.util.TestGuiBlock;
 import com.alexporter7.poweroverhaul.util.TestTileGui;
 
-import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -40,10 +39,12 @@ public class ModRegistry {
     public static final HashMap<String, Block> BLOCKS = new HashMap<>();
     public static final HashMap<String, Item> ITEMS = new HashMap<>();
     public static final HashMap<String, Class<? extends TileEntity>> TILE_ENTITIES = new HashMap<>();
+    public static final HashMap<String, Class<? extends Entity>> ENTITIES = new HashMap<>();
 
     public static void preInit() {
         initBlocks();
         initItems();
+        initEntities();
     }
 
     public static void init() {
@@ -61,6 +62,11 @@ public class ModRegistry {
         return BLOCKS;
     }
 
+
+    public static void initItems() {
+        ITEMS.put("network_tool", new NetworkToolItem());
+    }
+
     public static void initTileEntities() {
         /* For GUI Testing */
         TILE_ENTITIES.put("test_gui_te", TestTileGui.class);
@@ -73,39 +79,28 @@ public class ModRegistry {
         TILE_ENTITIES.put("engine_head_te", EngineHeadTileEntity.class);
     }
 
-    public static void initItems() {
-        ITEMS.put("network_tool", new NetworkToolItem());
+    public static void initEntities() {
+        ENTITIES.put("appa", AppaEntity.class);
     }
 
     @SideOnly(Side.CLIENT)
     public static void registerBlockRenderers() {
-        registerBlockRenderer(
+        RegistryUtil.registerBlockRenderer(
             new PowerOverhaulTEBlockRenderer(new DieselGeneratorModel(), ModelManager.Texture.DIESEL_GENERATOR),
             DieselGeneratorTileEntity.class,
             new DieselGeneratorTileEntity(),
             "diesel_generator");
-        registerBlockRenderer(
+        RegistryUtil.registerBlockRenderer(
             new PowerOverhaulTEBlockRenderer(new MusicPlayerModel(), ModelManager.Texture.MUSIC_PLAYER),
             MusicPlayerTileEntity.class,
             new MusicPlayerTileEntity(),
             "music_player");
-        registerBlockRenderer(
+        RegistryUtil.registerBlockRenderer(
             new PowerOverhaulTEBlockRenderer(new AlloySmelterModel(), ModelManager.Texture.ALLOY_SMELTER),
             AlloySmelterTileEntity.class,
             new AlloySmelterTileEntity(),
             "alloy_smelter");
 
-    }
-
-    @SideOnly(Side.CLIENT)
-    private static void registerBlockRenderer(TileEntitySpecialRenderer renderer,
-        Class<? extends TileEntity> tileEntityClass, TileEntity tileEntity, String blockName) {
-
-        PowerOverhaul.LOG.info("Registering block renderer for: " + blockName);
-        ClientRegistry.bindTileEntitySpecialRenderer(tileEntityClass, renderer);
-        MinecraftForgeClient.registerItemRenderer(
-            Item.getItemFromBlock(BLOCKS.get(blockName)),
-            new PowerOverhaulTEItemRenderer(renderer, tileEntity));
     }
 
     @SideOnly(Side.CLIENT)
@@ -117,35 +112,10 @@ public class ModRegistry {
     }
 
     @SideOnly(Side.CLIENT)
-    public static void registerEngineRendererFromComponent(EngineComponentBlock engineComponentBlock,
-        MaterialUtil.Component component) {
-        switch (component) {
-            case ENGINE_BLOCK -> {
-                EngineBlock block = (EngineBlock) engineComponentBlock;
-                registerEngineComponentRenderer(
-                    EngineBlockTileEntity.class,
-                    new EngineBlockTileEntity(engineComponentBlock.getPowerOverhaulMaterial(), component, block.getCylinders()),
-                    new EngineComponentTERenderer(),
-                    block.getBlockName());
-            }
-            case ENGINE_HEAD -> {
-                EngineHead block = (EngineHead) engineComponentBlock;
-                registerEngineComponentRenderer(
-                    EngineHeadTileEntity.class,
-                    new EngineHeadTileEntity(engineComponentBlock.getPowerOverhaulMaterial(), component, block.getCylinders()),
-                    new EngineComponentTERenderer(),
-                    block.getBlockName());
-            }
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    private static void registerEngineComponentRenderer(Class<? extends TileEntity> tileEntityClass,
-        TileEntity tileEntity, TileEntitySpecialRenderer renderer, String blockName) {
-        ClientRegistry.bindTileEntitySpecialRenderer(tileEntityClass, renderer);
-        MinecraftForgeClient.registerItemRenderer(
-            Item.getItemFromBlock(BLOCKS.get(blockName)),
-            new PowerOverhaulTEItemRenderer(renderer, tileEntity));
+    public static void registerEntityRenderers() {
+        RenderingRegistry.registerEntityRenderingHandler(
+            AppaEntity.class, new PowerOverhaulEntityRenderer<AppaEntity>(
+                new AppaEntityModel(), ModelManager.Texture.APPA_ENTITY.getResourceLocation(), 0.3f));
     }
 
     public static void registerPreInit() {
@@ -154,13 +124,18 @@ public class ModRegistry {
             block.setBlockName(key);
             GameRegistry.registerBlock(block, key);
         });
+
         PowerOverhaul.LOG.info("Registering Items");
         ITEMS.forEach((key, item) -> {
             item.setUnlocalizedName(key);
             GameRegistry.registerItem(item, key);
         });
+
         PowerOverhaul.LOG.info("Registering Materials");
         MaterialDef.registerMaterials();
+
+        PowerOverhaul.LOG.info("Registering Entities");
+        ENTITIES.forEach(RegistryUtil::registerEntity);
     }
 
     public static void registerInit() {

@@ -4,6 +4,5 @@ import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
 import net.minecraft.util.ResourceLocation;
 
 public interface ICustomModel {
-    PowerOverhaulModelBase getModel();
-    ResourceLocation getTexture();
+    RenderedBlockModel<?> getRenderedBlockModel();
 }

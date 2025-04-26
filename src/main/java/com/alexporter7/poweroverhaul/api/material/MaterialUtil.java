@@ -63,6 +63,10 @@ public class MaterialUtil {
                 .toLowerCase();
     }
 
+    public static String getRegistryName(PowerOverhaulMaterial material, com.alexporter7.poweroverhaul.api.material.Component component) {
+        return material.getName() + "_" + component.getComponentType().getType().toString().toLowerCase();
+    }
+
     public static String getLangName(PowerOverhaulMaterial material, Component component) {
         return switch (component.TYPE) {
             case BLOCK, ORE -> "tile." + material.getName()
@@ -97,41 +101,41 @@ public class MaterialUtil {
     }
 
     // TODO: fix fluid then do @NotNull
-    public static Consumer<Component> getRegister(PowerOverhaulMaterial material, Component component) {
-        return switch (component.TYPE) {
-            case BLOCK -> (_component -> {
-                Block block = new MaterialBlock(material);
-                ModRegistry.BLOCKS.put(getRegistryName(material, component), block);
-                GameRegistry.registerBlock(block, getRegistryName(material, component));
-            });
-            case ORE -> (_component -> {
-                Block block = new MaterialOreBlock(material);
-                ModRegistry.BLOCKS.put(getRegistryName(material, component), block);
-                GameRegistry.registerBlock(block, getRegistryName(material, component));
-            });
-            case FLUID -> null;
-            case ITEM -> (_component) -> {
-                String regName = getRegistryName(material, component);
-                Item item = new MaterialItem(material, component);
-                ModRegistry.ITEMS.put(regName, item);
-                GameRegistry.registerItem(item, regName);
-            };
-            case ENGINE_COMPONENT -> (_component) -> {
-                String regName = getRegistryName(material, component);
-                Item item = new EngineComponentItem(material, component);
-                ModRegistry.ITEMS.put(regName, item);
-                GameRegistry.registerItem(item, regName);
-            };
-            case ENGINE_COMPONENT_RENDER -> (_component) -> {
-                HashSet<EngineComponentBlock> blocks = getEngineComponentClass(material, component);
-                blocks.forEach((block -> {
-                    ModRegistry.BLOCKS.put(block.getBlockName(), block);
-                    GameRegistry.registerBlock(block, block.getBlockName());
-                    RegistryUtil.registerEngineRendererFromComponent(block, component);
-                }));
-            };
-        };
-    }
+//    public static Consumer<Component> getRegister(PowerOverhaulMaterial material, Component component) {
+//        return switch (component.TYPE) {
+//            case BLOCK -> (_component -> {
+//                Block block = new MaterialBlock(material);
+//                ModRegistry.BLOCKS.put(getRegistryName(material, component), block);
+//                GameRegistry.registerBlock(block, getRegistryName(material, component));
+//            });
+//            case ORE -> (_component -> {
+//                Block block = new MaterialOreBlock(material);
+//                ModRegistry.BLOCKS.put(getRegistryName(material, component), block);
+//                GameRegistry.registerBlock(block, getRegistryName(material, component));
+//            });
+//            case FLUID -> null;
+//            case ITEM -> (_component) -> {
+//                String regName = getRegistryName(material, component);
+//                Item item = new MaterialItem(material, component);
+//                ModRegistry.ITEMS.put(regName, item);
+//                GameRegistry.registerItem(item, regName);
+//            };
+//            case ENGINE_COMPONENT -> (_component) -> {
+//                String regName = getRegistryName(material, component);
+//                Item item = new EngineComponentItem(material, component);
+//                ModRegistry.ITEMS.put(regName, item);
+//                GameRegistry.registerItem(item, regName);
+//            };
+//            case ENGINE_COMPONENT_RENDER -> (_component) -> {
+//                HashSet<EngineComponentBlock> blocks = getEngineComponentClass(material, component);
+//                blocks.forEach((block -> {
+//                    ModRegistry.BLOCKS.put(block.getBlockName(), block);
+//                    GameRegistry.registerBlock(block, block.getBlockName());
+//                    RegistryUtil.registerEngineRendererFromComponent(block, component);
+//                }));
+//            };
+//        };
+//    }
 
     public static HashSet<EngineComponentBlock> getEngineComponentClass(PowerOverhaulMaterial material,
         Component component) {

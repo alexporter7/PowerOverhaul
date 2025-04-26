@@ -1,5 +1,13 @@
 package com.alexporter7.poweroverhaul.util;
 
+import com.alexporter7.poweroverhaul.api.model.RenderedBlockModel;
+import com.alexporter7.poweroverhaul.blocks.models.engine.block.EngineBlock4Model;
+import com.alexporter7.poweroverhaul.blocks.models.engine.block.EngineBlock6Model;
+import com.alexporter7.poweroverhaul.blocks.models.engine.block.EngineBlock8Model;
+import com.alexporter7.poweroverhaul.blocks.models.engine.head.EngineHead4Model;
+import com.alexporter7.poweroverhaul.blocks.models.engine.head.EngineHead6Model;
+import com.alexporter7.poweroverhaul.blocks.models.engine.head.EngineHead8Model;
+import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
 import net.minecraft.util.ResourceLocation;
 
 import com.alexporter7.poweroverhaul.PowerOverhaul;
@@ -37,5 +45,19 @@ public class ModelManager {
             return this.resourceLocation;
         }
     }
+
+    public static final RenderedBlockModel<PowerOverhaulModelBase> EngineBlock4 =
+        new RenderedBlockModel<>(new EngineBlock4Model(), Texture.ENGINE_BLOCK_4.getResourceLocation());
+    public static final RenderedBlockModel<PowerOverhaulModelBase> EngineBlock6 =
+        new RenderedBlockModel<>(new EngineBlock6Model(), Texture.ENGINE_BLOCK_6.getResourceLocation());
+    public static final RenderedBlockModel<PowerOverhaulModelBase> EngineBlock8 =
+        new RenderedBlockModel<>(new EngineBlock8Model(), Texture.ENGINE_BLOCK_8.getResourceLocation());
+
+    public static final RenderedBlockModel<PowerOverhaulModelBase> EngineHead4 =
+        new RenderedBlockModel<>(new EngineHead4Model(), Texture.ENGINE_BLOCK_4.getResourceLocation());
+    public static final RenderedBlockModel<PowerOverhaulModelBase> EngineHead6 =
+        new RenderedBlockModel<>(new EngineHead6Model(), Texture.ENGINE_BLOCK_6.getResourceLocation());
+    public static final RenderedBlockModel<PowerOverhaulModelBase> EngineHead8 =
+        new RenderedBlockModel<>(new EngineHead8Model(), Texture.ENGINE_BLOCK_8.getResourceLocation());
 
 }

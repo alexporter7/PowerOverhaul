@@ -2,6 +2,7 @@ package com.alexporter7.poweroverhaul.items;
 
 import java.util.List;
 
+import com.alexporter7.poweroverhaul.api.material.Component;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -23,10 +24,11 @@ public class MaterialItem extends Item {
     /* Dynamic Properties */
     private int temperature = 75;
 
-    private final MaterialUtil.Component component;
+    //private final MaterialUtil.Component component;
+    private final Component component;
     private final PowerOverhaulMaterial material;
 
-    public MaterialItem(PowerOverhaulMaterial material, MaterialUtil.Component component) {
+    public MaterialItem(PowerOverhaulMaterial material, Component component) {
         this.material = material;
         this.component = component;
         this.weight = material.getWeight();
@@ -48,8 +50,7 @@ public class MaterialItem extends Item {
 
     private String getTexture() {
         return PowerOverhaul.MODID + ":"
-            + component.toString()
-                .toLowerCase();
+            + component.getRegistryName();
     }
 
     public int getWeight() {

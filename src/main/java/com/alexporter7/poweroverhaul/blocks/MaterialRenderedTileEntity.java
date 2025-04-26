@@ -4,9 +4,8 @@ import com.alexporter7.poweroverhaul.api.material.IMaterial;
 import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
 import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
 import com.alexporter7.poweroverhaul.api.model.ICustomModel;
+import com.alexporter7.poweroverhaul.api.model.RenderedBlockModel;
 import com.alexporter7.poweroverhaul.blocks.meta.MetaPowerOverhaulTEBase;
-import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
-import net.minecraft.util.ResourceLocation;
 
 public class MaterialRenderedTileEntity extends MetaPowerOverhaulTEBase implements IMaterial, ICustomModel {
 
@@ -59,12 +58,7 @@ public class MaterialRenderedTileEntity extends MetaPowerOverhaulTEBase implemen
     }
 
     @Override
-    public PowerOverhaulModelBase getModel() {
-        return null;
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
+    public RenderedBlockModel<?> getRenderedBlockModel() {
         return null;
     }
 }

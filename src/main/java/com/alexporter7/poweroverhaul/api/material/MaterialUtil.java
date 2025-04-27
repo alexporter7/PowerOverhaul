@@ -1,23 +1,13 @@
 package com.alexporter7.poweroverhaul.api.material;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.function.Consumer;
-
-import com.alexporter7.poweroverhaul.blocks.engine.EngineHead;
-import com.alexporter7.poweroverhaul.util.RegistryUtil;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-
-import com.alexporter7.poweroverhaul.blocks.MaterialBlock;
-import com.alexporter7.poweroverhaul.blocks.MaterialOreBlock;
+import com.alexporter7.poweroverhaul.api.enums.Components;
 import com.alexporter7.poweroverhaul.blocks.engine.EngineBlock;
 import com.alexporter7.poweroverhaul.blocks.engine.EngineComponentBlock;
-import com.alexporter7.poweroverhaul.init.ModRegistry;
-import com.alexporter7.poweroverhaul.items.MaterialItem;
-import com.alexporter7.poweroverhaul.items.components.EngineComponentItem;
+import com.alexporter7.poweroverhaul.blocks.engine.EngineHead;
 
-import cpw.mods.fml.common.registry.GameRegistry;
+import java.util.Arrays;
+import java.util.HashSet;
+
 
 public class MaterialUtil {
 
@@ -140,6 +130,27 @@ public class MaterialUtil {
     public static HashSet<EngineComponentBlock> getEngineComponentClass(PowerOverhaulMaterial material,
         Component component) {
         switch (component) {
+            case ENGINE_BLOCK -> {
+                return new HashSet<>(
+                    Arrays.asList(
+                        new EngineBlock(material, 4),
+                        new EngineBlock(material, 6),
+                        new EngineBlock(material, 8)));
+            }
+            case ENGINE_HEAD -> {
+                return new HashSet<>(
+                    Arrays.asList(
+                        new EngineHead(material, 4),
+                        new EngineHead(material, 6),
+                        new EngineHead(material, 8)));
+            }
+        }
+        return null;
+    }
+
+    public static HashSet<EngineComponentBlock> getEngineComponentClass(PowerOverhaulMaterial material,
+                                                                        com.alexporter7.poweroverhaul.api.material.Component component) {
+        switch ((Components.Component)component.getComponentKey()) {
             case ENGINE_BLOCK -> {
                 return new HashSet<>(
                     Arrays.asList(

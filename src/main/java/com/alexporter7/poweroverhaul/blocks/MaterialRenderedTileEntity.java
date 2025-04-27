@@ -1,8 +1,6 @@
 package com.alexporter7.poweroverhaul.blocks;
 
-import com.alexporter7.poweroverhaul.api.material.IMaterial;
-import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
-import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
+import com.alexporter7.poweroverhaul.api.material.*;
 import com.alexporter7.poweroverhaul.api.model.ICustomModel;
 import com.alexporter7.poweroverhaul.api.model.RenderedBlockModel;
 import com.alexporter7.poweroverhaul.blocks.meta.MetaPowerOverhaulTEBase;
@@ -10,9 +8,9 @@ import com.alexporter7.poweroverhaul.blocks.meta.MetaPowerOverhaulTEBase;
 public class MaterialRenderedTileEntity extends MetaPowerOverhaulTEBase implements IMaterial, ICustomModel {
 
     protected final PowerOverhaulMaterial MATERIAL;
-    protected final MaterialUtil.Component COMPONENT;
+    protected final Component COMPONENT;
 
-    public MaterialRenderedTileEntity(PowerOverhaulMaterial material, MaterialUtil.Component component) {
+    public MaterialRenderedTileEntity(PowerOverhaulMaterial material, Component component) {
         MATERIAL = material;
         COMPONENT = component;
     }
@@ -23,13 +21,13 @@ public class MaterialRenderedTileEntity extends MetaPowerOverhaulTEBase implemen
     }
 
     @Override
-    public MaterialUtil.Component getComponent() {
+    public Component getComponent() {
         return COMPONENT;
     }
 
     @Override
-    public MaterialUtil.Type getComponentType() {
-        return COMPONENT.TYPE;
+    public ComponentType getComponentType() {
+        return COMPONENT.getComponentType();
     }
 
     @Override

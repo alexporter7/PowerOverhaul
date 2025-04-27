@@ -16,4 +16,8 @@ public class BlockVariationSet<T, B extends Block> {
     public B getVariation(T key) {
         return VARIATIONS.get(key);
     }
+
+    public HashMap<T, B> getVariations() {
+        return VARIATIONS;
+    }
 }

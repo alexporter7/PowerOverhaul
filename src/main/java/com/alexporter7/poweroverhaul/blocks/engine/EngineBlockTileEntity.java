@@ -1,5 +1,6 @@
 package com.alexporter7.poweroverhaul.blocks.engine;
 
+import com.alexporter7.poweroverhaul.api.material.Component;
 import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
 import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
 import com.alexporter7.poweroverhaul.api.model.RenderedBlockModel;
@@ -8,7 +9,7 @@ import com.alexporter7.poweroverhaul.util.ModelManager;
 
 public class EngineBlockTileEntity extends MetaEngineComponentTE {
 
-    public EngineBlockTileEntity(PowerOverhaulMaterial material, MaterialUtil.Component component, int cylinders) {
+    public EngineBlockTileEntity(PowerOverhaulMaterial material, Component component, int cylinders) {
         super(material, component, cylinders);
     }
 

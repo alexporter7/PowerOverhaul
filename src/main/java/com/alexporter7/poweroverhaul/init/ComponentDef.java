@@ -2,10 +2,16 @@ package com.alexporter7.poweroverhaul.init;
 
 import com.alexporter7.poweroverhaul.api.enums.Components;
 import com.alexporter7.poweroverhaul.api.material.ComponentType;
+import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
 import com.alexporter7.poweroverhaul.blocks.MaterialBlock;
 import com.alexporter7.poweroverhaul.items.MaterialItem;
 import com.alexporter7.poweroverhaul.items.components.EngineComponentItem;
 import com.alexporter7.poweroverhaul.api.material.Component;
+import com.alexporter7.poweroverhaul.util.RegistryUtil;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 
 
 public class ComponentDef {
@@ -24,7 +30,10 @@ public class ComponentDef {
     public static final ComponentType ENGINE_COMPONENT_RENDER =
         new ComponentType(Components.ComponentType.ENGINE_COMPONENT_RENDER, (
         (material, component) -> {
-
+            MaterialUtil.getEngineComponentClass(material, component).forEach((block) -> {
+                ModRegistry.BLOCKS.put(block.getBlockName(), block);
+                RegistryUtil.registerEngineRendererFromComponent(block, component);
+            });
         }));
 
 
@@ -41,4 +50,28 @@ public class ComponentDef {
     public static final Component ENGINE_PISTON =
         new Component(Components.Component.ENGINE_PISTON, ITEM);
 
+    public static HashSet<Component> getAllComponents() {
+        return new HashSet<>(
+            Arrays.asList(
+                STORAGE_BLOCK,
+                ORE_BLOCK,
+                INGOT,
+                DUST,
+                ENGINE_HEAD,
+                ENGINE_BLOCK,
+                ENGINE_PISTON
+            )
+        );
+    }
+
+    public static HashSet<Component> getAllComponentsNoEngine() {
+        return new HashSet<>(
+            Arrays.asList(
+                STORAGE_BLOCK,
+                ORE_BLOCK,
+                INGOT,
+                DUST
+            )
+        );
+    }
 }

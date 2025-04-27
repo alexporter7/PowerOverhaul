@@ -2,6 +2,7 @@ package com.alexporter7.poweroverhaul.blocks.engine;
 
 import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
 import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
+import com.alexporter7.poweroverhaul.init.ComponentDef;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -10,7 +11,7 @@ public class EngineHead extends EngineComponentBlock{
     private final int CYLINDERS;
 
     public EngineHead(PowerOverhaulMaterial material, int cylinders) {
-        super(material, MaterialUtil.Component.ENGINE_HEAD, material.getName() + "_engine_head_" + cylinders);
+        super(material, ComponentDef.ENGINE_HEAD, material.getName() + "_engine_head_" + cylinders);
         CYLINDERS = cylinders;
         this.setBlockName(material.getName() + "_engine_head_" + cylinders);
     }

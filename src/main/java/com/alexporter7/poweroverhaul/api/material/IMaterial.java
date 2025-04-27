@@ -4,14 +4,14 @@ public interface IMaterial {
 
     /**
      * Get the PowerOverhaulMaterial associated with this class
-     * 
+     *
      * @return PowerOverhaulMaterial
      */
     PowerOverhaulMaterial getPowerOverhaulMaterial();
 
-    MaterialUtil.Component getComponent();
+    Component getComponent();
 
-    MaterialUtil.Type getComponentType();
+    ComponentType getComponentType();
 
     String getMaterialName();
 

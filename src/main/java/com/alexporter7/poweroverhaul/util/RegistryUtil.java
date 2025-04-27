@@ -1,6 +1,8 @@
 package com.alexporter7.poweroverhaul.util;
 
 import com.alexporter7.poweroverhaul.PowerOverhaul;
+import com.alexporter7.poweroverhaul.api.enums.Components;
+import com.alexporter7.poweroverhaul.api.material.Component;
 import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
 import com.alexporter7.poweroverhaul.blocks.engine.*;
 import com.alexporter7.poweroverhaul.init.ModRegistry;
@@ -43,8 +45,8 @@ public class RegistryUtil {
 
     @SideOnly(Side.CLIENT)
     public static void registerEngineRendererFromComponent(EngineComponentBlock engineComponentBlock,
-                                                           MaterialUtil.Component component) {
-        switch (component) {
+                                                           Component component) {
+        switch ((Components.Component)component.getComponentKey()) {
             case ENGINE_BLOCK -> {
                 EngineBlock block = (EngineBlock) engineComponentBlock;
                 registerEngineComponentRenderer(

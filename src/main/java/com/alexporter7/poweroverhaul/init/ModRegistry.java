@@ -119,6 +119,9 @@ public class ModRegistry {
     }
 
     public static void registerPreInit() {
+        PowerOverhaul.LOG.info("Registering Materials");
+        MaterialDef.registerMaterials();
+
         PowerOverhaul.LOG.info("Registering Blocks");
         BLOCKS.forEach((key, block) -> {
             block.setBlockName(key);
@@ -130,9 +133,6 @@ public class ModRegistry {
             item.setUnlocalizedName(key);
             GameRegistry.registerItem(item, key);
         });
-
-        PowerOverhaul.LOG.info("Registering Materials");
-        MaterialDef.registerMaterials();
 
         PowerOverhaul.LOG.info("Registering Entities");
         ENTITIES.forEach(RegistryUtil::registerEntity);

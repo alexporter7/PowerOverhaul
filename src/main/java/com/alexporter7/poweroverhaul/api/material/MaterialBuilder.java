@@ -12,7 +12,7 @@ public class MaterialBuilder {
     public int meltingPoint;
     public int color;
 
-    public HashSet<MaterialUtil.Component> components = new HashSet<>();
+    public HashSet<Component> components = new HashSet<>();
 
     public MaterialBuilder() {
 
@@ -43,7 +43,7 @@ public class MaterialBuilder {
         return this;
     }
 
-    public MaterialBuilder setComponents(HashSet<MaterialUtil.Component> components) {
+    public MaterialBuilder setComponents(HashSet<Component> components) {
         this.components.addAll(components);
         return this;
     }

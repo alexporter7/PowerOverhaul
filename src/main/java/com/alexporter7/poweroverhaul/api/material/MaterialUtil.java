@@ -54,7 +54,7 @@ public class MaterialUtil {
     }
 
     public static String getRegistryName(PowerOverhaulMaterial material, com.alexporter7.poweroverhaul.api.material.Component component) {
-        return material.getName() + "_" + component.getComponentType().getType().toString().toLowerCase();
+        return material.getName() + "_" + component.getComponentKey().toString().toLowerCase();
     }
 
     public static String getLangName(PowerOverhaulMaterial material, Component component) {

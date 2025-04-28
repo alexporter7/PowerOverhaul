@@ -10,6 +10,7 @@ import com.alexporter7.poweroverhaul.render.renderers.EngineComponentTERenderer;
 import com.alexporter7.poweroverhaul.render.renderers.PowerOverhaulTEItemRenderer;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -69,9 +70,10 @@ public class RegistryUtil {
     @SideOnly(Side.CLIENT)
     public static void registerEngineComponentRenderer(Class<? extends TileEntity> tileEntityClass,
                                                        TileEntity tileEntity, TileEntitySpecialRenderer renderer, String blockName) {
+        Item test = Item.getItemFromBlock(ModRegistry.BLOCKS.get(blockName));
         ClientRegistry.bindTileEntitySpecialRenderer(tileEntityClass, renderer);
         MinecraftForgeClient.registerItemRenderer(
-            Item.getItemFromBlock(ModRegistry.BLOCKS.get(blockName)),
+            Item.getItemFromBlock(GameRegistry.findBlock(PowerOverhaul.MODID, blockName)),
             new PowerOverhaulTEItemRenderer(renderer, tileEntity));
     }
 }

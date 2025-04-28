@@ -1,7 +1,6 @@
 package com.alexporter7.poweroverhaul.blocks.meta;
 
 import com.alexporter7.poweroverhaul.api.material.Component;
-import com.alexporter7.poweroverhaul.api.material.MaterialUtil;
 import com.alexporter7.poweroverhaul.api.material.PowerOverhaulMaterial;
 import com.alexporter7.poweroverhaul.blocks.MaterialRenderedTileEntity;
 

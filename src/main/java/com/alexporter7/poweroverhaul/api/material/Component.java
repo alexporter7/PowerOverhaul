@@ -31,7 +31,7 @@ public class Component {
     public String getRegistryName() {
         if(registryName != null)
             return registryName.get();
-        return PowerOverhaulUtil.formatEnum(componentKey);
+        return PowerOverhaulUtil.formatEnum(componentKey) + "_" + componentType.toString().toLowerCase();
     }
 
     public ComponentType getComponentType() {

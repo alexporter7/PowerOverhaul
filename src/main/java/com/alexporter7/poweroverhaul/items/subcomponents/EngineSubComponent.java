@@ -2,6 +2,7 @@ package com.alexporter7.poweroverhaul.items.subcomponents;
 
 import java.util.List;
 
+import com.alexporter7.poweroverhaul.api.material.Component;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -11,7 +12,7 @@ import com.alexporter7.poweroverhaul.items.MaterialItem;
 
 public class EngineSubComponent extends MaterialItem {
 
-    public EngineSubComponent(PowerOverhaulMaterial material, MaterialUtil.Component component) {
+    public EngineSubComponent(PowerOverhaulMaterial material, Component component) {
         super(material, component);
     }
 

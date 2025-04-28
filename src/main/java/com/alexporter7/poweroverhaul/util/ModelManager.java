@@ -54,10 +54,10 @@ public class ModelManager {
         new RenderedBlockModel<>(new EngineBlock8Model(), Texture.ENGINE_BLOCK_8.getResourceLocation());
 
     public static final RenderedBlockModel<PowerOverhaulModelBase> EngineHead4 =
-        new RenderedBlockModel<>(new EngineHead4Model(), Texture.ENGINE_BLOCK_4.getResourceLocation());
+        new RenderedBlockModel<>(new EngineHead4Model(), Texture.ENGINE_HEAD_4.getResourceLocation());
     public static final RenderedBlockModel<PowerOverhaulModelBase> EngineHead6 =
-        new RenderedBlockModel<>(new EngineHead6Model(), Texture.ENGINE_BLOCK_6.getResourceLocation());
+        new RenderedBlockModel<>(new EngineHead6Model(), Texture.ENGINE_HEAD_6.getResourceLocation());
     public static final RenderedBlockModel<PowerOverhaulModelBase> EngineHead8 =
-        new RenderedBlockModel<>(new EngineHead8Model(), Texture.ENGINE_BLOCK_8.getResourceLocation());
+        new RenderedBlockModel<>(new EngineHead8Model(), Texture.ENGINE_HEAD_8.getResourceLocation());
 
 }

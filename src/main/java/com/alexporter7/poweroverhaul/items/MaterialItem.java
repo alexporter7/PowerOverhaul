@@ -50,7 +50,7 @@ public class MaterialItem extends Item {
 
     private String getTexture() {
         return PowerOverhaul.MODID + ":"
-            + component.getRegistryName();
+            + component.getComponentKey().toString().toLowerCase();
     }
 
     public int getWeight() {

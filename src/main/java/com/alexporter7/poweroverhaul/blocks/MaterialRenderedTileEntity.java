@@ -4,6 +4,7 @@ import com.alexporter7.poweroverhaul.api.material.*;
 import com.alexporter7.poweroverhaul.api.model.ICustomModel;
 import com.alexporter7.poweroverhaul.api.model.RenderedBlockModel;
 import com.alexporter7.poweroverhaul.blocks.meta.MetaPowerOverhaulTEBase;
+import com.alexporter7.poweroverhaul.render.PowerOverhaulModelBase;
 
 public class MaterialRenderedTileEntity extends MetaPowerOverhaulTEBase implements IMaterial, ICustomModel {
 
@@ -56,7 +57,7 @@ public class MaterialRenderedTileEntity extends MetaPowerOverhaulTEBase implemen
     }
 
     @Override
-    public RenderedBlockModel<?> getRenderedBlockModel() {
+    public RenderedBlockModel<PowerOverhaulModelBase> getRenderedBlockModel() {
         return null;
     }
 }

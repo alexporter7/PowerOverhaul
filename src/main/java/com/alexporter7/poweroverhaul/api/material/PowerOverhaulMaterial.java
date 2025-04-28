@@ -12,7 +12,7 @@ public class PowerOverhaulMaterial {
     private final int meltingPoint;
     private final int color;
 
-    private final HashSet<MaterialUtil.Component> COMPONENTS;
+    private final HashSet<Component> COMPONENTS;
 
     public PowerOverhaulMaterial(MaterialBuilder builder) {
         name = builder.name;
@@ -24,9 +24,8 @@ public class PowerOverhaulMaterial {
         COMPONENTS = builder.components;
     }
 
-    public void register(MaterialUtil.Component component) {
-        MaterialUtil.getRegister(this, component)
-            .accept(component);
+    public void register(Component component) {
+        component.registerComponent(this);
     }
 
     public void register() {
